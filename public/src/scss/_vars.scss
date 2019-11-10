@@ -1,0 +1,380 @@
+$rougeClair: #f0613a;
+$rougeFonce: #c24f30;
+$bleuFonce: #011f3f;
+$bleuClair: #053c77;
+$vertClair: #13c1b9;
+$vertFonce: #00958e;
+$grisFonce: #3c3c3c;
+$grisClair: #f2f2f2;
+
+$mainFont: 'Quicksand';
+
+$mainColor: $grisFonce;
+$secondaryColor: lighter($grisFonce);
+
+$gradient: linear-gradient(to right, $mainColor 0%, $secondaryColor 100%);
+$gradientVM: linear-gradient(to right, $mainColor 45%, $secondaryColor 100%);
+
+$break-mini: 330px;
+$break-small: 425px;
+$break-tablet: 768px;
+$break-medium: 1024px;
+$break-large: 1210px;
+
+$break-header: 1300px;
+
+$break-headerVM: 900px;
+
+$fb: #4867aa;
+$twitter: #30a0f1;
+$gplus: #c6533a;
+$linkedin: #0274b2;
+$viadeo: #f07355;
+
+@mixin withParent($parent: '', $currentPath: &) {
+	@at-root #{$parent} {
+		#{$currentPath} {
+			@content;
+		}
+	}
+}
+
+@mixin withParentClass($parentClass: '', $currentPath: &) {
+	@at-root {
+		#{$parentClass}#{$currentPath} {
+			@content;
+		}
+	}
+}
+
+@mixin maxPhone {
+	@media (max-width: #{$break-small}) {
+		@content;
+	}
+}
+
+@mixin maxTablet {
+	@media (max-width: #{$break-tablet}) {
+		@content;
+	}
+}
+
+@mixin maxMedium {
+	@media (max-width: #{$break-medium}) {
+		@content;
+	}
+}
+
+@mixin maxMarinaMac {
+	@media (max-width: 1430px) {
+		@content;
+	}
+}
+
+@mixin minDesktop {
+	@media (min-width: #{$break-tablet + 1px}) {
+		@content;
+	}
+}
+
+@mixin shadow {
+	box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.1);
+}
+
+@mixin radius {
+	border-radius: 10px;
+}
+
+@mixin size($width, $height: $width) {
+	width: $width;
+	height: $height;
+}
+
+@mixin minSize($width, $height: $width) {
+	min-width: $width;
+	min-height: $height;
+}
+
+@mixin flexCenter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@mixin closeBtn($size: 30px, $color: $mainColor) {
+	position: absolute;
+	top: 25px;
+	right: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	@include size($size);
+	cursor: pointer;
+
+	&:before,
+	&:after,
+	.extra-bar {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 100%;
+		height: 3px;
+		background-color: $color;
+		transition: all 0.3s ease-in-out;
+	}
+
+	&.is-closed {
+		&:before {
+			transform: translateY(-($size / 2 - 3));
+		}
+
+		&:after {
+			transform: translateY(($size / 2 - 3));
+		}
+	}
+
+	&:not(.is-closed) .extra-bar {
+		opacity: 0;
+	}
+
+	&:before {
+		transform: rotateZ(45deg);
+	}
+	&:after {
+		transform: rotateZ(-45deg);
+	}
+}
+
+@mixin pColor($color: $mainColor) {
+	&:before,
+	&:after {
+		background-color: $color;
+	}
+}
+
+@mixin pItems {
+	&:before,
+	&:after {
+		@content;
+	}
+}
+
+@mixin imgFull {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	height: 100%;
+	object-fit: cover;
+}
+
+@mixin picto($width: 60%, $height: 80%) {
+	width: auto;
+	max-width: $width;
+	max-height: $height;
+
+	@include maxTablet {
+		max-height: 70%;
+	}
+}
+
+@mixin backdrop($color: black, $opacity: 0, $zIndex: 10) {
+	&:before {
+		content: '';
+		z-index: $zIndex;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		background-color: $color;
+		pointer-events: none;
+		opacity: $opacity;
+		transition: all 0.3s ease-in-out;
+	}
+
+	&.backdrop-visible:before {
+		opacity: 0.7;
+	}
+}
+
+@mixin contentStyle {
+	a:not(.kook-btn) {
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	ul {
+		list-style: none;
+		padding-left: 30px;
+
+		@media screen and (max-width: $break-tablet) {
+			padding-left: 10px;
+		}
+
+		> li {
+			position: relative;
+			margin: 8px 0;
+			padding-left: 12px;
+
+			&:before {
+				content: '\f111';
+				position: absolute;
+				top: 7px;
+				left: 0;
+				margin-right: 4px;
+				font-family: FontAwesome;
+				font-size: 6px;
+				color: $rose;
+			}
+
+			> ul {
+				padding: 3px 0;
+				padding-left: 20px;
+
+				@media screen and (max-width: $break-tablet) {
+					padding-left: 5px;
+				}
+
+				> li {
+					&:before {
+						content: '\f105';
+						position: absolute;
+						top: 1px;
+						margin-right: 4px;
+						font-family: FontAwesome;
+						font-size: 18px;
+						color: $rose;
+
+						@media screen and (max-width: $break-tablet) {
+							font-size: 15px;
+							top: 3px;
+						}
+					}
+
+					&:after {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin linkSimple($color: $mainColor, $hover: $secondaryColor) {
+	color: $color;
+	text-decoration: none;
+	transition: all 0.3s ease-in-out;
+
+	&:hover {
+		color: $hover;
+	}
+}
+
+@mixin link($color: $mainColor, $hover: $secondaryColor, $isIcon: 'false') {
+	@if $isIcon == 'false' {
+		color: $color;
+	} @else {
+		background-color: $color;
+		@if $color == white {
+			color: $mainColor;
+		}
+	}
+	text-decoration: none;
+	transition: all 0.3s ease-in-out;
+
+	&:hover {
+		@if $isIcon == 'false' {
+			color: $hover;
+		} @else {
+			color: $color;
+			background-color: $hover;
+		}
+	}
+}
+
+@mixin slick($direction: row, $directionVM: row) {
+	overflow: hidden;
+
+	.slick-list {
+		width: 100%;
+		.slick-track {
+			display: flex;
+			flex-direction: $direction;
+
+			@media (max-width: $break-tablet) {
+				flex-direction: $directionVM;
+			}
+		}
+	}
+	.slick-dots {
+		bottom: 30px;
+		text-align: left;
+
+		li {
+			margin: 0 3px;
+
+			button:before {
+				content: '';
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				border-radius: 50%;
+				@include size(5px);
+				background-color: $mainColor;
+				opacity: 0.6;
+				transition: all 0.3s ease-in-out;
+			}
+
+			&.slick-active button:before {
+				@include size(10px);
+				opacity: 1;
+			}
+		}
+	}
+}
+
+@mixin iconCheck(
+	$checkColor: $mainColor,
+	$boxWidth: 32px,
+	$checkWidth: $boxWidth *
+		(
+			2/3,
+		),
+	$checkOpacity: -1,
+	$boxRadius: 10px,
+	$boxBorderWidth: 2px,
+	$boxBorderColor: $mainColor,
+	$boxBorder: $boxBorderWidth solid $boxBorderColor
+) {
+	position: relative;
+	@include size($boxWidth);
+	border: $boxBorder;
+	border-radius: $boxRadius;
+
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: $checkWidth;
+		background-image: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 110 82" version="1.1"><path fill="#{$checkColor}" opacity="1.00" stroke-width="5" d=" M 95.39 3.25 C 98.67 -0.27 104.99 0.33 107.62 4.33 C 110.06 7.63 109.25 12.52 106.17 15.13 C 85.31 36.01 65.44 57.87 44.54 78.71 C 41.79 81.64 36.81 81.83 33.80 79.20 C 23.79 71.19 13.75 63.22 3.78 55.16 C 0.45 52.55 -0.04 47.22 2.70 44.02 C 5.31 40.56 10.80 40.06 14.04 42.92 C 22.10 49.34 30.15 55.79 38.20 62.23 C 57.48 42.79 75.98 22.57 95.39 3.25 Z"/></svg>');
+		background-position: center;
+		background-repeat: no-repeat;
+		@if ($checkOpacity != -1) {
+			opacity: $checkOpacity;
+		}
+		transition: all 0.3s ease-in-out;
+		@content;
+	}
+}
