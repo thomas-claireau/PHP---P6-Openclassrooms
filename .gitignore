@@ -4,8 +4,8 @@
 # Exclude config folder
 /config
 
-# Exclude dist folder
-/dist
+# Exclude public dist folder
+/public/dist
 
 # Fonts
 public/font/
