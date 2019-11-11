@@ -16,6 +16,17 @@ public/img/
 # PHP Dependencies
 vendor/
 
+# Created by https://www.gitignore.io/api/node,composer
+# Edit at https://www.gitignore.io/?templates=node,composer
+
+### Composer ###
+composer.phar
+/vendor/
+
+# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+# composer.lock
+
 ### Node ###
 # Logs
 logs
@@ -58,7 +69,6 @@ build/Release
 
 # Dependency directories
 node_modules/
-public/node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -95,6 +105,9 @@ typings/
 # nuxt.js build output
 .nuxt
 
+# react / gatsby 
+public/
+
 # vuepress build output
 .vuepress/dist
 
@@ -106,3 +119,5 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# End of https://www.gitignore.io/api/node,composer
