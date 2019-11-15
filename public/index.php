@@ -1,4 +1,4 @@
 
 <?php
 
-echo 'ca marche3 test 3 5';
+echo 'ca marche3 test 3 6';
