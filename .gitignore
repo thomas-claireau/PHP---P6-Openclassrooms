@@ -5,7 +5,9 @@
 /config
 
 # Exclude public dist folder
-/public/dist
+/public/dist/
+
+/public/.cache-loader/
 
 # Fonts
 public/font/
