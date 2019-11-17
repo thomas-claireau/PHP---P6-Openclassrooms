@@ -7,6 +7,6 @@ module.exports = {
   devtool: "cheap-module-eval-source-map",
   outputFolder: "./dist",
   publicFolder: "src",
-  proxyTarget: "https://dev.thomas-claireau.fr/", // renseignez ici l'url de dev (recette)
+  proxyTarget: "http://recette.thomas-claireau.fr/", // renseignez ici l'url de dev (recette)
   watch: ["../**/*.php"]
 };
