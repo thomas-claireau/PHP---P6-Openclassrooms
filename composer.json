@@ -1,24 +1,21 @@
 {
-  "name": "philippebeck/php-mvc",
-  "version": "0.2.1",
+  "name": "thomas-claireau/PHP-P5-Openclassrooms",
+  "version": "0.1.0",
+  "description": "package manager for my blog",
   "type": "project",
-  "description": "Instructional Template to start a Web Application with a PHP MVC Architecture",
   "keywords": [
-    "pedagogic",
-    "template",
     "web",
     "application",
     "php",
-    "mvc"
+    "mvc",
+    "blog"
   ],
-  "homepage": "https://php-mvc.philippebeck.net",
   "license": "MIT",
   "authors": [
     {
-      "name": "Philippe Beck",
-      "email": "philippe@philippebeck.net",
-      "homepage": "https://philippebeck.net",
-      "role": "Lead Developer"
+      "name": "Thomas Claireau",
+      "email": "thomas.claireau@gmail.com",
+      "role": "Fullstack web developer"
     }
   ],
   "autoload": {
@@ -39,9 +36,9 @@
     }
   },
   "support": {
-    "email": "admin@philippebeck.net",
-    "issues": "https://github.com/philippebeck/php-mvc/issues",
-    "wiki": "https://github.com/philippebeck/php-mvc/wiki",
-    "source": "https://github.com/philippebeck/php-mvc"
+    "email": "thomas.claireau@gmail.com",
+    "issues": "https://github.com/thomas-claireau/PHP-P5-Openclassrooms/issues",
+    "wiki": "https://github.com/thomas-claireau/PHP-P5-Openclassrooms/wiki",
+    "source": "https://github.com/thomas-claireau/PHP-P5-Openclassrooms"
   }
 }
