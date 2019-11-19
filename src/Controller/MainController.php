@@ -79,4 +79,24 @@ abstract class MainController
     {
         return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
     }
+
+    public static function isLocalhost()
+    {
+        return self::getServerIP() == '127.0.0.1';
+    }
+
+    private static function getServerIP()
+    {
+        $adresse = '';
+
+        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+            $adresse = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        } else if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
+            $adresse = $_SERVER["REMOTE_ADDR"];
+        } else if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
+            $adresse = $_SERVER["HTTP_CLIENT_IP"];
+        }
+
+        return $adresse;
+    }
 }
