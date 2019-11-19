@@ -24,11 +24,11 @@ class HomeController extends MainController
     public function defaultMethod()
     {
         $allUsers = $this->getAllUsers();
-        $url = $this->getUrl();
+        $url      = $this->getUrl();
 
         return $this->render('home.twig', [
             'allUsers' => $this->getAllUsers(),
-            'url' => $this->getUrl(),
+            'url'      => $this->getUrl(),
         ]);
     }
 
