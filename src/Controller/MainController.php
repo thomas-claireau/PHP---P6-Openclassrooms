@@ -30,7 +30,7 @@ abstract class MainController
     {
         $this->twig = new Environment(new FilesystemLoader('../src/View'), array(
             'cache' => false,
-            'debug' => true
+            'debug' => true,
         ));
         $this->twig->addExtension(new DebugExtension());
         $this->twig->addExtension(new PhpMvcExtension());
@@ -73,5 +73,10 @@ abstract class MainController
     public function render(string $view, array $params = [])
     {
         return $this->twig->render($view, $params);
+    }
+
+    public function getUrl()
+    {
+        return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
     }
 }
