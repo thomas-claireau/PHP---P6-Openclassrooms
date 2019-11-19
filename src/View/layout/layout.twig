@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport"               content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible"  content="IE=edge">
 
-    <title>{% block title %}{{ block('subtitle') }} - PHP MVC{% endblock %}</title>
+    <title>{% block title %}{{ block('subtitle') }}{% endblock %}</title>
 
-    <link rel="canonical" href="{% block canonical %}https://php-mvc.philippebeck.net{% endblock %}">
+    
+
+    <link rel="canonical" href="{% block canonical %}{{ url }}{% endblock %}">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
     <meta name="description"                content="{{ block('description') }}">
     <meta name="author"                     content="Philippe Beck">
     <meta name="copyright"                  content="MIT">
+
+    {# A supprimer lorsque site en ligne #}
+    <meta name="robots" content="noindex">
 
     <meta property="og:type"        content="website">
     <meta property="og:title"       content="{{ block('title') }}">
@@ -36,7 +41,7 @@
 
 <body>
 
-    {{ include('layout/navbar.twig') }}
+    {{ include('layout/menu.twig') }}
 
     <header>
         <h1>{{ block('title') }}</h1>
