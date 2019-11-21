@@ -1,0 +1,23 @@
+{% extends 'layout/layout.twig' %}
+
+{% block subtitle %}Le titre de la page blog {% endblock %} 
+
+{% block description %}Description méta pour la page blog {% endblock %} 
+
+{% block main %}
+
+<main id="home">
+  <section>post
+    <h2>Un titre h2</h2>
+
+    <p>
+      Corps de la page
+    </p>
+  </section>
+
+  <section>
+    <h2>Un exemple d'utilisation</h2>
+    <p>{{ test }}</p>
+  </section>
+</main>
+{% endblock %}
