@@ -8,7 +8,7 @@
   "scripts": {
     "serve": "node _webpack/serve",
     "build": "node _webpack/build",
-    "pushdev": "cd .. && git push recette dev"
+    "pushdev": "cd .. && git push recette master"
   },
   "browserslist": [
     "> 0.5%",
