@@ -34,6 +34,11 @@ abstract class MainController
         ));
         $this->twig->addExtension(new DebugExtension());
         $this->twig->addExtension(new PhpMvcExtension());
+
+        // add superglobal
+        $this->twig->addGlobal('isLocalhost', $this->isLocalhost());
+        $this->twig->addGlobal('url', $this->getUrl());
+        $this->twig->addGlobal('isDistFolder', $this->folder_exist('dist'));
     }
 
     /**
@@ -78,6 +83,16 @@ abstract class MainController
     public function getUrl()
     {
         return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+    }
+
+    public function getCurrentPath()
+    {
+        return $_SERVER['DOCUMENT_ROOT'];
+    }
+
+    public function folder_exist($folder)
+    {
+        return file_exists($this->getCurrentPath() . $folder);
     }
 
     public static function isLocalhost()

@@ -33,8 +33,11 @@
     <meta name="twitter:image" content="{{ block('image') }}" />
     <meta name="twitter:creator" content="@thomas_claireau" />
 
-    <!-- Todo : faire la différence entre localhost et server pour webpack -->
-    <link rel="stylesheet" href="css/style.css" />
+    {% if (isDistFolder) %}
+    <link rel="stylesheet" href="{{ url }}/dist/css/main.css" />
+    {% endif %}
+
+
   </head>
 
   <body>
@@ -46,7 +49,10 @@
 
     {{ include("layout/footer.twig") }}
 
-    <!-- Todo : faire la différence entre localhost et server pour webpack -->
-    <script src="js/script.js"></script>
+    {% if (isLocalhost == true) and (isDistFolder != true) %}
+    <script src="{{ url }}/src/js/main.js"></script>
+    {% else %}
+    <script type="text/javascript" src="{{ url }}/dist/js/main.js"></script>
+    {% endif %}
   </body>
 </html>
