@@ -4,34 +4,45 @@
   }
 
   .presentation {
+    background-color: $bleuFonce;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-column-gap: 30px;
-      justify-items: center;
-      align-items: center;
+      display: flex;
+      justify-content: center;
 
-      .left {
-        background-image: url("https://via.placeholder.com/300");
-        background-size: cover;
-        background-position: center;
-        width: 300px;
-        height: 300px;
-      }
-
-      .right {
-        text-align: right;
+      .content {
+        margin-top: -100px;
       }
     }
   }
 
   .list-skills {
     .skills {
+      position: relative;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-column-gap: 80px;
       justify-items: center;
       align-items: center;
+      width: 70%;
+      margin: auto;
+
+      &:before {
+        content: "";
+        height: 100%;
+        width: 2px;
+        background-color: lighten($grisFonce, 50%);
+        opacity: 0.5;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
 
       .left,
       .right {
