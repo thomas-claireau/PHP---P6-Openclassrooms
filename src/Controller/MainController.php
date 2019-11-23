@@ -39,6 +39,7 @@ abstract class MainController
         $this->twig->addGlobal('isLocalhost', $this->isLocalhost());
         $this->twig->addGlobal('url', $this->getUrl());
         $this->twig->addGlobal('isDistFolder', $this->folder_exist('dist'));
+        $this->twig->addGlobal('templateName', $this->getTemplateName());
     }
 
     /**
@@ -113,5 +114,11 @@ abstract class MainController
         }
 
         return $adresse;
+    }
+
+    public static function getTemplateName()
+    {
+        if (isset($_GET['access']))
+            return htmlspecialchars($_GET["access"]);
     }
 }
