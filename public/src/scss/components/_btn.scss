@@ -1,0 +1,36 @@
+@mixin btnStyle($color, $colorBg) {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 30px;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: $color;
+  background-color: $colorBg;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: lighten($colorBg, 5%);
+    transition: background-color 0.3s ease-in-out;
+  }
+}
+
+.btn {
+  &.gris {
+    @include btnStyle($grisFonce, $grisClair);
+  }
+
+  &.bleuClair {
+    @include btnStyle(#fff, $bleuClair);
+  }
+
+  &.rougeFonce {
+    @include btnStyle(#fff, $rougeFonce);
+  }
+
+  &.vertFonce {
+    @include btnStyle(#fff, $vertFonce);
+  }
+}
