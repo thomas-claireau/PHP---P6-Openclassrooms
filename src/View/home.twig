@@ -1,32 +1,103 @@
 {% extends 'layout/layout.twig' %}
 
-{% block subtitle %}Le titre de la page home test {% endblock %} 
+{% block subtitle %}Thomas Claireau{% endblock %}
 
-{% block description %}Description méta pour la page home {% endblock %} 
+{% block title %}Développeur full-stack & web addict
+{% endblock %}
+
+{% block description %}{% endblock %}
 
 {% block main %}
 
-<main id="home">
-  <section>
-    <h2>Un titre h2</h2>
+    <main id="home">
+        <section class="presentation">
+            <div class="container">
+                <div class="left"></div>
+                <div class="right">
+                    <p>Actuellement développeur web full-stack dans une agence proche de Nantes, je suis passionné par le web et l'UX / UI.</p>
+                    <p>Mon code s'articule principalement autour de 3 grands pôles : JavaScript - PHP - Wordpress.</p>
+                    <p>Je suis également étudiant chez OpenClassrooms où j'ai obtenu une des 100 bourses distribuées par l'école en 2018.</p>
+                </div>
+            </div>
+        </section>
+        <section class="list-skills">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="skills">
+                    <div class="left">
+                        <div class="skill"></div>
+                        <div class="skill"></div>
+                        <div class="skill"></div>
+                        <div class="skill"></div>
+                    </div>
+                    <div class="right">
+                        <div class="skill"></div>
+                        <div class="skill"></div>
+                        <div class="skill"></div>
+                        <div class="skill"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="portfolio">
+            <div class="container">
+                <h2>Portfolio</h2>
+                <div class="filter">
+                    <ul>
+                        <li class="all">All</li>
+                        <li class="css">Css</li>
+                        <li class="javascript">JavaScript</li>
+                        <li class="php">Php</li>
+                        <li class="typescript">TypeScript</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="projets">
+                <div class="projet"></div>
+                <div class="projet"></div>
+                <div class="projet"></div>
+                <div class="projet"></div>
+                <div class="projet"></div>
+                <div class="projet"></div>
+                <div class="projet"></div>
+                <div class="projet"></div>
+            </div>
+        </section>
+        <section class="liste-articles">
+            <h2>Mes derniers articles</h2>
+            <div class="articles">
+                <div class="article">
+                    <div class="date">11 Aout 2019</div>
+                    <h3>Titre de l'article</h3>
+                    <p>Lorem ipsum dolor sit amet et delectus accommodare his consul copiosae legendos at vix ad putent delectus delicata usu.Vidit</p>
+                    <div class="tags">
+                        <a href="#" class="tag">Css</a>
+                        <a href="#" class="tag">JavaScript</a>
+                        <a href="#" class="tag">Php</a>
+                    </div>
+                </div>
+                <div class="article">
+                    <div class="date">11 Aout 2019</div>
+                    <h3>Titre de l'article</h3>
+                    <p>Lorem ipsum dolor sit amet et delectus accommodare his consul copiosae legendos at vix ad putent delectus delicata usu.Vidit</p>
+                    <div class="tags">
+                        <a href="#" class="tag">Css</a>
+                        <a href="#" class="tag">JavaScript</a>
+                        <a href="#" class="tag">Php</a>
+                    </div>
+                </div>
+                <div class="article">
+                    <div class="date">11 Aout 2019</div>
+                    <h3>Titre de l'article</h3>
+                    <p>Lorem ipsum dolor sit amet et delectus accommodare his consul copiosae legendos at vix ad putent delectus delicata usu.Vidit</p>
+                    <div class="tags">
+                        <a href="#" class="tag">Css</a>
+                        <a href="#" class="tag">JavaScript</a>
+                        <a href="#" class="tag">Php</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <p>
-      Corps de la page
-    </p>
-  </section>
-
-  <section>
-    <h2>Un exemple d'utilisation</h2>
-
-    <ul>
-      {% for user in allUsers %}
-      <li>
-        {{ user.name }}
-        <hr />
-        {{ user.email }}
-      </li>
-      {% endfor %}
-    </ul>
-  </section>
-</main>
 {% endblock %}
