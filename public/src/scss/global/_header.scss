@@ -29,20 +29,6 @@ header {
     z-index: 1;
   }
 
-  h1 {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-
-    span {
-      font-size: 80px;
-      font-weight: 300;
-      display: block;
-      margin-left: -10px;
-      margin-bottom: 4px;
-    }
-  }
-
   .buttons {
     margin-top: 40px;
     display: grid;
