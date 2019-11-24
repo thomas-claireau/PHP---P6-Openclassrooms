@@ -1,0 +1,42 @@
+.list-skills {
+  .skills {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 80px;
+    justify-items: center;
+    align-items: center;
+    width: 70%;
+    margin: auto;
+
+    &:before {
+      content: "";
+      height: 100%;
+      width: 2px;
+      background-color: lighten($grisFonce, 50%);
+      opacity: 0.5;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .left,
+    .right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-column-gap: 20px;
+      grid-row-gap: 20px;
+      justify-items: center;
+      align-items: center;
+    }
+    .skill {
+      background-image: url("https://via.placeholder.com/150");
+      background-size: cover;
+      background-position: center;
+      width: 150px;
+      height: 150px;
+    }
+  }
+}

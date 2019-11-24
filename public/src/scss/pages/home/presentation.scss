@@ -1,0 +1,22 @@
+.presentation {
+  background-color: $bleuFonce;
+  height: 430px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    display: flex;
+    justify-content: center;
+
+    .content {
+      margin-top: -100px;
+      text-align: center;
+      color: #fff;
+      font-size: 20px;
+      width: 60%;
+      font-weight: 300;
+    }
+  }
+}

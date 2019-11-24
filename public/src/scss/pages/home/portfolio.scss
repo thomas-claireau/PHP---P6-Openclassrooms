@@ -1,0 +1,23 @@
+.portfolio {
+  .filter ul {
+    width: 50%;
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .projets {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 40px;
+    justify-items: center;
+    align-items: center;
+    margin-top: 60px;
+
+    .projet {
+      background-image: url("https://via.placeholder.com/500x400");
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 400px;
+    }
+  }
+}

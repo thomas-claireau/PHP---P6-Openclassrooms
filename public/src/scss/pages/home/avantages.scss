@@ -1,0 +1,37 @@
+.avantages {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 30px;
+  background-color: #fff;
+  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: -100px;
+
+  .avantage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+
+    .content {
+      p {
+        text-align: center;
+      }
+    }
+
+    &:not(:last-child) {
+      &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -20px;
+        transform: translateY(-50%);
+        width: 2px;
+        height: 86%;
+        background-color: darken($grisClair, 10%);
+      }
+    }
+  }
+}
