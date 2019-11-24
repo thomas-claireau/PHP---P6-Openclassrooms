@@ -1,0 +1,22 @@
+footer {
+  padding: 40px 0;
+  div {
+    text-align: center;
+  }
+
+  .reseaux {
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      li a {
+        color: lighten($bleuClair, 20%);
+      }
+
+      li:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+}
