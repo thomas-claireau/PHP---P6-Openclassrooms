@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", event => {
   // smooth-scrool sur les ancres (vers #target)
   const pageContainers = $("html, body");
   const headerH = $("header").outerHeight();
+  console.log(headerH);
 
   $(".js-smooth-scroll").click(function(e) {
     e.preventDefault();
@@ -17,7 +18,7 @@ window.addEventListener("DOMContentLoaded", event => {
     const offset = parseInt($(this).data("offset")) || headerH;
     pageContainers.animate(
       {
-        scrollTop: $(target).offset().top - offset
+        scrollTop: $(target).offset().top - 50
       },
       400
     );
