@@ -17,6 +17,14 @@ html {
   box-sizing: border-box;
 }
 
+.js-inject-me {
+  opacity: 0;
+
+  &.activeSvg {
+    opacity: 1;
+  }
+}
+
 *,
 *:before,
 *:after {
