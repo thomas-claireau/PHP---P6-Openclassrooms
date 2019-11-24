@@ -70,6 +70,15 @@ body {
       display: block;
       margin-left: -10px;
       margin-bottom: 4px;
+
+      @media screen and (max-width: $break-tablet) {
+        font-size: 60px;
+        line-height: 60px;
+      }
+    }
+
+    @media screen and (max-width: $break-tablet) {
+      font-size: 30px;
     }
   }
 

@@ -2,6 +2,20 @@
   .filter ul {
     width: 50%;
     grid-template-columns: repeat(5, 1fr);
+
+    @media screen and (max-width: $break-medium) {
+      width: 100%;
+    }
+
+    @media screen and (max-width: $break-tablet) {
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: center;
+      align-items: center;
+    }
+
+    @media screen and (max-width: $break-small) {
+      grid-template-columns: 1fr;
+    }
   }
   .projets {
     display: grid;
@@ -19,5 +33,23 @@
       width: 100%;
       height: 400px;
     }
+
+    @media screen and (max-width: 1500px) and (min-width: $break-large + 1) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (max-width: $break-large) and (min-width: $break-tablet + 1) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: $break-tablet) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: $break-tablet) {
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
   }
 }

@@ -19,6 +19,10 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+
+      @media screen and (max-width: $break-medium) {
+        content: none;
+      }
     }
 
     .left,
@@ -30,6 +34,28 @@
       grid-row-gap: 20px;
       justify-items: center;
       align-items: center;
+
+      .skill {
+        &:not(:last-child) {
+          @media screen and (max-width: 350px) {
+            margin-right: 0px;
+            margin-bottom: 20px;
+          }
+        }
+      }
+
+      @media screen and (max-width: 350px) {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+      }
+    }
+
+    .left {
+      @media screen and (max-width: $break-medium) {
+        margin-bottom: 20px;
+      }
     }
     .skill {
       background-image: url("https://via.placeholder.com/150");
@@ -37,6 +63,14 @@
       background-position: center;
       width: 150px;
       height: 150px;
+    }
+
+    @media screen and (max-width: $break-medium) {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

@@ -1,6 +1,6 @@
 .presentation {
   background-color: $bleuFonce;
-  height: 430px;
+  min-height: 430px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,6 +17,11 @@
       font-size: 20px;
       width: 60%;
       font-weight: 300;
+
+      @media screen and (max-width: $break-tablet) {
+        margin-top: 0;
+        width: 100%;
+      }
     }
   }
 }

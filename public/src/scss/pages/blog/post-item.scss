@@ -15,6 +15,19 @@
     transition: all 0.3s ease-in-out;
   }
 
+  .filter {
+    ul {
+      justify-content: flex-start;
+    }
+    a {
+      margin-bottom: 10px;
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+  }
+
   .first,
   .last,
   .img-article {

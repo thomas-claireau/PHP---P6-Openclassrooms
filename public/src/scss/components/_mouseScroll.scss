@@ -19,6 +19,10 @@
     background: #fff;
     animation: finger 1s infinite;
   }
+
+  @media screen and (max-width: $break-medium) {
+    display: none;
+  }
 }
 
 @keyframes finger {
