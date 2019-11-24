@@ -17,7 +17,8 @@
         <meta name="description" content="{{ block('description') }}"/>
         <meta name="author" content="Thomas Claireau"/>
         <meta
-        name="copyright" content="MIT"/> {# A supprimer lorsque site en ligne #}
+        name="copyright" content="MIT"/>
+        {# A supprimer lorsque site en ligne #}
         <meta name="robots" content="noindex"/>
 
         <meta property="og:type" content="website"/>
@@ -42,7 +43,9 @@
     <body class="{{ templateName }}">
         {{ include("layout/menu.twig") }}
 
-        {{ include("layout/header.twig", { title: block("title"), subtitle: block("subtitle") }) }}
+        {% if home %}
+            {{ include("layout/header.twig", { title: block("title"), subtitle: block("subtitle") }) }}
+        {% endif %}
 
         {% block main %}{% endblock %}
 
