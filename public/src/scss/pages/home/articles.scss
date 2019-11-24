@@ -1,0 +1,40 @@
+.liste-articles {
+  .articles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    margin-top: 70px;
+
+    @import "../blog/post-item.scss";
+
+    @media screen and (max-width: $break-large) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: $break-medium) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      .article:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+
+    @media screen and (max-width: $break-tablet) {
+      .article {
+        width: 100%;
+      }
+    }
+  }
+  .view-all {
+    margin: 60px auto 20px auto;
+    width: 360px;
+
+    @media screen and (max-width: $break-small) {
+      width: 100%;
+    }
+  }
+}

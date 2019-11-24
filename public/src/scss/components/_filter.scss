@@ -1,0 +1,54 @@
+.filter {
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+
+    a {
+      margin-bottom: 20px;
+    }
+
+    a:not(:last-child) {
+      margin-right: 20px;
+    }
+
+    li {
+      display: block;
+      background-color: $grisClair;
+      color: darken($grisClair, 30%);
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+
+      @mixin filterStyle($type) {
+        color: darken($type, 10%);
+        background-color: lighten($type, 30%);
+        transform: scale(1);
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          transform: scale(1.05);
+          transition: all 0.3s ease-in-out;
+        }
+      }
+
+      &.css {
+        @include filterStyle($css);
+      }
+      &.javascript {
+        @include filterStyle($javascript);
+      }
+      &.php {
+        @include filterStyle($php);
+      }
+      &.html {
+        @include filterStyle($html);
+      }
+      &.typescript {
+        @include filterStyle($typescript);
+      }
+    }
+  }
+}
