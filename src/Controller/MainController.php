@@ -35,11 +35,12 @@ abstract class MainController
         $this->twig->addExtension(new DebugExtension());
         $this->twig->addExtension(new PhpMvcExtension());
 
-        // add superglobal
+        // add global variables
         $this->twig->addGlobal('isLocalhost', $this->isLocalhost());
         $this->twig->addGlobal('url', $this->getUrl());
         $this->twig->addGlobal('isDistFolder', $this->folder_exist('dist'));
         $this->twig->addGlobal('templateName', $this->getTemplateName());
+        $this->twig->addGlobal('imgDir', $this->getImgDir());
     }
 
     /**
@@ -86,14 +87,14 @@ abstract class MainController
         return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
     }
 
-    public function getCurrentPath()
+    public static function getCurrentPath()
     {
         return $_SERVER['DOCUMENT_ROOT'];
     }
 
-    public function folder_exist($folder)
+    public static function folder_exist($folder)
     {
-        return file_exists($this->getCurrentPath() . $folder);
+        return file_exists(self::getCurrentPath() . $folder);
     }
 
     public static function isLocalhost()
@@ -118,7 +119,25 @@ abstract class MainController
 
     public static function getTemplateName()
     {
-        if (isset($_GET['access']))
+        if (isset($_GET['access'])) {
             return htmlspecialchars($_GET["access"]);
+        }
+
+    }
+
+    public static function getImgDir()
+    {
+        $HTTP_HOST = $_SERVER['HTTP_HOST'];
+        $isDist    = self::folder_exist('dist');
+        $isDev     = self::isLocalhost();
+
+        if ($isDist && !$isDev) {
+            $publicPath = $HTTP_HOST . '/dist/' . 'assets/img/';
+        } else {
+            $publicPath = '//' . $HTTP_HOST . '/src/' . 'assets/img/';
+
+        }
+
+        return $publicPath;
     }
 }
