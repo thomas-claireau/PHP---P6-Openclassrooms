@@ -9,7 +9,6 @@ window.addEventListener("DOMContentLoaded", event => {
   // smooth-scrool sur les ancres (vers #target)
   const pageContainers = $("html, body");
   const headerH = $("header").outerHeight();
-  console.log(headerH);
 
   $(".js-smooth-scroll").click(function(e) {
     e.preventDefault();
@@ -24,3 +23,17 @@ window.addEventListener("DOMContentLoaded", event => {
     );
   });
 });
+
+// footer toujours en bas
+document.onreadystatechange = function() {
+  if (document.readyState == "complete") {
+    const footer = document.querySelector("footer");
+
+    if (footer) {
+      const heightFooter = Number(footer.getBoundingClientRect().height);
+
+      const contentPage = document.querySelector("main");
+      contentPage.style.minHeight = "calc(100vh - " + heightFooter + "px)";
+    }
+  }
+};
