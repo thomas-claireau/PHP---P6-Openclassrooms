@@ -1,9 +1,10 @@
 {% extends "layout/layout.twig" %}
+{% set isBlog = true %}
 
-{% block subtitle %}Le blog
+{% block subtitle %}Thomas Claireau
 {% endblock %}
 
-{% block title %}Développeur full-stack & web addict
+{% block title %}Le blog
 {% endblock %}
 
 {% block description %}La liste de blog
@@ -11,6 +12,44 @@
 
 {% block main %}
 
-    <main id="blog"></main>
+    <main id="blog">
+        <div class="chapo container">
+            <h1>Le blog</h1>
+            {% include "./blog/filter.twig" %}
+        </div>
 
+        <div class="list-posts">
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+        </div>
+    </main>
 {% endblock %}
