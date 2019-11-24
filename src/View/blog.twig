@@ -1,23 +1,55 @@
-{% extends 'layout/layout.twig' %}
+{% extends "layout/layout.twig" %}
+{% set isBlog = true %}
 
-{% block subtitle %}Le titre de la page blog {% endblock %} 
+{% block subtitle %}Thomas Claireau
+{% endblock %}
 
-{% block description %}Description méta pour la page blog {% endblock %} 
+{% block title %}Le blog
+{% endblock %}
+
+{% block description %}La liste de blog
+{% endblock %}
 
 {% block main %}
 
-<main id="home">
-  <section>post
-    <h2>Un titre h2</h2>
+    <main id="blog">
+        <div class="chapo container">
+            <h1>Le blog</h1>
+            {% include "./blog/filter.twig" %}
+        </div>
 
-    <p>
-      Corps de la page
-    </p>
-  </section>
-
-  <section>
-    <h2>Un exemple d'utilisation</h2>
-    <p>{{ test }}</p>
-  </section>
-</main>
+        <div class="list-posts">
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+            {% include("blog/post-item.twig") %}
+        </div>
+    </main>
 {% endblock %}

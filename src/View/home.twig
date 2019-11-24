@@ -1,32 +1,23 @@
 {% extends 'layout/layout.twig' %}
+{% set home = true %}
 
-{% block subtitle %}Le titre de la page home test {% endblock %} 
+{% block subtitle %}Thomas Claireau
+{% endblock %}
 
-{% block description %}Description méta pour la page home {% endblock %} 
+{% block title %}Développeur full-stack & web addict
+{% endblock %}
+
+{% block description %}Test
+{% endblock %}
 
 {% block main %}
 
-<main id="home">
-  <section>
-    <h2>Un titre h2</h2>
+    <main id="home">
+        {% include "home/presentation.twig" %}
+        {% include "home/avantages.twig" %}
+        {% include "home/skills.twig" %}
+        {% include "home/portfolio.twig" %}
+        {% include "home/articles.twig" %}
+    </main>
 
-    <p>
-      Corps de la page
-    </p>
-  </section>
-
-  <section>
-    <h2>Un exemple d'utilisation</h2>
-
-    <ul>
-      {% for user in allUsers %}
-      <li>
-        {{ user.name }}
-        <hr />
-        {{ user.email }}
-      </li>
-      {% endfor %}
-    </ul>
-  </section>
-</main>
 {% endblock %}

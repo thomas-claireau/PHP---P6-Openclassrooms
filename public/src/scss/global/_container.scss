@@ -1,0 +1,23 @@
+@import "vars";
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (min-width: $break-mini) {
+    max-width: 100%;
+  }
+
+  @media (min-width: $break-tablet) {
+    max-width: 90%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  @media (min-width: $break-large) {
+    max-width: 1200px;
+  }
+}

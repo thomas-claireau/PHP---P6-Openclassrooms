@@ -1,0 +1,36 @@
+@mixin btnStyle($color, $colorBg) {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  padding: 20px 30px;
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: $color;
+  background-color: $colorBg;
+  transform: translateY(0);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: lighten($colorBg, 5%);
+    box-shadow: 0 4px 14px rgba(130, 90, 90, 0.1), 0 4px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+.btn {
+  &.bleuClair {
+    @include btnStyle(#fff, $bleuClair);
+  }
+
+  &.rougeFonce {
+    @include btnStyle(#fff, $rougeFonce);
+  }
+
+  &.vertFonce {
+    @include btnStyle(#fff, $vertFonce);
+  }
+}
