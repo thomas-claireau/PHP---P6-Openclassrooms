@@ -41,11 +41,9 @@
     </head>
 
     <body class="{{ templateName }}">
-        {{ include("layout/menu.twig") }}
+        {{ include("layout/menu.twig", { template: templateName }) }}
 
-        {% if home %}
-            {{ include("layout/header.twig", { title: block("title"), subtitle: block("subtitle") }) }}
-        {% endif %}
+        {{ include("layout/header.twig", { title: block("title"), subtitle: block("subtitle"), isHome: home }) }}
 
         {% block main %}{% endblock %}
 

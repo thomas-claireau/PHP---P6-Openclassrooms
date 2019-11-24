@@ -1,24 +1,32 @@
-<header>
-    <div class="container">
-        <div class="left">
-            <h1>
-                <span>{{ subtitle }}</span>
-                {{ title }}
-            </h1>
-            <div class="buttons">
-                <a href="#presentation" class="btn bleuClair js-smooth-scroll">
-                    En savoir plus
-                </a>
-                <a href="#" class="btn rougeFonce">
-                    Me contacter
-                </a>
+<header {% if isHome == true %} class="home" {% endif %}>
+    {% if isHome == true %}
+        <div class="container">
+            <div class="left">
+                <h1>
+                    <span>{{ subtitle }}</span>
+                    {{ title }}
+                </h1>
+                <div class="buttons">
+                    <a href="#presentation" class="btn bleuClair js-smooth-scroll">
+                        En savoir plus
+                    </a>
+                    <a href="#" class="btn rougeFonce">
+                        Me contacter
+                    </a>
+                </div>
+            </div>
+            <div class="right">
+                <img src="https://via.placeholder.com/300x200" alt="">
             </div>
         </div>
-        <div class="right">
-            <img src="https://via.placeholder.com/300x200" alt="">
+        <a href="#presentation" class="mouse js-smooth-scroll">
+            <div class="scroll"></div>
+        </a>
+    {% else %}
+        <div class="container">
+            <h1>{{ title }}</h1>
         </div>
-    </div>
-    <a href="#presentation" class="mouse js-smooth-scroll">
-        <div class="scroll"></div>
-    </a>
+    {% endif %}
+
+
 </header>
