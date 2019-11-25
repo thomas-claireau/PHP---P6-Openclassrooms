@@ -1,0 +1,38 @@
+.contact {
+  height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(1, 31, 63, 1) 0%,
+    rgba(27, 76, 130, 1) 54%,
+    rgba(77, 170, 150, 1) 97%
+  );
+
+  #menu {
+    display: none;
+  }
+
+  #contact {
+    padding-bottom: 200px;
+  }
+
+  header {
+    h1 {
+      text-align: left;
+      font-size: 50px;
+      color: #fff;
+      font-weight: 500;
+    }
+  }
+
+  footer {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+
+    .reseaux ul li a {
+      color: #fff;
+    }
+  }
+}
