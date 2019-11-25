@@ -28,7 +28,7 @@
                         <a href="{{url}}/#portfolio">Portfolio</a>
                     {% endif %}
                 </li>
-                {% if template == 'blog' or template == 'post' %}
+                {% if template == 'blog' %}
                     <li class="active">
                         <a href="#" {% if home == true %} class="js-smooth-scroll" {% endif %}>Blog</a>
                     </li>
@@ -37,7 +37,7 @@
                         {% if home == true %}
                             <a href="#articles" class="js-smooth-scroll">Blog</a>
                         {% else %}
-                            <a href="{{url}}/#articles">Blog</a>
+                            <a href="{{url}}/index.php?access=blog">Blog</a>
                         {% endif %}
                     </li>
                 {% endif %}
