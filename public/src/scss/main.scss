@@ -15,6 +15,7 @@
 // global page
 @import "pages/home.scss";
 @import "pages/blog.scss";
+@import "pages/post.scss";
 
 html {
   box-sizing: border-box;
@@ -83,11 +84,13 @@ body {
     }
   }
 
-  h2 {
-    margin: 40px 0;
-    text-align: center;
-    font-size: 50px;
-    font-weight: 600;
+  :not(.content-post) {
+    h2 {
+      margin: 40px 0;
+      text-align: center;
+      font-size: 50px;
+      font-weight: 600;
+    }
   }
 
   h3 {

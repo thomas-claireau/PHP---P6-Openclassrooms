@@ -1,23 +1,55 @@
 {% extends 'layout/layout.twig' %}
+{% set isBlog = true %}
 
-{% block subtitle %}Le titre de la page post {% endblock %} 
+{% block subtitle %}Le titre de la page post
+{% endblock %}
 
-{% block description %}Description méta pour la page post {% endblock %} 
+{% block title %}Un article de blog
+{% endblock %}
+
+{% block description %}Description méta pour la page post
+{% endblock %}
 
 {% block main %}
 
-<main id="home">
-  <section>
-    <h2>Un titre h2</h2>
-
-    <p>
-      Corps de la page
-    </p>
-  </section>
-
-  <section>
-    <h2>Un exemple d'utilisation</h2>
-    <p>{{ test }}</p>
-  </section>
-</main>
+    <main id="post" class="container">
+        <article>
+            <section class="infos-post">
+                <div class="date">
+                    <p>11 Aout 2019</p>
+                </div>
+                <div class="auteur">
+                    <div class="avatar"></div>
+                    <div class="nom-reseaux">
+                        <div class="nom">Thomas Claireau</div>
+                        <div class="reseaux">
+                            <ul>
+                                <li><a href="#">Twitter</a></li>
+                                <li><a href="#">GitHub</a></li>
+                                <li><a href="#">LinkedIn</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="image-post">
+                <img src="https://via.placeholder.com/720x405" alt="image-post">
+            </section>
+            <section class="content-post">
+                <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</blockquote>
+                <h2>Un test de titre h2</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                    <a href="#">reprehenderit in voluptate</a>
+                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <h3>Un test de titre h3</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                    <a href="#">reprehenderit in voluptate</a>
+                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </section>
+            {% include "./blog/filter.twig" %}
+            <section class="posts-sup">
+                {% include("blog/post-item.twig") %}
+            </section>
+        </article>
+    </main>
 {% endblock %}

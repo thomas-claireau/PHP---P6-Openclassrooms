@@ -1,0 +1,93 @@
+#post {
+  &.container {
+    max-width: 720px;
+  }
+
+  .infos-post {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+    .date {
+      font-size: 14px;
+    }
+
+    .auteur {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 0;
+      .avatar {
+        background-image: url("https://via.placeholder.com/50");
+        background-size: cover;
+        background-position: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+    }
+
+    .nom-reseaux {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+
+      .nom {
+        font-size: 20px;
+        font-weight: 300;
+      }
+
+      .reseaux ul {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        color: lighten($bleuClair, 20%);
+        font-size: 15px;
+
+        li:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .image-post {
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: auto;
+    }
+  }
+
+  .content-post {
+    margin-top: 40px;
+
+    blockquote {
+      margin: 0;
+      padding: 0 0 0 20px;
+      position: relative;
+      font-size: 16px;
+      color: darken($grisClair, 30%);
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 100%;
+        background-color: darken($grisClair, 10%);
+      }
+    }
+
+    h2 {
+      text-align: left;
+      font: 20px;
+    }
+  }
+}
