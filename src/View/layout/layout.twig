@@ -1,58 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <title>
-            {% block title %}
-                {{ block("title") }}
-            {% endblock %}
-        </title>
+    <title>
+      {% block title %}
+      {{ block("title") }}
+      {% endblock %}
+    </title>
 
-        <link rel="canonical" href="{% block canonical %}{{ url }}{% endblock %}"/>
-        <link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
+    <link rel="canonical" href="{% block canonical %}{{ url }}{% endblock %}" />
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
 
-        <meta name="description" content="{{ block('description') }}"/>
-        <meta name="author" content="Thomas Claireau"/>
-        <meta
-        name="copyright" content="MIT"/>
-        {# A supprimer lorsque site en ligne #}
-        <meta name="robots" content="noindex"/>
+    <meta name="description" content="{{ block('description') }}" />
+    <meta name="author" content="Thomas Claireau" />
+    <meta name="copyright" content="MIT" />
+    {# A supprimer lorsque site en ligne #}
+    <meta name="robots" content="noindex" />
 
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="{{ block('title') }}"/>
-        <meta property="og:url" content="{{ block('canonical') }}"/>
-        <meta property="og:description" content="{{ block('description') }}"/>
-        <meta property="og:image" content="{% block image %}{{ url }}{% endblock %}"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ block('title') }}" />
+    <meta property="og:url" content="{{ block('canonical') }}" />
+    <meta property="og:description" content="{{ block('description') }}" />
+    <meta
+      property="og:image"
+      content="{% block image %}{{ url }}{% endblock %}"
+    />
 
-        <meta name="twitter:card" content="summary"/>
-        <meta name="twitter:title" content="{{ block('title') }}"/>
-        <meta name="twitter:site" content="{{ block('canonical') }}"/>
-        <meta name="twitter:description" content="{{ block('description') }}"/>
-        <meta name="twitter:image" content="{{ block('image') }}"/>
-        <meta name="twitter:creator" content="@thomas_claireau"/>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ block('title') }}" />
+    <meta name="twitter:site" content="{{ block('canonical') }}" />
+    <meta name="twitter:description" content="{{ block('description') }}" />
+    <meta name="twitter:image" content="{{ block('image') }}" />
+    <meta name="twitter:creator" content="@thomas_claireau" />
 
-        {% if (isDistFolder) %}
-            <link rel="stylesheet" href="{{ url }}/dist/css/main.css"/>
-        {% endif %}
+    {% if (isLocalhost != true) %}
+    <link rel="stylesheet" href="{{ url }}/dist/css/main.css" />
+    {% endif %}
+  </head>
 
-    </head>
+  <body class="{{ templateName }}">
+    {{ include("layout/menu.twig", { template: templateName }) }}
 
-    <body class="{{ templateName }}">
-        {{ include("layout/menu.twig", { template: templateName }) }}
+    {{
+      include("layout/header.twig", {
+        title: block("title"),
+        subtitle: block("subtitle"),
+        isHome: home
+      })
+    }}
 
-        {{ include("layout/header.twig", { title: block("title"), subtitle: block("subtitle"), isHome: home }) }}
+    {% block main %}{% endblock %}
 
-        {% block main %}{% endblock %}
+    {{ include("layout/footer.twig") }}
 
-        {{ include("layout/footer.twig") }}
-
-        {% if (isLocalhost == true) and (isDistFolder != true) %}
-            <script src="{{ url }}/src/js/main.js"></script>
-        {% else %}
-            <script type="text/javascript" src="{{ url }}/dist/js/main.js"></script>
-        {% endif %}
-    </body>
+    {% if (isLocalhost == true) and (isDistFolder != true) %}
+    <script src="{{ url }}/src/js/main.js"></script>
+    {% else %}
+    <script type="text/javascript" src="{{ url }}/dist/js/main.js"></script>
+    {% endif %}
+  </body>
 </html>
