@@ -6,12 +6,12 @@
     flex-wrap: wrap;
     margin: auto;
 
-    a {
+    li {
       margin-bottom: 20px;
     }
 
-    a:not(:last-child) {
-      margin-right: 20px;
+    li:not(:last-child) {
+      margin-right: 10px;
     }
 
     li {
