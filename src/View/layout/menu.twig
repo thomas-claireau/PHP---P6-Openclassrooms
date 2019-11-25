@@ -1,29 +1,48 @@
-<nav id="menu" {% if template == "blog" %} class="blog" {% endif %}>
+<nav id="menu" {% if (template == "blog") or (template == "post") %} class="blog" {% endif %}>
     <div class="container">
         <div class="items">
             <ul>
                 <li>
-                    <a href="#" class="logo">
-                        <img src="https://via.placeholder.com/100" alt="logo-thomas-claireau"/>
-                    </a>
+                    {% if home == true %}
+                        <a href="#start" class="logo js-smooth-scroll">
+                            <img src="https://via.placeholder.com/100" alt="logo-thomas-claireau"/>
+                        </a>
+                    {% else %}
+                        <a href="{{url}}" class="logo">
+                            <img src="https://via.placeholder.com/100" alt="logo-thomas-claireau"/>
+                        </a>
+                    {% endif %}
                 </li>
                 <li>
-                    <a href="#skills" class="js-smooth-scroll">Skills</a>
+                    {% if home == true %}
+                        <a href="#skills" class="js-smooth-scroll">Skills</a>
+                    {% else %}
+                        <a href="{{url}}/#skills">Skills</a>
+                    {% endif %}
+
                 </li>
                 <li>
-                    <a href="#portfolio" class="js-smooth-scroll">Portfolio</a>
+                    {% if home == true %}
+                        <a href="#portfolio" class="js-smooth-scroll">Portfolio</a>
+                    {% else %}
+                        <a href="{{url}}/#portfolio">Portfolio</a>
+                    {% endif %}
                 </li>
                 {% if template == 'blog' %}
                     <li class="active">
-                        <a href="/" class="js-smooth-scroll">Blog</a>
+                        <a href="#" {% if home == true %} class="js-smooth-scroll" {% endif %}>Blog</a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="#articles" class="js-smooth-scroll">Blog</a>
+                        {% if home == true %}
+                            <a href="#articles" class="js-smooth-scroll">Blog</a>
+                        {% else %}
+                            <a href="{{url}}/index.php?access=blog">Blog</a>
+                        {% endif %}
                     </li>
                 {% endif %}
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="{{url}}/index.php?access=contact">Contact</a>
                 </li>
                 <div class="logos-sociaux">
                     <li>

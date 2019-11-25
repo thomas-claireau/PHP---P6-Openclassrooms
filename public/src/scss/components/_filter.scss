@@ -6,21 +6,22 @@
     flex-wrap: wrap;
     margin: auto;
 
-    a {
+    li {
       margin-bottom: 20px;
     }
 
-    a:not(:last-child) {
-      margin-right: 20px;
+    li:not(:last-child) {
+      margin-right: 10px;
     }
 
     li {
       display: block;
       background-color: $grisClair;
       color: darken($grisClair, 30%);
-      padding: 10px 20px;
+      padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 15px;
 
       @mixin filterStyle($type) {
         color: darken($type, 10%);

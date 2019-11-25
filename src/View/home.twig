@@ -1,12 +1,26 @@
-{% extends 'layout/layout.twig' %} {% set home = true %} {% block subtitle
-%}Thomas Claireau {% endblock %} {% block title %}Développeur full-stack &
-webaddict {% endblock %} {% block description %}Test {% endblock %} {% block
-main %}
+{% extends 'layout/layout.twig' %}
+{% set home = true %}
 
-<main id="home">
-  {% include "home/presentation.twig" %} {% include "home/avantages.twig" %} {%
-  include "home/skills.twig" %} {% include "home/portfolio.twig" %} {% include
-  "home/articles.twig" %}
-</main>
+{% block subtitle %}
+    Thomas Claireau
+{% endblock %}
+
+{% block title %}
+    Développeur full-stack & webaddict
+{% endblock %}
+
+{% block description %}
+    Test
+{% endblock %}
+
+{% block main %}
+
+    <main id="home">
+        {% include "home/presentation.twig" %}
+        {% include "home/avantages.twig" %}
+        {% include "home/skills.twig" %}
+        {% include "home/portfolio.twig" %}
+        {% include "home/articles.twig" %}
+    </main>
 
 {% endblock %}
