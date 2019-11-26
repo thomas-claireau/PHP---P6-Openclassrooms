@@ -1,0 +1,151 @@
+.formulaire {
+  background-color: #fff;
+  box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 40px 30px;
+  border-radius: 5px;
+
+  > div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    @media screen and (max-width: $break-tablet) {
+      flex-direction: column;
+    }
+  }
+
+  .field {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+
+    &.prenom,
+    &.email {
+      margin-right: 20px;
+
+      @media screen and (max-width: $break-tablet) {
+        margin-right: 0;
+      }
+    }
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      z-index: 1;
+      width: 22px;
+      height: 22px;
+
+      path {
+        fill: #fff;
+        stroke: $grisFonce;
+        transition: all 0.3s ease-in-out;
+      }
+    }
+
+    &[for="email"] {
+      svg path {
+        stroke-width: 3px;
+      }
+    }
+
+    &:before {
+      content: "\f00d";
+      font-family: FontAwesome;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      opacity: 0;
+      color: $rougeFonce;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    &:after {
+      content: "\f00c";
+      font-family: FontAwesome;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      opacity: 0;
+      color: $vertFonce;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    &.ok {
+      &:after {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+
+    &.error {
+      &:before {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+  }
+
+  input {
+    padding: 0 50px 0 40px;
+  }
+
+  textarea {
+    padding: 0 10px 0 40px;
+  }
+
+  input,
+  textarea {
+    -webkit-appearance: none;
+    background-color: #fff;
+    border: 1px solid darken($grisClair, 10%);
+    border-color: $grisClair;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1),
+      0 5px 15px rgba(0, 0, 0, 0.05);
+    outline: 0;
+    border-radius: 10px;
+    min-height: 40px;
+
+    &:hover,
+    &:focus,
+    &.active {
+      outline: 0;
+      box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1),
+        0 15px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease-in-out;
+
+      + svg {
+        path {
+          stroke: none;
+          fill: $grisFonce;
+          transition: all 0.3s ease-in-out;
+        }
+      }
+    }
+
+    &.active {
+      border-color: $vertFonce;
+      transition: all 0.3s ease-in-out;
+    }
+
+    @media screen and (max-width: $break-tablet) {
+      width: 100%;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 20px;
+    resize: none;
+  }
+
+  .btn {
+    padding: 10px 30px;
+    margin: 15px auto 0px auto;
+  }
+}

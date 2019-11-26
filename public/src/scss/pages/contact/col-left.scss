@@ -1,0 +1,43 @@
+.col-left {
+  .container-arrow {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+
+    svg {
+      width: 140px;
+      height: 140px;
+      position: absolute;
+      top: 0;
+      left: -47px;
+
+      path {
+        fill: #fff;
+      }
+
+      @media screen and (max-width: $break-large) {
+        display: none;
+      }
+    }
+  }
+  .btn {
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px;
+    margin-top: 100px;
+    margin-left: 50px;
+
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    @media screen and (max-width: $break-large) {
+      margin: 40px auto;
+      width: 300px;
+    }
+  }
+}

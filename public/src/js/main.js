@@ -3,6 +3,8 @@ import "../scss/main.scss";
 import "./global/menu";
 import functions from "./functions";
 
+import "./components/formulaire";
+
 window.addEventListener("DOMContentLoaded", event => {
   functions.injectSvg();
 
@@ -24,12 +26,13 @@ window.addEventListener("DOMContentLoaded", event => {
   });
 });
 
-// footer toujours en bas
+// footer toujours en bas (sauf page formulaire)
 document.onreadystatechange = function() {
   if (document.readyState == "complete") {
+    const pageContact = document.querySelector("body.contact");
     const footer = document.querySelector("footer");
 
-    if (footer) {
+    if (footer && !pageContact) {
       const heightFooter = Number(footer.getBoundingClientRect().height);
 
       const contentPage = document.querySelector("main");

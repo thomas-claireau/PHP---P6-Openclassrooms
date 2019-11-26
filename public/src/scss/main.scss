@@ -11,11 +11,13 @@
 @import "components/btn";
 @import "components/mouseScroll";
 @import "components/filter";
+@import "components/formulaire";
 
 // global page
 @import "pages/home.scss";
 @import "pages/blog.scss";
 @import "pages/post.scss";
+@import "pages/contact.scss";
 
 html {
   box-sizing: border-box;
@@ -29,13 +31,53 @@ html {
   }
 }
 
+.back {
+  background-color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 46%;
+    transform: translate(-50%, -50%);
+
+    path {
+      fill: inherit;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+
+    svg {
+      path {
+        fill: $vertFonce;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+}
+
 *,
 *:before,
 *:after {
   box-sizing: inherit;
 }
 
-body {
+body,
+textarea {
   font-family: "Roboto";
   margin: 0;
   padding: 0;
