@@ -49,7 +49,7 @@
         {{ include("layout/menu.twig", { template: templateName }) }}
 
         {% if templateName == "contact" %}
-            <div class="colonnes">
+            <div class="colonnes container">
             {% endif %}
 
             {{include("layout/header.twig", {title: block("title"), subtitle: block("subtitle"),isHome: home})}}
