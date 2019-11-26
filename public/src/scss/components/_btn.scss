@@ -12,6 +12,7 @@
   background-color: $colorBg;
   transform: translateY(0);
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     background-color: lighten($colorBg, 5%);

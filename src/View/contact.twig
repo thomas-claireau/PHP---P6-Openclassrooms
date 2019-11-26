@@ -1,6 +1,5 @@
 {% extends "layout/layout.twig" %}
 {% set isContact = true %}
-
 {% block subtitle %}
     Contactez-moi
 {% endblock %}
@@ -15,6 +14,45 @@
 
 {% block main %}
     <main id="contact">
-        <form id="form-contact" action="post"></form>
+        <form id="form-contact" action="post" class="formulaire">
+            <div>
+                <div class="field prenom">
+                    <label for="prenom">
+                        <input type="text" name="prenom" id="prenom" placeholder="Votre prénom" required/>
+                        <img class="js-inject-me" src="{{imgDir}}pictos/people.svg" alt="">
+                    </label>
+                </div>
+                <div class="field nom">
+                    <label for="nom">
+                        <input type="text" name="nom" id="nom" placeholder="Votre nom" required/>
+                        <img class="js-inject-me" src="{{imgDir}}pictos/people.svg" alt="">
+                    </label>
+                </div>
+            </div>
+            <div>
+                <div class="field email">
+                    <label for="email">
+                        <input type="email" name="email" id="email" placeholder="Votre email" required/>
+                        <img class="js-inject-me" src="{{imgDir}}pictos/mail.svg" alt="">
+                    </label>
+                </div>
+                <div class="field tel">
+                    <label for="tel">
+                        <input type="tel" name="tel" id="tel" placeholder="Votre numéro de téléphone"/>
+                        <img class="js-inject-me" src="{{imgDir}}pictos/tel.svg" alt="">
+                    </label>
+                </div>
+            </div>
+            <div>
+                <div class="field message">
+                    <label for="message">
+                        <textarea name="message" id="message" placeholder="Votre message"></textarea>
+                    </label>
+                </div>
+            </div>
+            <div>
+                <input class="btn vertFonce" type="submit" value="Envoyer">
+            </div>
+        </form>
     </main>
 {% endblock %}

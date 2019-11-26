@@ -6,13 +6,23 @@
     rgba(27, 76, 130, 1) 54%,
     rgba(77, 170, 150, 1) 97%
   );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  header {
+    padding-top: 0;
+  }
+
+  .colonnes {
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    justify-items: center;
+    align-items: center;
+  }
 
   #menu {
     display: none;
-  }
-
-  #contact {
-    padding-bottom: 200px;
   }
 
   header {
