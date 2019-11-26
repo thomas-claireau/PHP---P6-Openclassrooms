@@ -3,6 +3,8 @@ import "../scss/main.scss";
 import "./global/menu";
 import functions from "./functions";
 
+import "./components/formulaire";
+
 window.addEventListener("DOMContentLoaded", event => {
   functions.injectSvg();
 

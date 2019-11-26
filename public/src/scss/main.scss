@@ -11,6 +11,7 @@
 @import "components/btn";
 @import "components/mouseScroll";
 @import "components/filter";
+@import "components/formulaire";
 
 // global page
 @import "pages/home.scss";
@@ -75,7 +76,8 @@ html {
   box-sizing: inherit;
 }
 
-body {
+body,
+textarea {
   font-family: "Roboto";
   margin: 0;
   padding: 0;
