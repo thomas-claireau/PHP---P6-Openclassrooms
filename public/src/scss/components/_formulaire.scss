@@ -8,6 +8,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    @media screen and (max-width: $break-tablet) {
+      flex-direction: column;
+    }
   }
 
   .field {
@@ -18,6 +22,10 @@
     &.prenom,
     &.email {
       margin-right: 20px;
+
+      @media screen and (max-width: $break-tablet) {
+        margin-right: 0;
+      }
     }
 
     svg {
@@ -41,6 +49,52 @@
         stroke-width: 3px;
       }
     }
+
+    &:before {
+      content: "\f00d";
+      font-family: FontAwesome;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      opacity: 0;
+      color: $rougeFonce;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    &:after {
+      content: "\f00c";
+      font-family: FontAwesome;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      opacity: 0;
+      color: $vertFonce;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    &.ok {
+      &:after {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+
+    &.error {
+      &:before {
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+      }
+    }
+  }
+
+  input {
+    padding: 0 50px 0 40px;
+  }
+
+  textarea {
+    padding: 0 10px 0 40px;
   }
 
   input,
@@ -55,7 +109,6 @@
     outline: 0;
     border-radius: 10px;
     min-height: 40px;
-    padding: 0 10px 0 40px;
 
     &:hover,
     &:focus,
@@ -77,6 +130,10 @@
     &.active {
       border-color: $vertFonce;
       transition: all 0.3s ease-in-out;
+    }
+
+    @media screen and (max-width: $break-tablet) {
+      width: 100%;
     }
   }
 

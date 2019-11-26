@@ -22,6 +22,25 @@
     justify-items: center;
     align-items: center;
     margin-bottom: 100px;
+
+    > div:first-child {
+      @media screen and (max-width: $break-large) {
+        width: 100%;
+        margin: auto;
+      }
+    }
+
+    @media screen and (max-width: $break-large) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 200px;
+    }
+
+    @media screen and (max-width: $break-tablet) {
+      width: 100%;
+    }
   }
 
   #menu {
@@ -34,18 +53,41 @@
       font-size: 50px;
       color: #fff;
       font-weight: 500;
+
+      @media screen and (max-width: $break-large) {
+        text-align: center;
+      }
     }
   }
 
   footer {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+    @media screen and (min-width: $break-large) {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
     color: #fff;
 
     .reseaux ul li a {
       color: #fff;
+    }
+  }
+
+  @media screen and (max-width: $break-large) {
+    background: linear-gradient(
+      to bottom,
+      rgba(1, 31, 63, 1) 0%,
+      rgba(27, 76, 130, 1) 54%,
+      rgba(77, 170, 150, 1) 97%
+    );
+    flex-direction: column;
+    height: 100%;
+  }
+
+  #contact {
+    @media screen and (max-width: $break-tablet) {
+      width: 100%;
     }
   }
 }
