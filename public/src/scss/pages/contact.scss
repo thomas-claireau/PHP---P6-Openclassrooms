@@ -1,4 +1,6 @@
 .contact {
+  @import "./contact/col-left.scss";
+
   height: 100vh;
   background: linear-gradient(
     90deg,
@@ -19,6 +21,7 @@
     grid-template-columns: 40% 1fr;
     justify-items: center;
     align-items: center;
+    margin-bottom: 100px;
   }
 
   #menu {

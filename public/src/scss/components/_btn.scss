@@ -34,4 +34,8 @@
   &.vertFonce {
     @include btnStyle(#fff, $vertFonce);
   }
+
+  &.blancVert {
+    @include btnStyle($vertFonce, #fff);
+  }
 }

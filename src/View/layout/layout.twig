@@ -52,7 +52,11 @@
             <div class="colonnes container">
             {% endif %}
 
-            {{include("layout/header.twig", {title: block("title"), subtitle: block("subtitle"),isHome: home})}}
+            <div>
+                {{include("layout/header.twig", {title: block("title"), subtitle: block("subtitle"),isHome: home})}}
+                {{include("contact/col-left.twig")}}
+            </div>
+
 
             {% block main %}{% endblock %}
 
