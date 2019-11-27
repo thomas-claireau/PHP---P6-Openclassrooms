@@ -30,9 +30,10 @@ window.addEventListener("DOMContentLoaded", event => {
 document.onreadystatechange = function() {
   if (document.readyState == "complete") {
     const pageContact = document.querySelector("body.contact");
+    const pagesLog = document.querySelector("#log");
     const footer = document.querySelector("footer");
 
-    if (footer && !pageContact) {
+    if (footer && !pageContact && !pagesLog) {
       const heightFooter = Number(footer.getBoundingClientRect().height);
 
       const contentPage = document.querySelector("main");
