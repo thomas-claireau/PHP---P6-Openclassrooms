@@ -1,23 +1,29 @@
 {% extends 'layout/layout.twig' %}
 
-{% block subtitle %}Le titre de la page log {% endblock %} 
+{% if type %}
+    {% if type == "connexion" %}
+        {% set title = "Page de connexion" %}
+    {% elseif type == "creation" %}
+        {% set title = "Page de création" %}
+    {% elseif type == "mot-de-passe-oublie" %}
+        {% set title = "Page de mot de passe oublié" %}
+    {% elseif type == "creation-ok" %}
+        {% set title = "Page de succès création" %}
+    {% endif %}
+{% endif %}
 
-{% block description %}Description méta pour la page log {% endblock %} 
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block subtitle %}Le titre de la page log
+{% endblock %}
+
+{% block description %}Description méta pour la page log
+{% endblock %}
 
 {% block main %}
 
-<main id="home">
-  <section>
-    <h2>Un titre h2</h2>
-
-    <p>
-      Corps de la page
-    </p>
-  </section>
-
-  <section>
-    <h2>Un exemple d'utilisation</h2>
-    <p>{{ test }}</p>
-  </section>
-</main>
+    <main id="log"></main>
 {% endblock %}
