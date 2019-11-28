@@ -1,0 +1,27 @@
+<form id="form-contact" action="post" class="formulaire">
+    {% for blocks in fields %}
+        <div>
+            {% for field in blocks %}
+                {% set tag = field.tag %}
+                {% set type = field.type %}
+                {% set name = field.name %}
+                {% set placeholder = field.placeholder %}
+                {% set picto = field.picto %}
+                {% set value = field.value %}
+                {% set required = field.required == true ? 'required' : null %}
+
+                <div class="field {{ name }}{% if type == 'submit' %}field-submit{% endif %}">
+                    <label for="{{ name }}">
+                        {% if tag == "input" %}
+                            <input class="{% if type != 'submit' %}input{% else %}btn vertFonce{% endif %}" type="{{ type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}" {{ required }}/>
+                            <img class="js-inject-me" src="{{ imgDir }}pictos/{{ picto }}.svg" alt=""/>
+                        {% else %}
+                            <textarea class="input" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" {{ required }}></textarea>
+                        {% endif %}
+                    </label>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% endfor %}
+</form>
