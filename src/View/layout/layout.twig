@@ -40,7 +40,7 @@
     </head>
 
     <body class="{{ templateName }}">
-        {% if isContact %}
+        {% if isContact or templateName == 'log' %}
             <a href="" class="back">
                 <img class="js-inject-me" src="{{imgDir}}pictos/chevron_left.svg" alt="">
             </a>
