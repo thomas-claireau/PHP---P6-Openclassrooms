@@ -1,0 +1,119 @@
+.log {
+  height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(180, 9, 93, 1) 27%,
+    rgba(74, 85, 207, 1) 97%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  #menu {
+    display: none;
+  }
+
+  header {
+    padding-top: 0;
+    margin-bottom: 60px;
+    h1 {
+      text-align: left;
+      font-size: 50px;
+      color: #fff;
+      font-weight: 500;
+
+      @media screen and (max-width: $break-large) {
+        text-align: center;
+      }
+    }
+  }
+
+  header,
+  main {
+    position: relative;
+    top: -50px;
+  }
+
+  main {
+    .formulaire {
+      background-color: #222531;
+      padding: 40px 30px 20px 30px;
+      .field {
+        margin-right: 0;
+
+        input:not([type="submit"]) {
+          width: 100%;
+          background-color: #32364a;
+          border: 2px solid #393d52;
+        }
+
+        input {
+          color: rgb(190, 190, 190);
+          &::placeholder {
+            color: rgb(190, 190, 190);
+          }
+
+          + svg {
+            path {
+              stroke: none;
+              fill: lighten($grisFonce, 10%);
+              transition: all 0.3s ease-in-out;
+            }
+          }
+
+          &:hover,
+          &:focus,
+          &.active {
+            + svg {
+              path {
+                stroke: none;
+                fill: #fff;
+                transition: all 0.3s ease-in-out;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .success {
+      p {
+        color: #fff;
+        text-align: center;
+        font-size: 25px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  footer {
+    @media screen and (min-width: $break-large) {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    color: #fff;
+
+    .reseaux ul li a {
+      color: #fff;
+    }
+  }
+
+  @media screen and (max-width: $break-large) {
+    background: linear-gradient(
+      to bottom,
+      rgba(180, 9, 93, 1) 27%,
+      rgba(74, 85, 207, 1) 97%
+    );
+    flex-direction: column;
+    height: 100%;
+  }
+
+  #contact {
+    @media screen and (max-width: $break-tablet) {
+      width: 100%;
+    }
+  }
+}

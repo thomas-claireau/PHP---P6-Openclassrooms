@@ -12,10 +12,6 @@
   justify-content: center;
   align-items: center;
 
-  header {
-    padding-top: 0;
-  }
-
   .colonnes {
     display: grid;
     grid-template-columns: 40% 1fr;
@@ -48,6 +44,7 @@
   }
 
   header {
+    padding-top: 0;
     h1 {
       text-align: left;
       font-size: 50px;

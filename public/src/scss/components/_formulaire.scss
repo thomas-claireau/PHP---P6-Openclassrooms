@@ -22,6 +22,12 @@
       margin-bottom: 20px;
     }
 
+    &.field-submit {
+      input {
+        border-color: $vertFonce;
+      }
+    }
+
     &.prenom,
     &.email {
       margin-right: 20px;
