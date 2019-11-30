@@ -40,7 +40,7 @@
     </head>
 
     <body class="{{ templateName }}">
-        {% if isContact %}
+        {% if isContact or templateName == 'log' %}
             <a href="" class="back">
                 <img class="js-inject-me" src="{{imgDir}}pictos/chevron_left.svg" alt="">
             </a>
@@ -48,19 +48,21 @@
 
         {{ include("layout/menu.twig", { template: templateName }) }}
 
-        {% if templateName == "contact" %}
+        {% if isContact or templateName == 'log' %}
             <div class="colonnes container">
             {% endif %}
 
             <div>
                 {{include("layout/header.twig", {title: block("title"), subtitle: block("subtitle"),isHome: home})}}
-                {{include("contact/col-left.twig")}}
+                {% if isContact %}
+                    {{include("contact/col-left.twig")}}
+                {% endif %}
             </div>
 
 
             {% block main %}{% endblock %}
 
-            {% if templateName == "contact" %}
+            {% if isContact or templateName == 'log' %}
 
             </div>
         {% endif %}

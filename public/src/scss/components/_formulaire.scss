@@ -17,7 +17,16 @@
   .field {
     position: relative;
     width: 100%;
-    margin-bottom: 20px;
+
+    &:not(.field-submit) {
+      margin-bottom: 20px;
+    }
+
+    &.field-submit {
+      input {
+        border-color: $vertFonce;
+      }
+    }
 
     &.prenom,
     &.email {

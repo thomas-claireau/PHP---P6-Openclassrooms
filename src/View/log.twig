@@ -1,23 +1,95 @@
 {% extends 'layout/layout.twig' %}
 
-{% block subtitle %}Le titre de la page log {% endblock %} 
+{% if type %}
+    {% if type == "connexion" %}
+        {% set title = "Page de connexion" %}
+        {% set subtitle = "Sous titre de la page connexion" %}
+        {% set description = "description de la page" %}
+        {% set isForm = true %}
+        {% set formulaire = {
+            1: {
+                1: { tag: 'input', type: 'text', name: 'identifiant', placeholder: 'Votre identifiant', picto: 'people', required: true},
+            },
+            2: {
+                1: { tag: 'input', type: 'password', name: 'password', placeholder: 'Votre mot de passe', picto: 'people', required:
+                true},
+            },
+            3: {
+                1: { tag: 'input', type: 'submit', value: 'Se connecter'},
+            }
+        }
+    %}
 
-{% block description %}Description méta pour la page log {% endblock %} 
+    {% elseif type == "creation" %}
+        {% set title = "Page de création" %}
+        {% set subtitle = "Sous titre de la page creation" %}
+        {% set description = "description de la page" %}
+        {% set isForm = true %}
+        {% set formulaire = {
+            1: {
+                1: { tag: 'input', type: 'text', name: 'prenom', placeholder: 'Votre prénom', picto: 'people', required: true},
+            },
+            2: {
+                1: { tag: 'input', type: 'text', name: 'nom', placeholder: 'Votre nom', picto: 'people', required: true},
+            },
+            3: {
+                1: { tag: 'input', type: 'mail', name: 'email', placeholder: 'Entrez une adresse email', picto: 'mail', required: true},
+            },
+            4: {
+                1: { tag: 'input', type: 'password', name: 'password', placeholder: 'Choisissez un mot de passe', picto: 'people', required: true},
+            },
+            5: {
+                1: { tag: 'input', type: 'submit', value: 'Créer mon compte'},
+            }
+        }
+    %}
+
+    {% elseif type == "mot-de-passe-oublie" %}
+        {% set title = "Page de mot de passe oublié" %}
+        {% set subtitle = "Sous titre de la page mot de passe oublié" %}
+        {% set description = "description de la page" %}
+        {% set isForm = true %}
+        {% set formulaire = {
+            1: {
+                1: { tag: 'input', type: 'mail', name: 'email', placeholder: 'Entrez votre adresse email', picto: 'mail', required: true},
+            },
+            2: {
+                1: { tag: 'input', type: 'submit', value: 'M\'envoyer un nouveau mot de passe'},
+            }
+        }
+    %}
+
+    {% elseif type == "creation-ok" %}
+        {% set title = "Page de succès création" %}
+        {% set subtitle = "Sous titre de la page succès création" %}
+        {% set description = "description de la page" %}
+        {% set isForm = false %}
+    {% endif %}
+
+{% endif %}
+
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block subtitle %}
+    {{subtitle}}
+{% endblock %}
+
+{% block description %}
+    {{description}}
+{% endblock %}
 
 {% block main %}
-
-<main id="home">
-  <section>
-    <h2>Un titre h2</h2>
-
-    <p>
-      Corps de la page
-    </p>
-  </section>
-
-  <section>
-    <h2>Un exemple d'utilisation</h2>
-    <p>{{ test }}</p>
-  </section>
-</main>
+    <main id="log" class="{{ type }}">
+        {% if isForm %}
+            {{include("layout/formulaire.twig", {fields: formulaire})}}
+        {% else %}
+            <div class="success">
+                <p>Félicitation votre compte a été créé !</p>
+                <p>Vous avez reçu un email vous invitant à confirmer votre compte.</p>
+            </div>
+        {% endif %}
+    </main>
 {% endblock %}

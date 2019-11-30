@@ -23,7 +23,12 @@ class LogController extends MainController
     public function defaultMethod()
     {
         return $this->render('log.twig', [
-            'test' => 'LogController',
+            'type' => $this->getType(),
         ]);
+    }
+
+    public function getType()
+    {
+        return $_GET['type'];
     }
 }
