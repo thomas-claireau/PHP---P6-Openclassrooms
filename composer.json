@@ -1,5 +1,5 @@
 {
-  "name": "thomas-claireau/PHP-P5-Openclassrooms",
+  "name": "thomas-claireau/php-p5-openclassrooms",
   "version": "0.1.0",
   "description": "package manager for my blog",
   "type": "project",
@@ -25,7 +25,8 @@
   },
   "require": {
     "php": "7.2",
-    "twig/twig": "^2.12.1"
+    "twig/twig": "^2.12.1",
+    "swiftmailer/swiftmailer": "^6.0"
   },
   "require-dev": {
     "tracy/tracy": "^2.7.0"
