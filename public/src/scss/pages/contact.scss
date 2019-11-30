@@ -8,9 +8,31 @@
     rgba(27, 76, 130, 1) 54%,
     rgba(77, 170, 150, 1) 97%
   );
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &.success {
+    .colonnes {
+      grid-template-columns: 1fr;
+      > div:first-child {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+      }
+    }
+
+    #contact {
+      width: 100%;
+      color: #fff;
+      text-align: center;
+
+      h2 {
+        color: #fff;
+      }
+    }
+  }
 
   .colonnes {
     display: grid;

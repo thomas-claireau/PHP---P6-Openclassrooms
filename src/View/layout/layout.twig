@@ -39,7 +39,7 @@
         {% endif %}
     </head>
 
-    <body class="{{ templateName }}">
+    <body class="{{ templateName }} {% if isContact and isSuccess %}success{% endif %}">
         {% if isContact or templateName == 'log' %}
             <a href="" class="back">
                 <img class="js-inject-me" src="{{imgDir}}pictos/chevron_left.svg" alt="">

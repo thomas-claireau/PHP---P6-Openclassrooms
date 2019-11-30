@@ -1,4 +1,21 @@
-<form id="form-contact" action="post" class="formulaire">
+{% if templateName == 'contact' %}
+    {% set actionUrl = '/index.php?access=mail' %}
+{% endif %}
+
+
+<form id="form-contact" action="{{actionUrl}}" method="post" class="formulaire">
+    {% if error %}
+        <div class="container-error {{ error }}">
+            {% if error == "mail" %}
+                <p>Votre adresse email n'est pas valide</p>
+            {% endif %}
+
+            {% if error == "tel" %}
+                <p>Votre numéro de téléphone n'est pas valide</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
     {% for blocks in fields %}
         <div>
             {% for field in blocks %}
@@ -13,7 +30,7 @@
                 <div class="field {{ name }}{% if type == 'submit' %}field-submit{% endif %}">
                     <label for="{{ name }}">
                         {% if tag == "input" %}
-                            <input class="{% if type != 'submit' %}input{% else %}btn vertFonce{% endif %}" type="{{ type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}" {{ required }}/>
+                            <input class="{% if type != 'submit' %}input{% else %}btn vertFonce{% endif %}" type="{{ type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}{% if required %} *{% endif %}" value="{{ value }}" {{ required }}/>
                             <img class="js-inject-me" src="{{ imgDir }}pictos/{{ picto }}.svg" alt=""/>
                         {% else %}
                             <textarea class="input" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" {{ required }}></textarea>

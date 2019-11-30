@@ -4,6 +4,18 @@
   padding: 40px 30px;
   border-radius: 5px;
 
+  div.container-error {
+    border: 1px solid $rougeFonce;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    padding: 0 20px;
+    color: $rougeFonce;
+
+    p {
+      width: 100%;
+    }
+  }
+
   > div {
     display: flex;
     justify-content: space-around;
@@ -94,6 +106,11 @@
       &:before {
         opacity: 1;
         transition: opacity 0.3s ease-in-out;
+      }
+
+      input {
+        border-color: $rougeFonce;
+        transition: all 0.3s ease-in-out;
       }
     }
   }
