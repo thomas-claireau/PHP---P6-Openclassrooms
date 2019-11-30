@@ -1,5 +1,6 @@
 {% extends "layout/layout.twig" %}
 {% set isContact = true %}
+{% set isSuccess = success %}
 {% block subtitle
 %}
     Contactez-moi
@@ -12,23 +13,29 @@
 {% endblock %}
 {% block main %}
     <main id="contact">
-        {{include("layout/formulaire.twig", {
-            fields: {
-                1: {
-                    1: { tag: 'input', type: 'text', name: 'prenom', placeholder: 'Votre prénom', picto: 'people', required: true},
-                    2: { tag: 'input', type: 'text', name: 'nom', placeholder: 'Votre nom', picto: 'people', required: true},
-                },
-                2: {
-                    1: { tag: 'input', type: 'mail', name: 'email', placeholder: 'Votre addresse email', picto: 'mail', required: true},
-                    2: { tag: 'input', type: 'tel', name: 'tel', placeholder: 'Votre numéro de téléphone', picto: 'tel', required: true},
-                },
-                3: {
-                    1: { tag: 'textarea', name: 'message', placeholder: 'Votre message', picto: 'message', required: true},
-                },
-                4: {
-                    1: { tag: 'input', type: 'submit', value: 'Envoyer'},
+        {% if success %}
+            <h2>Votre demande a bien été envoyée !</h2>
+            <p>Nous vous avons envoyé un récapitulatif de votre demande par email.</p>
+            <p>Nous vous répondrons dans les plus brefs délais</p>
+        {% else %}
+            {{include("layout/formulaire.twig", {
+                fields: {
+                    1: {
+                        1: { tag: 'input', type: 'text', name: 'prenom', placeholder: 'Votre prénom', picto: 'people', required: true},
+                        2: { tag: 'input', type: 'text', name: 'nom', placeholder: 'Votre nom', picto: 'people', required: true},
+                    },
+                    2: {
+                        1: { tag: 'input', type: 'mail', name: 'email', placeholder: 'Votre addresse email', picto: 'mail', required: true},
+                        2: { tag: 'input', type: 'tel', name: 'tel', placeholder: 'Votre numéro de téléphone', picto: 'tel'},
+                    },
+                    3: {
+                        1: { tag: 'textarea', name: 'message', placeholder: 'Votre message', picto: 'message', required: true},
+                    },
+                    4: {
+                        1: { tag: 'input', type: 'submit', value: 'Envoyer'},
+                    }
                 }
-            }
-        })}}
+            })}}
+        {% endif %}
     </main>
 {% endblock %}
