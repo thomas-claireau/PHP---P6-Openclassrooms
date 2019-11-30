@@ -18,6 +18,9 @@ public/img/
 # PHP Dependencies
 vendor/
 
+# exclude setup folder in Controller
+src/Controller/setup/
+
 # Created by https://www.gitignore.io/api/node,composer
 # Edit at https://www.gitignore.io/?templates=node,composer
 
