@@ -1,4 +1,9 @@
-<form id="form-contact" action="post" class="formulaire">
+{% if templateName == 'contact' %}
+    {% set actionUrl = '/index.php?access=mail' %}
+{% endif %}
+
+
+<form id="form-contact" action="{{actionUrl}}" method="post" class="formulaire">
     {% for blocks in fields %}
         <div>
             {% for field in blocks %}
