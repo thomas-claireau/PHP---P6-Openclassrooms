@@ -24,8 +24,8 @@ class ContactController extends MainController
     {
 
         return $this->render('contact.twig', [
-            'success' => $this->isFormSuccess(),
-            'error'   => $this->isFormError(),
+            'success'      => $this->isFormSuccess(),
+            'errorContact' => $this->isFormError(),
         ]);
     }
 
