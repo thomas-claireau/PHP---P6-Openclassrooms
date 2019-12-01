@@ -41,6 +41,7 @@ abstract class MainController
         $this->twig->addGlobal('isDistFolder', $this->folder_exist('dist'));
         $this->twig->addGlobal('templateName', $this->getTemplateName());
         $this->twig->addGlobal('imgDir', $this->getImgDir());
+        $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
     }
 
     /**
@@ -198,5 +199,10 @@ abstract class MainController
         } else {
             return false;
         }
+    }
+
+    public function getHomeUrl()
+    {
+        return 'https://' . $_SERVER['HTTP_HOST'];
     }
 }
