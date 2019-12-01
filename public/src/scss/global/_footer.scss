@@ -4,6 +4,11 @@ footer {
     text-align: center;
   }
 
+  .link-admin {
+    color: lighten($bleuClair, 20%);
+    text-decoration: underline;
+  }
+
   .reseaux {
     ul {
       display: flex;
