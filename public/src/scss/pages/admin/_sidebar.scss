@@ -1,0 +1,70 @@
+.sidebar {
+  position: fixed;
+  border: 2px solid $grisClair;
+  height: 100vh;
+  width: 300px;
+  z-index: -1;
+  padding: 105px 20px 20px 20px;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 10px;
+
+    > div {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+
+      &:not(:last-child) {
+        margin-bottom: 30px;
+      }
+
+      .label {
+        text-transform: uppercase;
+        font-weight: 300;
+        color: darken($grisClair, 30%);
+      }
+    }
+
+    li {
+      margin-top: 20px;
+
+      a {
+        color: inherit;
+        font-weight: 400;
+        transition: all 0.2s ease-in-out;
+        position: relative;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: -12px;
+          transform: translateY(-50%);
+          width: 5px;
+          height: 5px;
+          border-radius: 50px;
+          background-color: $vertFonce;
+          opacity: 0;
+          transition: opacity 0.3s ease-in-out;
+        }
+
+        &:hover,
+        &.active {
+          color: $vertFonce;
+          font-weight: 500;
+          transition: all 0.2s ease-in-out;
+
+          &:before {
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+  }
+}

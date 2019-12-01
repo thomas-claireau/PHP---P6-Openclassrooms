@@ -1,15 +1,16 @@
-{% extends 'layout/layout.twig' %}
+{% extends 'admin/layout.twig' %}
 
-{% block title %}Page d'admin
-{% endblock %}
-
-{% block subtitle %}Le titre de la page admin
-{% endblock %}
-
-{% block description %}Description méta pour la page admin
+{% block title %}Administration
 {% endblock %}
 
 {% block main %}
-
-    <main id="home"></main>
+    <main id="home">
+        <h2>Bonjour Thomas Claireau !</h2>
+        <p>A partir de cette interface, vous pouvez
+            <strong>gérer les commentaires</strong>
+            que vous postez sur le site mais aussi
+            <strong>gérer votre compte</strong>
+            (nom, pseudo, avatar...)
+        </p>
+    </main>
 {% endblock %}

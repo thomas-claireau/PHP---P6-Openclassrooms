@@ -1,0 +1,16 @@
+@import "pages/admin/menu";
+@import "pages/admin/sidebar";
+
+body.admin {
+  position: relative;
+  z-index: -1;
+  #home {
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 200px;
+
+    h2 {
+      text-align: left;
+    }
+  }
+}

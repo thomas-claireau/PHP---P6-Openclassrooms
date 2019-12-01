@@ -46,7 +46,12 @@
             </a>
         {% endif %}
 
-        {{ include("layout/menu.twig", { template: templateName }) }}
+        {% if templateName == 'admin' %}
+            {{ include("admin/menu.twig", { template: templateName }) }}
+        {% else %}
+            {{ include("layout/menu.twig", { template: templateName }) }}
+        {% endif %}
+
 
         {% if isContact or templateName == 'log' %}
             <div class="colonnes container">
