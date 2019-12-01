@@ -39,6 +39,14 @@
     top: -50px;
   }
 
+  main {
+    width: 345px;
+
+    @media screen and (max-width: $break-tablet) {
+      width: auto;
+    }
+  }
+
   .colonnes {
     display: flex;
     flex-direction: column;
