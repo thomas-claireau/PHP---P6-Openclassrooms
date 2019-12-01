@@ -22,8 +22,37 @@ class AdminController extends MainController
      */
     public function defaultMethod()
     {
+        session_start();
+
         return $this->render('admin.twig', [
-            'test' => 'AdminController',
+            'isActif' => self::isActif(),
+            'isAdmin' => self::isAdmin(),
+            'user'    => self::getUser(),
         ]);
+    }
+
+    public function isAdmin()
+    {
+        if (isset($_SESSION['admin'])) {
+            return $_SESSION['admin'];
+        }
+    }
+
+    public function isActif()
+    {
+        if (isset($_SESSION['actif'])) {
+            return $_SESSION['actif'];
+        }
+    }
+
+    public function getUser()
+    {
+        if (isset($_SESSION['id'])) {
+            $array['prenom'] = $_SESSION['prenom'];
+            $array['nom']    = $_SESSION['nom'];
+            $array['email']  = $_SESSION['email'];
+        }
+
+        return $array;
     }
 }
