@@ -23,12 +23,20 @@ class LogController extends MainController
     public function defaultMethod()
     {
         return $this->render('log.twig', [
-            'type' => $this->getType(),
+            'type'     => $this->getType(),
+            'errorLog' => $this->isFormError(),
         ]);
     }
 
     public function getType()
     {
         return $_GET['type'];
+    }
+
+    public function isFormError()
+    {
+        if (isset($_GET['error'])) {
+            return true;
+        }
     }
 }
