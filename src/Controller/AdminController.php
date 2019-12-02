@@ -25,9 +25,12 @@ class AdminController extends MainController
         session_start();
 
         return $this->render('admin.twig', [
-            'isActif' => self::isActif(),
-            'isAdmin' => self::isAdmin(),
-            'user'    => self::getUser(),
+            'isActif'    => self::isActif(),
+            'isAdmin'    => self::isAdmin(),
+            'user'       => self::getUser(),
+            'type'       => self::getType(),
+            'action'     => self::getAction(),
+            'requestUri' => self::getRequestUri(),
         ]);
     }
 
@@ -54,5 +57,24 @@ class AdminController extends MainController
         }
 
         return $array;
+    }
+
+    public function getType()
+    {
+        if (isset($_GET['type'])) {
+            return $_GET['type'];
+        }
+    }
+
+    public function getAction()
+    {
+        if (isset($_GET['action'])) {
+            return $_GET['action'];
+        }
+    }
+
+    public function getRequestUri()
+    {
+        return $_SERVER['REQUEST_URI'];
     }
 }

@@ -9,28 +9,31 @@
         <div>
             <div class="label">Admin</div>
             <li>
-                <a class="active" href="/index.php?access=admin">Dashboard</a>
+                <a href="/index.php?access=admin">Dashboard</a>
             </li>
         </div>
         <div>
             <div class="label">Commentaires</div>
             <li>
-                <a href="#">Consulter vos commentaires</a>
+                <a href="/index.php?access=admin&type=comments&action=view">Consulter vos commentaires</a>
             </li>
             <li>
-                <a href="#">Modifier un commentaire</a>
+                <a href="/index.php?access=admin&type=comments&action=update">Modifier un commentaire</a>
             </li>
             <li>
-                <a href="#">Supprimer un commentaire</a>
+                <a href="/index.php?access=admin&type=comments&action=remove">Supprimer un commentaire</a>
             </li>
         </div>
         <div>
             <div class="label">Compte</div>
             <li>
-                <a href="#">Gérer mon compte</a>
+                <a href="/index.php?access=admin&type=account&action=view">Gérer mon compte</a>
             </li>
             <li>
-                <a href="#">Supprimer mon compte</a>
+                <a href="/index.php?access=admin&type=account&action=remove">Supprimer mon compte</a>
+            </li>
+            <li>
+                <a href="/index.php?access=auth&action=logout">Déconnexion</a>
             </li>
         </div>
     </ul>

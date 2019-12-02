@@ -5,6 +5,8 @@ import functions from "./functions";
 
 import "./components/formulaire";
 
+import "./pages/admin";
+
 window.addEventListener("DOMContentLoaded", event => {
   functions.injectSvg();
 

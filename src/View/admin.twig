@@ -4,13 +4,25 @@
 {% endblock %}
 
 {% block main %}
-    <main id="home">
-        <h2>Bonjour Thomas Claireau !</h2>
-        <p>A partir de cette interface, vous pouvez
-            <strong>gérer les commentaires</strong>
-            que vous postez sur le site mais aussi
-            <strong>gérer votre compte</strong>
-            (nom, pseudo, avatar...)
-        </p>
+    {% if not type %}
+        {% set path = "admin/commons.twig" %}
+        {% set class = 'commons' %}
+    {% else %}
+        {% if type == 'comments' or type == 'account' %}
+            {% set path = 'admin/' ~ type ~ '.twig' %}
+
+            {% if action == 'view' or action == 'update' or action == 'remove' %}
+                {% set class = type ~ ' ' ~ action %}
+            {% else %}
+                {% set class = type %}
+            {% endif %}
+        {% else %}
+            {% set path = "admin/commons.twig" %}
+            {% set class = 'commons' %}
+        {% endif %}
+    {% endif %}
+
+    <main id="home" class="{{ class }}">
+        {% include path %}
     </main>
 {% endblock %}
