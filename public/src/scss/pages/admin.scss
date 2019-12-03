@@ -1,5 +1,7 @@
 @import "pages/admin/menu";
 @import "pages/admin/sidebar";
+@import "pages/admin/account.scss";
+@import "pages/admin/comments.scss";
 
 body.admin {
   position: relative;
@@ -11,6 +13,11 @@ body.admin {
 
     h2 {
       text-align: left;
+    }
+
+    &.account,
+    &.comments {
+      padding-top: 100px;
     }
   }
 }
