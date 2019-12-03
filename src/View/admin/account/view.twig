@@ -4,31 +4,29 @@
         <div class="avatar"></div>
     </div>
     <div class="infos">
-        <ul>
-            <li>
-                <span>Nom :</span>
-                Claireau
-            </li>
-            <li>
-                <span>Prénom :</span>
-                Thomas
-            </li>
-            <li>
-                <span>Email :</span>
-                thomas.claireau@gmail.com
-            </li>
-            <li>
-                <span>Mot de passe :</span>
-                <a href="#">Voir le mot de passe</a>
-            </li>
-            <li>
-                <span>Rôle :
-                </span>
-                Abonné
-            </li>
-        </ul>
-    </div>
-    <div class="actions">
-        <a href="#" class="btn vertFonce">Mettre à jour</a>
+        <form action="" method="post" class="disabled">
+            <ul>
+                <li>
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" value="Claireau" placeholder="Votre nom">
+                </li>
+                <li>
+                    <label for="enom">Prénom :</label>
+                    <input type="text" id="prenom" value="Thomas" placeholder="Votre prénom">
+                </li>
+                <li>
+                    <label for="email">Email :</label>
+                    <input type="mail" id="email" value="thomas.claireau@gmail.com" placeholder="Votre adresse email">
+                </li>
+                <li>
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" placeholder="Votre mot de passe">
+                </li>
+            </ul>
+            <div class="actions">
+                <input type="submit" class="btn vertFonce" value="Mettre à jour">
+                <a href="#" class="btn vertFonce triggerForm">Mettre à jour</a>
+            </div>
+        </form>
     </div>
 </div>

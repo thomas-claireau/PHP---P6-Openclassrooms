@@ -27,6 +27,10 @@
     @include btnStyle(#fff, $bleuClair);
   }
 
+  &.bleuFonce {
+    @include btnStyle(#fff, $bleuFonce);
+  }
+
   &.rougeFonce {
     @include btnStyle(#fff, $rougeFonce);
   }
