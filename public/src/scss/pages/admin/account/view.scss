@@ -1,0 +1,41 @@
+.account.view {
+  .titre-avatar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .avatar {
+    background-image: url("https://via.placeholder.com/100");
+    background-size: cover;
+    background-position: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    border: 1px solid #000;
+    margin: 0 40px;
+  }
+
+  .infos {
+    margin-top: 30px;
+
+    ul li {
+      font-size: 22px;
+      font-weight: 300;
+
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+
+      span {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .actions {
+    a {
+      width: 310px;
+      margin-top: 30px;
+    }
+  }
+}
