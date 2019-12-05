@@ -182,23 +182,24 @@ abstract class MainController
 
         if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             return $mail;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     public function getTel()
     {
         $tel = htmlspecialchars($_POST['tel']);
+
         $tel = str_replace(' ', '', $tel);
         $tel = str_replace('-', '', $tel);
         $tel = str_replace('.', '', $tel);
 
         if (preg_match("/^((\+)33|0)[1-9](\d{2}){4}$/", $tel)) {
             return $tel;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     public function getHomeUrl()

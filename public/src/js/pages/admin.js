@@ -88,4 +88,55 @@ window.addEventListener("DOMContentLoaded", event => {
       });
     });
   }
+
+  // comments remove
+  const isCommentsRemove = document.querySelector(".comments.remove");
+
+  if (isCommentsRemove) {
+    const commentaires = isCommentsRemove.querySelectorAll(".commentaire");
+
+    commentaires.forEach(commentaire => {
+      const btnRetour = commentaire.querySelector(".retour");
+
+      commentaire.addEventListener("click", () => {
+        // retour
+        btnRetour.addEventListener("click", () => {
+          commentaire.classList.remove("active");
+          commentaire.classList.add("back-ok");
+        });
+
+        // remove element in front
+        const btnRemove = isCommentsRemove.querySelector(".confirm");
+        btnRemove.addEventListener("click", () => {
+          if (commentaire.classList.contains("active")) {
+            commentaire.classList.add("remove");
+
+            setTimeout(() => {
+              commentaire.remove();
+              console.log(commentaires.length);
+            }, 300);
+          }
+        });
+
+        // activer
+        commentaires.forEach(commentaire => {
+          if (commentaire.classList.contains("active")) {
+            commentaire.classList.remove("active");
+          }
+        });
+
+        if (
+          !commentaire.classList.contains("active") &&
+          !commentaire.classList.contains("back-ok")
+        ) {
+          commentaire.classList.add("active");
+        } else {
+          if (commentaire.classList.contains("back-ok")) {
+            commentaire.classList.remove("active");
+            commentaire.classList.remove("back-ok");
+          }
+        }
+      });
+    });
+  }
 });
