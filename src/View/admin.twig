@@ -8,7 +8,7 @@
         {% set path = "admin/commons.twig" %}
         {% set class = 'commons' %}
     {% else %}
-        {% if type == 'comments' or type == 'account' %}
+        {% if isAdmin and type == 'posts' %}
             {% set path = 'admin/' ~ type ~ '.twig' %}
 
             {% if action == 'view' or action == 'update' or action == 'remove' %}
@@ -17,8 +17,18 @@
                 {% set class = type %}
             {% endif %}
         {% else %}
-            {% set path = "admin/commons.twig" %}
-            {% set class = 'commons' %}
+            {% if type == 'comments' or type == 'account' %}
+                {% set path = 'admin/' ~ type ~ '.twig' %}
+
+                {% if action == 'view' or action == 'update' or action == 'remove' %}
+                    {% set class = type ~ ' ' ~ action %}
+                {% else %}
+                    {% set class = type %}
+                {% endif %}
+            {% else %}
+                {% set path = "admin/commons.twig" %}
+                {% set class = 'commons' %}
+            {% endif %}
         {% endif %}
     {% endif %}
 

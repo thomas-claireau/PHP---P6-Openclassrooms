@@ -12,6 +12,15 @@
                 <a href="/index.php?access=admin">Dashboard</a>
             </li>
         </div>
+        {% if isAdmin %}
+            <div>
+                <div class="label">Articles</div>
+                <li>
+                    <a href="/index.php?access=admin&type=posts&action=view">Consulter vos articles</a>
+                </li>
+            </div>
+        {% endif %}
+
         <div>
             <div class="label">Commentaires</div>
             <li>

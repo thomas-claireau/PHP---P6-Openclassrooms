@@ -19,5 +19,16 @@ body.admin {
     &.comments {
       padding-top: 100px;
     }
+
+    &.posts {
+      padding-top: 100px;
+      padding-bottom: 100px;
+
+      &#home {
+        width: 60%;
+        position: relative;
+        left: 50px;
+      }
+    }
   }
 }
