@@ -1,3 +1,13 @@
+// Import TinyMCE
+import tinymce from 'tinymce/tinymce';
+
+// A theme is also required
+import 'tinymce/themes/silver';
+
+// Any plugins you want to use has to be imported
+import 'tinymce/plugins/paste';
+import 'tinymce/plugins/link';
+
 window.addEventListener('DOMContentLoaded', (event) => {
 	const requestUri = location.pathname + location.search;
 	const linkTarget = document.querySelector(`.admin .sidebar a[href="${requestUri}"]`);
@@ -141,4 +151,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	}
 
 	const isPostUpdate = document.querySelector('.posts.update');
+
+	if (isPostUpdate) {
+		// Initialize the app
+		require.context(
+			'!file-loader?name=[path][name].[ext]&context=node_modules/tinymce&outputPath=js!tinymce/skins',
+			true,
+			/.*/
+		);
+
+		tinymce.init({
+			selector: '#test',
+			plugins: ['paste', 'link'],
+		});
+	}
 });
