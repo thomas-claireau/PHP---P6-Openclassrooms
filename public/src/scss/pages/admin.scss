@@ -1,34 +1,35 @@
-@import "pages/admin/menu";
-@import "pages/admin/sidebar";
-@import "pages/admin/account.scss";
-@import "pages/admin/comments.scss";
+@import 'pages/admin/menu';
+@import 'pages/admin/sidebar';
+@import 'pages/admin/account.scss';
+@import 'pages/admin/comments.scss';
+@import 'pages/admin/posts.scss';
 
 body.admin {
-  position: relative;
-  z-index: -1;
-  #home {
-    width: 50%;
-    margin: 0 auto;
-    padding-top: 200px;
+	position: relative;
+	z-index: -1;
+	#home {
+		width: 50%;
+		margin: 0 auto;
+		padding-top: 200px;
 
-    h2 {
-      text-align: left;
-    }
+		h2 {
+			text-align: left;
+		}
 
-    &.account,
-    &.comments {
-      padding-top: 100px;
-    }
+		&.account,
+		&.comments {
+			padding-top: 100px;
+		}
 
-    &.posts {
-      padding-top: 100px;
-      padding-bottom: 100px;
+		&.posts {
+			padding-top: 100px;
+			padding-bottom: 100px;
 
-      &#home {
-        width: 60%;
-        position: relative;
-        left: 50px;
-      }
-    }
-  }
+			&#home {
+				width: 60%;
+				position: relative;
+				left: 50px;
+			}
+		}
+	}
 }

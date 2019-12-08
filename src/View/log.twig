@@ -1,12 +1,12 @@
 {% extends 'layout/layout.twig' %}
 
 {% if type %}
-    {% if type == "connexion" %}
-        {% set title = "Page de connexion" %}
-        {% set subtitle = "Sous titre de la page connexion" %}
-        {% set description = "description de la page" %}
-        {% set isForm = true %}
-        {% set formulaire = {
+	{% if type == "connexion" %}
+		{% set title = "Page de connexion" %}
+		{% set subtitle = "Sous titre de la page connexion" %}
+		{% set description = "description de la page" %}
+		{% set isForm = true %}
+		{% set formulaire = {
             1: {
                 1: { tag: 'input', type: 'mail', name: 'email', placeholder: 'Votre adresse email', picto: 'people', required: true},
             },
@@ -20,12 +20,12 @@
         }
     %}
 
-    {% elseif type == "creation" %}
-        {% set title = "Page de création" %}
-        {% set subtitle = "Sous titre de la page creation" %}
-        {% set description = "description de la page" %}
-        {% set isForm = true %}
-        {% set formulaire = {
+	{% elseif type == "creation" %}
+		{% set title = "Page de création" %}
+		{% set subtitle = "Sous titre de la page creation" %}
+		{% set description = "description de la page" %}
+		{% set isForm = true %}
+		{% set formulaire = {
             1: {
                 1: { tag: 'input', type: 'text', name: 'prenom', placeholder: 'Votre prénom', picto: 'people', required: true},
             },
@@ -44,12 +44,12 @@
         }
     %}
 
-    {% elseif type == "mot-de-passe-oublie" %}
-        {% set title = "Page de mot de passe oublié" %}
-        {% set subtitle = "Sous titre de la page mot de passe oublié" %}
-        {% set description = "description de la page" %}
-        {% set isForm = true %}
-        {% set formulaire = {
+	{% elseif type == "mot-de-passe-oublie" %}
+		{% set title = "Page de mot de passe oublié" %}
+		{% set subtitle = "Sous titre de la page mot de passe oublié" %}
+		{% set description = "description de la page" %}
+		{% set isForm = true %}
+		{% set formulaire = {
             1: {
                 1: { tag: 'input', type: 'mail', name: 'email', placeholder: 'Entrez votre adresse email', picto: 'mail', required: true},
             },
