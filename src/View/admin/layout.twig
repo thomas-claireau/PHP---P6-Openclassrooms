@@ -1,41 +1,37 @@
 <!DOCTYPE html>
 <html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<title>
+			{% block title %}
+			{{ block('title') }}
+			{% endblock %}
+		</title>
 
-        <title>
-            {% block title %}
-                {{ block("title") }}
-            {% endblock %}
-        </title>
+		<link rel="canonical" href="{% block canonical %}{{ url }}{% endblock %}" />
+		<link rel="icon" type="image/x-icon" href="img/favicon.ico" />
 
-        <link rel="canonical" href="{% block canonical %}{{ url }}{% endblock %}"/>
-        <link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
+		<meta name="author" content="Thomas Claireau" />
+		<meta name="copyright" content="MIT" />
+		<meta name="robots" content="noindex" />
 
-        <meta name="author" content="Thomas Claireau"/>
-        <meta name="copyright" content="MIT"/>
-        <meta name="robots" content="noindex"/>
+		{% if (isLocalhost != true) %}
+		<link rel="stylesheet" href="{{ url }}/dist/css/main.css" />
+		{% endif %}
+	</head>
 
-        {% if (isLocalhost != true) %}
-            <link rel="stylesheet" href="{{ url }}/dist/css/main.css"/>
-        {% endif %}
-    </head>
+	<body class="{{ templateName }}">
+		{{ include('admin/menu.twig', { template: templateName, title: block('title') }) }}
 
-    <body class="{{ templateName }}">
-        {{ include("admin/menu.twig", { template: templateName, title: block("title") }) }}
+		{{ include('admin/sidebar.twig') }}
 
-        {{ include("admin/sidebar.twig") }}
-
-        {% block main %}{% endblock %}
-
-        {% if (isLocalhost == true) and (isDistFolder != true) %}
-            <script src="{{ url }}/src/js/main.js"></script>
-        {% else %}
-            <script type="text/javascript" src="{{ url }}/dist/js/main.js"></script>
-        {% endif %}
-    </body>
-
+		{% block main %}{% endblock %} {% if (isLocalhost == true) and (isDistFolder != true) %}
+		<script src="{{ url }}/src/js/main.js"></script>
+		{% else %}
+		<script type="text/javascript" src="{{ url }}/dist/js/main.js"></script>
+		{% endif %}
+	</body>
 </html>

@@ -1,142 +1,167 @@
-window.addEventListener("DOMContentLoaded", event => {
-  const requestUri = location.pathname + location.search;
-  const linkTarget = document.querySelector(
-    `.admin .sidebar a[href="${requestUri}"]`
-  );
-  linkTarget.classList.add("active");
+// Import TinyMCE
+import tinymce from 'tinymce';
 
-  // account view
-  const isAccountView = document.querySelector(".admin .account.view");
+// A theme is also required
+// import 'tinymce/themes/silver';
 
-  if (isAccountView) {
-    const form = isAccountView.querySelector("form");
-    const containerAction = isAccountView.querySelector(".actions");
+// Any plugins you want to use has to be imported
+// import 'tinymce/plugins/paste';
+// import 'tinymce/plugins/link';
 
-    if (containerAction) {
-      const trigerForm = containerAction.querySelector(".triggerForm");
+// Initialize the app
 
-      trigerForm.addEventListener("click", () => {
-        if (form.classList.contains("disabled")) {
-          trigerForm.textContent = "Annuler";
-          trigerForm.classList.remove("vertFonce");
-          trigerForm.classList.add("rougeFonce");
-        } else {
-          trigerForm.textContent = "Mettre à jour";
-          trigerForm.classList.remove("rougeFonce");
-          trigerForm.classList.add("vertFonce");
-        }
-        form.classList.toggle("disabled");
-      });
-    }
-  }
+window.addEventListener('DOMContentLoaded', (event) => {
+	tinymce.init({
+		selector: '#test',
+	});
+	const requestUri = location.pathname + location.search;
+	const linkTarget = document.querySelector(`.admin .sidebar a[href="${requestUri}"]`);
+	if (linkTarget) {
+		linkTarget.classList.add('active');
+	}
 
-  // comments update
-  const isCommentsUpdate = document.querySelector(".comments.update");
+	// account view
+	const isAccountView = document.querySelector('.admin .account.view');
 
-  if (isCommentsUpdate) {
-    const commentaires = isCommentsUpdate.querySelectorAll(".commentaire");
+	if (isAccountView) {
+		const form = isAccountView.querySelector('form');
+		const containerAction = isAccountView.querySelector('.actions');
 
-    commentaires.forEach(commentaire => {
-      commentaire.addEventListener("click", e => {
-        const textarea = commentaire.querySelector("textarea");
-        const defaultContenu = textarea.value;
+		if (containerAction) {
+			const trigerForm = containerAction.querySelector('.triggerForm');
 
-        // fermer les commentaires existants
-        commentaires.forEach(item => {
-          if (item.classList.contains("active")) {
-            const textareaItem = item.querySelector("textarea");
-            const contenu = textareaItem.value;
+			trigerForm.addEventListener('click', () => {
+				if (form.classList.contains('disabled')) {
+					trigerForm.textContent = 'Annuler';
+					trigerForm.classList.remove('vertFonce');
+					trigerForm.classList.add('rougeFonce');
+				} else {
+					trigerForm.textContent = 'Mettre à jour';
+					trigerForm.classList.remove('rougeFonce');
+					trigerForm.classList.add('vertFonce');
+				}
+				form.classList.toggle('disabled');
+			});
+		}
+	}
 
-            if (contenu !== defaultContenu) {
-              textareaItem.value = defaultContenu;
-            }
+	// comments update
+	const isCommentsUpdate = document.querySelector('.comments.update');
 
-            item.classList.remove("active");
-            item.querySelector("form").classList.add("disabled");
-          }
-        });
+	if (isCommentsUpdate) {
+		const commentaires = isCommentsUpdate.querySelectorAll('.commentaire');
 
-        const comTarget = e.currentTarget;
+		commentaires.forEach((commentaire) => {
+			commentaire.addEventListener('click', (e) => {
+				const textarea = commentaire.querySelector('textarea');
+				const defaultContenu = textarea.value;
 
-        if (
-          comTarget &&
-          !comTarget.classList.contains("active") &&
-          !comTarget.classList.contains("disabled")
-        ) {
-          const form = comTarget.querySelector("form");
-          const cross = comTarget.querySelector(".close");
-          comTarget.classList.add("active");
-          form.classList.remove("disabled");
+				// fermer les commentaires existants
+				commentaires.forEach((item) => {
+					if (item.classList.contains('active')) {
+						const textareaItem = item.querySelector('textarea');
+						const contenu = textareaItem.value;
 
-          if (cross) {
-            cross.addEventListener("click", () => {
-              const textareaTarget = comTarget.querySelector("textarea");
-              const contenu = textareaTarget.value;
+						if (contenu !== defaultContenu) {
+							textareaItem.value = defaultContenu;
+						}
 
-              if (contenu !== defaultContenu) {
-                textareaTarget.value = defaultContenu;
-              }
+						item.classList.remove('active');
+						item.querySelector('form').classList.add('disabled');
+					}
+				});
 
-              form.classList.add("disabled");
-              comTarget.classList.remove("active");
-              comTarget.classList.add("disabled");
-            });
-          }
-        } else {
-          comTarget.classList.remove("disabled");
-        }
-      });
-    });
-  }
+				const comTarget = e.currentTarget;
 
-  // comments remove
-  const isCommentsRemove = document.querySelector(".comments.remove");
+				if (
+					comTarget &&
+					!comTarget.classList.contains('active') &&
+					!comTarget.classList.contains('disabled')
+				) {
+					const form = comTarget.querySelector('form');
+					const cross = comTarget.querySelector('.close');
+					comTarget.classList.add('active');
+					form.classList.remove('disabled');
 
-  if (isCommentsRemove) {
-    const commentaires = isCommentsRemove.querySelectorAll(".commentaire");
+					if (cross) {
+						cross.addEventListener('click', () => {
+							const textareaTarget = comTarget.querySelector('textarea');
+							const contenu = textareaTarget.value;
 
-    commentaires.forEach(commentaire => {
-      const btnRetour = commentaire.querySelector(".retour");
+							if (contenu !== defaultContenu) {
+								textareaTarget.value = defaultContenu;
+							}
 
-      commentaire.addEventListener("click", () => {
-        // retour
-        btnRetour.addEventListener("click", () => {
-          commentaire.classList.remove("active");
-          commentaire.classList.add("back-ok");
-        });
+							form.classList.add('disabled');
+							comTarget.classList.remove('active');
+							comTarget.classList.add('disabled');
+						});
+					}
+				} else {
+					comTarget.classList.remove('disabled');
+				}
+			});
+		});
+	}
 
-        // remove element in front
-        const btnRemove = isCommentsRemove.querySelector(".confirm");
-        btnRemove.addEventListener("click", () => {
-          if (commentaire.classList.contains("active")) {
-            commentaire.classList.add("remove");
+	// comments remove
+	const isCommentsRemove = document.querySelector('.comments.remove');
 
-            setTimeout(() => {
-              commentaire.remove();
-              console.log(commentaires.length);
-            }, 300);
-          }
-        });
+	if (isCommentsRemove) {
+		const commentaires = isCommentsRemove.querySelectorAll('.commentaire');
 
-        // activer
-        commentaires.forEach(commentaire => {
-          if (commentaire.classList.contains("active")) {
-            commentaire.classList.remove("active");
-          }
-        });
+		commentaires.forEach((commentaire) => {
+			const btnRetour = commentaire.querySelector('.retour');
 
-        if (
-          !commentaire.classList.contains("active") &&
-          !commentaire.classList.contains("back-ok")
-        ) {
-          commentaire.classList.add("active");
-        } else {
-          if (commentaire.classList.contains("back-ok")) {
-            commentaire.classList.remove("active");
-            commentaire.classList.remove("back-ok");
-          }
-        }
-      });
-    });
-  }
+			commentaire.addEventListener('click', () => {
+				// retour
+				btnRetour.addEventListener('click', () => {
+					commentaire.classList.remove('active');
+					commentaire.classList.add('back-ok');
+				});
+
+				// remove element in front
+				const btnRemove = isCommentsRemove.querySelector('.confirm');
+				btnRemove.addEventListener('click', () => {
+					if (commentaire.classList.contains('active')) {
+						commentaire.classList.add('remove');
+
+						setTimeout(() => {
+							commentaire.remove();
+							console.log(commentaires.length);
+						}, 300);
+					}
+				});
+
+				// activer
+				commentaires.forEach((commentaire) => {
+					if (commentaire.classList.contains('active')) {
+						commentaire.classList.remove('active');
+					}
+				});
+
+				if (
+					!commentaire.classList.contains('active') &&
+					!commentaire.classList.contains('back-ok')
+				) {
+					commentaire.classList.add('active');
+				} else {
+					if (commentaire.classList.contains('back-ok')) {
+						commentaire.classList.remove('active');
+						commentaire.classList.remove('back-ok');
+					}
+				}
+			});
+		});
+	}
 });
+
+// document.onreadystatechange = function() {
+// 	const isPostUpdate = document.querySelector('.posts.update');
+// 	if (document.readyState == 'complete' && isPostUpdate) {
+// 	}
+// };
+
+// tinymce.init({
+// 	selector: '#test',
+// });
