@@ -7,6 +7,9 @@
 # Exclude public dist folder
 /public/dist/
 
+#exclude package lock public folder
+/public/package-lock.json
+
 /public/.cache-loader/
 
 # Fonts
