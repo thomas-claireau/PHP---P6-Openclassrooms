@@ -1,5 +1,3 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
 window.addEventListener('DOMContentLoaded', (event) => {
 	const requestUri = location.pathname + location.search;
 	const linkTarget = document.querySelector(`.admin .sidebar a[href="${requestUri}"]`);
@@ -143,10 +141,4 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	}
 
 	const isPostUpdate = document.querySelector('.posts.update');
-
-	if (isPostUpdate) {
-		ClassicEditor.create(document.querySelector('#test')).catch((error) => {
-			console.error(error);
-		});
-	}
 });

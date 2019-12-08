@@ -61,8 +61,5 @@
 		"webpack": "^4.20.2",
 		"webpack-dev-middleware": "^3.4.0",
 		"webpack-hot-middleware": "^2.24.3"
-	},
-	"dependencies": {
-		"@ckeditor/ckeditor5-build-classic": "^16.0.0"
 	}
 }
