@@ -1,19 +1,6 @@
-// Import TinyMCE
-import tinymce from 'tinymce';
-
-// A theme is also required
-// import 'tinymce/themes/silver';
-
-// Any plugins you want to use has to be imported
-// import 'tinymce/plugins/paste';
-// import 'tinymce/plugins/link';
-
-// Initialize the app
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 window.addEventListener('DOMContentLoaded', (event) => {
-	tinymce.init({
-		selector: '#test',
-	});
 	const requestUri = location.pathname + location.search;
 	const linkTarget = document.querySelector(`.admin .sidebar a[href="${requestUri}"]`);
 	if (linkTarget) {
@@ -154,14 +141,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			});
 		});
 	}
+
+	const isPostUpdate = document.querySelector('.posts.update');
+
+	if (isPostUpdate) {
+		ClassicEditor.create(document.querySelector('#test')).catch((error) => {
+			console.error(error);
+		});
+	}
 });
-
-// document.onreadystatechange = function() {
-// 	const isPostUpdate = document.querySelector('.posts.update');
-// 	if (document.readyState == 'complete' && isPostUpdate) {
-// 	}
-// };
-
-// tinymce.init({
-// 	selector: '#test',
-// });
