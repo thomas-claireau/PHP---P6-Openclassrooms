@@ -12,12 +12,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const isCommentsUpdate = document.querySelector('.comments.update');
 
 	if (isCommentsUpdate) {
-		const editorSelector = $('.commentaire #contenu');
 		const commentaires = isCommentsUpdate.querySelectorAll('.commentaire');
 
-		commentaires.forEach((commentaire) => {
+		commentaires.forEach((commentaire, index) => {
 			commentaire.addEventListener('click', (e) => {
-				const textarea = commentaire.querySelector('textarea');
+				const indexCom = index + 1;
+				const textarea = commentaire.querySelector('#commentaire-' + indexCom);
 				const defaultContenu = textarea.value;
 
 				// tinymce editor commentaire
@@ -29,12 +29,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				});
 
 				// fermer les commentaires existants
-				commentaires.forEach((item) => {
+				commentaires.forEach((item, index) => {
 					if (item.classList.contains('active')) {
-						const textareaItem = item.querySelector('textarea');
-						const contenu = textareaItem.value;
+						const indexCom = index + 1;
+						const textareaItem = item.querySelector('#commentaire-' + indexCom);
+						const contenu = tinymce.activeEditor.getContent();
 
-						tinymce.remove('.commentaire #contenu');
+						tinymce.remove('#commentaire-' + indexCom);
 
 						if (contenu !== defaultContenu) {
 							textareaItem.value = defaultContenu;
@@ -67,11 +68,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 					if (cross) {
 						cross.addEventListener('click', () => {
-							const textareaTarget = comTarget.querySelector('textarea');
-							const contenu = textareaTarget.value;
+							const textareaTarget = comTarget.querySelector('#contenu');
+							const contenu = tinyMCE.activeEditor.getContent();
 
-							tinymce.remove('.commentaire #contenu');
-							textareaTarget.style.display = 'none';
+							tinymce.execCommand('mceRemoveControl', true, '#contenu');
 
 							if (contenu !== defaultContenu) {
 								textareaTarget.value = defaultContenu;
@@ -113,7 +113,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 						setTimeout(() => {
 							commentaire.remove();
-							console.log(commentaires.length);
 						}, 300);
 					}
 				});

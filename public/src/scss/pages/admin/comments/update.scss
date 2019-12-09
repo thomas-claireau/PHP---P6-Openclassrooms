@@ -1,137 +1,150 @@
 .comments.update {
-  .commentaires {
-    .commentaire {
-      cursor: pointer;
-      transform: translateY(0);
-      transition: all 0.3s ease-in-out;
+	.commentaires {
+		.commentaire {
+			cursor: pointer;
+			transform: translateY(0);
+			transition: all 0.3s ease-in-out;
 
-      &:hover,
-      &.active {
-        transform: translateY(-5px);
-        transition: all 0.3s ease-in-out;
-      }
+			&:hover,
+			&.active {
+				transform: translateY(-5px);
+				transition: all 0.3s ease-in-out;
+			}
 
-      .right {
-        form {
-          width: 100%;
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
+			.right {
+				form {
+					width: 100%;
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
 
-          &.disabled {
-            #contenu {
-              border: none;
-              cursor: pointer;
-              overflow: hidden;
-            }
+					&.disabled {
+						textarea {
+							border: none;
+							cursor: pointer;
+							overflow: hidden;
+						}
 
-            input[type="submit"] {
-              opacity: 0;
-              transition: opacity 0.3s ease-in-out;
-              position: absolute;
-              right: 0;
-              z-index: -1;
-            }
-          }
+						input[type='submit'] {
+							opacity: 0;
+							transition: opacity 0.3s ease-in-out;
+							position: absolute;
+							right: 0;
+							z-index: -1;
+						}
+					}
 
-          input[type="submit"] {
-            width: 200px;
-            -webkit-appearance: none;
-            border: none;
-            height: 40px;
-            padding-top: 0;
-            padding-bottom: 0;
-            font-size: 16px;
-            opacity: 1;
-            position: initial;
-            z-index: 1;
-            transition: all 0.3s ease-in-out;
-            margin-left: 20px;
-            margin-top: 60px;
-          }
+					.actions {
+						margin-left: 20px;
+						opacity: 0;
+						position: absolute;
+						z-index: -1;
+						transition: all 0.3s ease-in-out;
+						input[type='submit'] {
+							width: 200px;
+							-webkit-appearance: none;
+							border: none;
+							height: 40px;
+							padding-top: 0;
+							padding-bottom: 0;
+							font-size: 16px;
+							opacity: 1;
+							position: initial;
+							z-index: 1;
+							transition: all 0.3s ease-in-out;
+							margin-top: 60px;
+						}
 
-          .close {
-            opacity: 0;
-            position: absolute;
-            top: 30px;
-            right: 66px;
-            z-index: -1;
-            transition: all 0.3s ease-in-out;
+						.close {
+							opacity: 0;
+							position: absolute;
+							top: 0;
+							left: 50%;
+							transform: translateX(-50%);
+							z-index: -1;
+							transition: all 0.3s ease-in-out;
 
-            width: 30px;
-            height: 30px;
+							width: 30px;
+							height: 30px;
 
-            svg {
-              width: 100%;
-              height: 100%;
-              position: relative;
-              z-index: 2;
+							svg {
+								width: 100%;
+								height: 100%;
+								position: relative;
+								z-index: 2;
 
-              path {
-                fill: $rougeFonce;
-                transition: all 0.3s ease-in-out;
-              }
-            }
+								path {
+									fill: $rougeFonce;
+									transition: all 0.3s ease-in-out;
+								}
+							}
+							&:hover {
+								&:before {
+									background-color: $rougeFonce;
+									transition: all 0.3s ease-in-out;
+								}
 
-            &:hover {
-              &:before {
-                background-color: $rougeFonce;
-                transition: all 0.3s ease-in-out;
-              }
+								svg {
+									path {
+										fill: #fff;
+										transition: all 0.3s ease-in-out;
+									}
+								}
+							}
 
-              svg {
-                path {
-                  fill: #fff;
-                  transition: all 0.3s ease-in-out;
-                }
-              }
-            }
+							&:before {
+								content: '';
+								position: absolute;
+								top: 50%;
+								left: 50%;
+								transform: translate(-50%, -50%);
+								width: 50px;
+								height: 50px;
+								background-color: #fff;
+								border: 2px solid $rougeFonce;
+								z-index: 1;
+								border-radius: 50px;
+								transition: background-color 0.3s ease-in-out;
+							}
+						}
+					}
 
-            &:before {
-              content: "";
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              width: 50px;
-              height: 50px;
-              background-color: #fff;
-              border: 2px solid $rougeFonce;
-              z-index: 1;
-              border-radius: 50px;
-              transition: background-color 0.3s ease-in-out;
-            }
-          }
+					&:not(.disabled) {
+						position: relative;
+						textarea {
+							height: 150px;
+							padding: 20px;
+						}
 
-          &:not(.disabled) {
-            position: relative;
-            #contenu {
-              height: 150px;
-              padding: 20px;
-            }
+						.actions {
+							opacity: 1;
+							transition: all 0.3s ease-in-out;
+							position: relative;
+							z-index: 1;
+						}
 
-            .close {
-              opacity: 1;
-              z-index: 1000;
-              transition: opacity 0.3s ease-in-out;
-            }
-          }
+						.close {
+							opacity: 1;
+							z-index: 1000;
+							transition: opacity 0.3s ease-in-out;
+						}
+					}
 
-          #contenu {
-            margin-top: 10px;
-            font-size: 17px;
-            resize: none;
-            width: 100%;
-            border: 1px solid darken($grisClair, 14%);
-            border-radius: 10px;
+					textarea {
+						margin-top: 10px;
+						font-size: 17px;
+						resize: none;
+						width: 100%;
+						border: 1px solid darken($grisClair, 14%);
+						border-radius: 10px;
 
-            &:hover,
-            &:focus {
-              outline: 0;
-            }
-          }
-        }
-      }
-    }
-  }
+						&:hover,
+						&:focus {
+							outline: 0;
+						}
+					}
+				}
+			}
+		}
+	}
 }
