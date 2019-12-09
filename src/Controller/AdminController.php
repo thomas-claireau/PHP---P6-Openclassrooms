@@ -24,6 +24,8 @@ class AdminController extends MainController
     {
         session_start();
 
+        self::redirectLogin();
+       
         return $this->render('admin.twig', [
             'isActif'    => self::isActif(),
             'isAdmin'    => self::isAdmin(),
@@ -56,7 +58,10 @@ class AdminController extends MainController
             $array['email']  = $_SESSION['email'];
         }
 
-        return $array;
+        if (isset($array)) {
+            return $array;
+        }
+
     }
 
     public function getType()
@@ -76,5 +81,11 @@ class AdminController extends MainController
     public function getRequestUri()
     {
         return $_SERVER['REQUEST_URI'];
+    }
+
+    public function redirectLogin() {
+        if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom']) && !isset($_SESSION['email']) && !isset($_SESSION['id'])) {
+            header('Location: /index.php?access=log&type=connexion');
+        } 
     }
 }
