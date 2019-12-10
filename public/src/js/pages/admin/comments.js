@@ -1,5 +1,6 @@
 import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/silver';
+import functions from '../../functions';
 
 const tinyPlugins = ['paste', 'link', 'autoresize'];
 
@@ -12,15 +13,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const isCommentsUpdate = document.querySelector('.comments.update');
 
 	if (isCommentsUpdate) {
+		const loader = document.querySelector('.LoaderBalls');
 		const commentaires = isCommentsUpdate.querySelectorAll('.commentaire');
 
 		commentaires.forEach((commentaire, index) => {
 			commentaire.addEventListener('click', (e) => {
+				if (e.target.tagName !== 'A') {
+					functions.loader();
+				}
 				const indexCom = index + 1;
 				const textarea = commentaire.querySelector('#commentaire-' + indexCom);
 				const defaultContenu = textarea.value;
-
-				console.log(e.target.tagName);
 
 				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA') {
 					if (!commentaire.classList.contains('active')) {
@@ -50,42 +53,42 @@ window.addEventListener('DOMContentLoaded', (event) => {
 							}
 						});
 					}
-				}
 
-				const comTarget = e.currentTarget;
+					const comTarget = e.currentTarget;
 
-				if (
-					comTarget &&
-					!comTarget.classList.contains('active') &&
-					!comTarget.classList.contains('disabled')
-				) {
-					const form = comTarget.querySelector('form');
-					const cross = comTarget.querySelector('.close');
-					comTarget.classList.add('active');
-					form.classList.remove('disabled');
+					if (
+						comTarget &&
+						!comTarget.classList.contains('active') &&
+						!comTarget.classList.contains('disabled')
+					) {
+						const form = comTarget.querySelector('form');
+						const cross = comTarget.querySelector('.close');
+						comTarget.classList.add('active');
+						form.classList.remove('disabled');
 
-					if (cross) {
-						cross.addEventListener('click', (e) => {
-							const textareaTarget = comTarget.querySelector('textarea');
-							console.log(tinymce.activeEditor);
-							const contenu = tinymce.activeEditor.getContent();
-							const tinyTarget = comTarget.querySelector('.tox-tinymce');
+						if (cross) {
+							cross.addEventListener('click', (e) => {
+								const textareaTarget = comTarget.querySelector('textarea');
+								console.log(tinymce.activeEditor);
+								const contenu = tinymce.activeEditor.getContent();
+								const tinyTarget = comTarget.querySelector('.tox-tinymce');
 
-							tinyTarget.remove();
+								tinyTarget.remove();
 
-							tinymce.remove('#' + textareaTarget.id);
+								tinymce.remove('#' + textareaTarget.id);
 
-							if (contenu !== defaultContenu) {
-								textareaTarget.value = defaultContenu;
-							}
+								if (contenu !== defaultContenu) {
+									textareaTarget.value = defaultContenu;
+								}
 
-							form.classList.add('disabled');
-							comTarget.classList.remove('active');
-							comTarget.classList.add('disabled');
-						});
+								form.classList.add('disabled');
+								comTarget.classList.remove('active');
+								comTarget.classList.add('disabled');
+							});
+						}
+					} else {
+						comTarget.classList.remove('disabled');
 					}
-				} else {
-					comTarget.classList.remove('disabled');
 				}
 			});
 		});

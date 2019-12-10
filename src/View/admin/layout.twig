@@ -24,6 +24,7 @@
 	</head>
 
 	<body class="{{ templateName }}">
+		{% include "admin/loader.twig" %}
 		{{ include('admin/menu.twig', { template: templateName, title: block('title') }) }}
 
 		{{ include('admin/sidebar.twig') }}
