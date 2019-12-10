@@ -13,7 +13,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const isCommentsUpdate = document.querySelector('.comments.update');
 
 	if (isCommentsUpdate) {
-		const loader = document.querySelector('.LoaderBalls');
 		const commentaires = isCommentsUpdate.querySelectorAll('.commentaire');
 
 		commentaires.forEach((commentaire, index) => {
