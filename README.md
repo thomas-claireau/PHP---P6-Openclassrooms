@@ -1,7 +1,6 @@
 # [PHP] - P5 Openclassrooms - Créez votre premier blog en PHP
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1d8f383a79b64eeb9937e9a2a7dc628b)](https://www.codacy.com/manual/thomas-claireau/PHP-P5-Openclassrooms?utm_source=github.com&utm_medium=referral&utm_content=thomas-claireau/PHP-P5-Openclassrooms&utm_campaign=Badge_Grade)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/95aa8acf09746a99a43a/maintainability)](https://codeclimate.com/github/thomas-claireau/PHP-P5-Openclassrooms/maintainability)
 
 ## Contexte
