@@ -150,4 +150,8 @@ textarea {
 		color: inherit;
 		text-decoration: none;
 	}
+
+	input[type='submit'] {
+		white-space: normal;
+	}
 }

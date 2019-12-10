@@ -9,15 +9,6 @@ require.context(
 	/.*/
 );
 
-// sidebar scroll
-// const sidebar = document.querySelector('.admin .sidebar');
-// document.onreadystatechange = function() {
-// 	console.log(document.readyState);
-// 	if (document.readyState == 'interactive') {
-// 		console.log(window.innerHeight);
-// 	}
-// };
-
 document.addEventListener('DOMContentLoaded', (event) => {
 	const requestUri = location.pathname + location.search;
 	const linkTarget = document.querySelector(`.admin .sidebar a[href="${requestUri}"]`);
@@ -31,8 +22,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 			const sidebar = document.querySelector('.admin .sidebar ul');
 			const windowHeight = window.innerHeight;
 
-			if (sidebar.scrollHeight > windowHeight - 100) {
-				sidebar.parentNode.classList.add('has-scrolled');
+			if (sidebar) {
+				if (sidebar.scrollHeight > windowHeight - 100) {
+					sidebar.parentNode.classList.add('has-scrolled');
+				}
 			}
 		}
 	};

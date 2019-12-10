@@ -27,18 +27,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		);
 	});
 
-	// get url back
-	const urlReferrer = document.referrer;
-	const urlHome = window.location.origin;
-	const btnBack = document.querySelector('a.back');
+	// // get url back
+	// const urlReferrer = document.referrer;
+	// const urlHome = window.location.origin;
+	// const btnBack = document.querySelector('a.back');
 
-	if (btnBack) {
-		if (urlReferrer) {
-			btnBack.href = urlReferrer;
-		} else {
-			btnBack.href = urlHome;
-		}
-	}
+	// if (btnBack) {
+	// 	if (urlReferrer) {
+	// 		btnBack.href = urlReferrer;
+	// 	} else {
+	// 		btnBack.href = urlHome;
+	// 	}
+	// }
 });
 
 // footer toujours en bas (sauf page formulaire)

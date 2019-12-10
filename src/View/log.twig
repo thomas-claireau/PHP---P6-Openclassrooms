@@ -85,6 +85,9 @@
     <main id="log" class="{{ type }}">
         {% if isForm %}
             {{include("layout/formulaire.twig", {fields: formulaire})}}
+            {% if type == "connexion" %}
+                <a class="link-forgot-password" href="/index.php?access=log&type=mot-de-passe-oublie">Mot de passe oublié ?</a>
+            {% endif %}
         {% else %}
             <div class="success">
                 <p>Félicitation votre compte a été créé !</p>
