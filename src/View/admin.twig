@@ -11,7 +11,7 @@
 		{% if isAdmin and type == 'posts' %}
 			{% set path = 'admin/' ~ type ~ '.twig' %}
 
-			{% if action == 'view' or action == 'update' or action == 'remove' %}
+			{% if action == 'view' or action == 'update' or action == 'remove' or action == 'create' %}
 				{% set class = type ~ ' ' ~ action %}
 			{% else %}
 				{% set class = type %}
@@ -20,7 +20,7 @@
 			{% if type == 'comments' or type == 'account' %}
 				{% set path = 'admin/' ~ type ~ '.twig' %}
 
-				{% if action == 'view' or action == 'update' or action == 'remove' %}
+				{% if action == 'view' or action == 'update' or action == 'remove' or action == 'create' %}
 					{% set class = type ~ ' ' ~ action %}
 				{% else %}
 					{% set class = type %}

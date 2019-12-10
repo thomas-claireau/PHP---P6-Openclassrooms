@@ -9,9 +9,10 @@ tinyPlugins.forEach((plugin) => {
 
 window.addEventListener('DOMContentLoaded', (event) => {
 	const isPostUpdate = document.querySelector('.posts.update');
+	const isPostCreate = document.querySelector('.posts.create');
 
-	if (isPostUpdate) {
-		const textarea = isPostUpdate.querySelector('#editor');
+	if (isPostUpdate || isPostCreate) {
+		const textarea = document.querySelector('#editor');
 		tinymce.init({
 			target: textarea,
 			plugins: tinyPlugins,
