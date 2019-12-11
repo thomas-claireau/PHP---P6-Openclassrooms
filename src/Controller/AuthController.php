@@ -15,6 +15,7 @@ use Twig\Error\SyntaxError;
 class AuthController extends MainController
 {
     protected $outputUser = null;
+    protected $data = null;
     /**
      * Manage the authentication of website
      * @return string
@@ -25,6 +26,7 @@ class AuthController extends MainController
     public function __construct()
     {
         $this->outputUser = self::checkAllInput('login');
+        $this->data = filter_input_array(INPUT_POST);
     }
 
     public function defaultMethod()
@@ -94,4 +96,27 @@ class AuthController extends MainController
     {
         return filter_input(INPUT_GET, 'action');
     }
+
+    public function getType()
+    {
+        return filter_input(INPUT_GET, 'type');
+    }
+
+    // Admin Account
+    public function addAccount() {
+    }
+
+    public function updateAccount() {
+        echo '<pre>';
+        var_dump($this->data);
+        echo '</pre>';
+        exit;
+    }
+
+    public function removeAccount() {
+    }
+
+    // Admin comment
+
+    // Admin Post
 }

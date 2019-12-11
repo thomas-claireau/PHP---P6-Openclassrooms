@@ -1,89 +1,101 @@
 .account.view {
-  .titre-avatar {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  .avatar {
-    background-image: url("https://via.placeholder.com/100");
-    background-size: cover;
-    background-position: center;
-    width: 80px;
-    height: 80px;
-    border-radius: 50px;
-    border: 1px solid #000;
-    margin: 0 40px;
-  }
+	.titre-avatar {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	.avatar {
+		background-image: url('https://via.placeholder.com/100');
+		background-size: cover;
+		background-position: center;
+		width: 80px;
+		height: 80px;
+		border-radius: 50px;
+		border: 1px solid #000;
+		margin: 0 40px;
+	}
 
-  .infos {
-    margin-top: 30px;
+	.infos {
+		margin-top: 30px;
 
-    ul li {
-      font-size: 22px;
+		ul li {
+			font-size: 22px;
 
-      label {
-        font-weight: 700;
-      }
+			label {
+				font-weight: 700;
+			}
 
-      input {
-        -webkit-appearance: none;
-        font-family: "Roboto";
-        font-size: 22px;
-        font-weight: 300;
-        color: $grisFonce;
+			input {
+				-webkit-appearance: none;
+				font-family: 'Roboto';
+				font-size: 22px;
+				font-weight: 300;
+				color: $grisFonce;
 
-        &:hover,
-        &:focus {
-          outline: 0;
-        }
-      }
+				&:hover,
+				&:focus {
+					outline: 0;
+				}
+			}
 
-      &:not(:last-child) {
-        margin-bottom: 20px;
-      }
-    }
+			&:not(:last-child) {
+				margin-bottom: 20px;
+			}
+		}
 
-    form.disabled {
-      input:not([type="submit"]) {
-        cursor: default;
-        pointer-events: none;
-        border: none;
-      }
+		form.disabled {
+			input:not([type='submit']) {
+				cursor: default;
+				pointer-events: none;
+				border: none;
+			}
 
-      input[type="submit"] {
-        display: none;
-      }
+			input[type='submit'] {
+				display: none;
+			}
 
-      .actions a {
-        width: 310px;
-      }
-    }
+			.actions a {
+				width: 310px;
+			}
 
-    form {
-      input:not([type="submit"]) {
-        border: 1px solid darken($grisClair, 20%);
-        border-radius: 10px;
-        padding: 10px;
-      }
-    }
-  }
+			.password-change {
+				display: none;
+			}
+		}
 
-  .actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-    width: 500px;
+		form {
+			input:not([type='submit']) {
+				border: 1px solid darken($grisClair, 20%);
+				border-radius: 10px;
+				padding: 10px;
+			}
+		}
 
-    input {
-      margin-right: 20px;
-    }
+		.password-change {
+			display: inherit;
+			font-size: 15px;
+			margin-top: 10px;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+	}
 
-    a,
-    input {
-      width: 100%;
-      height: 100%;
-      margin-top: 30px;
-    }
-  }
+	.actions {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 30px;
+		width: 500px;
+
+		input {
+			margin-right: 20px;
+		}
+
+		a,
+		input {
+			width: 100%;
+			height: 100%;
+			margin-top: 30px;
+		}
+	}
 }
