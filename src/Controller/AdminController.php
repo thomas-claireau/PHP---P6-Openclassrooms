@@ -38,10 +38,6 @@ class AdminController extends MainController
     }
 
     public function getUserSession() {
-        // echo '<pre>';
-        //     var_dump($_SESSION['user']);
-        //     echo '</pre>';
-        //     exit;
         return $_SESSION['user'];
     }
 

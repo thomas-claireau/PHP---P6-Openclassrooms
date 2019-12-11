@@ -1,16 +1,17 @@
 <div class="menu-admin">
-    <div class="container-menu">
-        <div class="left">
-            <a href="#start" class="logo js-smooth-scroll">
-                <img src="https://via.placeholder.com/100" alt="logo-thomas-claireau"/>
-            </a>
-            <h1>{{ title }}</h1>
-        </div>
-        <div class="right">
-            <div class="user">
-                <div class="avatar"></div>
-                <div class="nom">Thomas Claireau</div>
-            </div>
-        </div>
-    </div>
+	<div class="container-menu">
+		<div class="left">
+			<a href="#start" class="logo js-smooth-scroll">
+				<img src="https://via.placeholder.com/100" alt="logo-thomas-claireau"/>
+			</a>
+			<h1>{{ title }}</h1>
+		</div>
+		<div class="right">
+			<div class="user">
+				<div class="avatar"></div>
+				<div class="nom">{{ user.prenom }}
+					{{ user.nom }}</div>
+			</div>
+		</div>
+	</div>
 </div>

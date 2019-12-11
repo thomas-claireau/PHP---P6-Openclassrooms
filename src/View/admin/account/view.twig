@@ -1,32 +1,36 @@
 <div>
-    <div class="titre-avatar">
-        <h2>Mon compte</h2>
-        <div class="avatar"></div>
-    </div>
-    <div class="infos">
-        <form action="" method="post" class="disabled">
-            <ul>
-                <li>
-                    <label for="nom">Nom :</label>
-                    <input type="text" id="nom" value="Claireau" placeholder="Votre nom">
-                </li>
-                <li>
-                    <label for="prenom">Prénom :</label>
-                    <input type="text" id="prenom" value="Thomas" placeholder="Votre prénom">
-                </li>
-                <li>
-                    <label for="email">Email :</label>
-                    <input type="mail" id="email" value="thomas.claireau@gmail.com" placeholder="Votre adresse email">
-                </li>
-                <li>
-                    <label for="password">Mot de passe :</label>
-                    <input type="password" id="password" placeholder="Votre mot de passe">
-                </li>
-            </ul>
-            <div class="actions">
-                <input type="submit" class="btn vertFonce" value="Mettre à jour">
-                <a href="#" class="btn vertFonce triggerForm">Mettre à jour</a>
-            </div>
-        </form>
-    </div>
+	<div class="titre-avatar">
+		<h2>Mon compte</h2>
+		<div class="avatar"></div>
+	</div>
+	<div class="infos">
+		<form action="" method="post" class="disabled">
+			<ul>
+				<li>
+					<label for="nom">Nom :</label>
+					<input type="text" id="nom" value="{{ user.nom }}" placeholder="Votre nom">
+				</li>
+				<li>
+					<label for="prenom">Prénom :</label>
+					<input type="text" id="prenom" value="{{ user.prenom }}" placeholder="Votre prénom">
+				</li>
+				<li>
+					<label for="email">Email :</label>
+					<input type="mail" id="email" value="{{ user.email }}" placeholder="Votre adresse email">
+				</li>
+				<li>
+					<label for="password">Mot de passe :</label>
+					<input type="password" id="password" value="password">
+				</li>
+				<li>
+					<label for="new-password">Nouveau mot de passe :</label>
+					<input type="new-password" id="new-password">
+				</li>
+			</ul>
+			<div class="actions">
+				<input type="submit" class="btn vertFonce" value="Mettre à jour">
+				<a href="#" class="btn vertFonce triggerForm">Mettre à jour</a>
+			</div>
+		</form>
+	</div>
 </div>
