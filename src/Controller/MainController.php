@@ -65,7 +65,6 @@ abstract class MainController
     public function redirect(string $page, array $params = [])
     {
         header('Location: ' . $this->url($page, $params));
-
         exit;
     }
 

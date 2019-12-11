@@ -20,6 +20,7 @@ class AdminController extends MainController
      * @throws RuntimeError
      * @throws SyntaxError
      */
+
     public function defaultMethod()
     {
         session_start();
@@ -36,32 +37,37 @@ class AdminController extends MainController
         ]);
     }
 
+    public function getUserSession() {
+        // echo '<pre>';
+        //     var_dump($_SESSION['user']);
+        //     echo '</pre>';
+        //     exit;
+        return $_SESSION['user'];
+    }
+
     public function isAdmin()
     {
-        if (isset($_SESSION['admin'])) {
-            return $_SESSION['admin'];
+        if (self::getUserSession() != null) {
+            return self::getUserSession()['admin'];
         }
     }
 
     public function isActif()
     {
-        if (isset($_SESSION['actif'])) {
-            return $_SESSION['actif'];
+        if (self::getUserSession() != null) {
+            return self::getUserSession()['actif'];
         }
     }
 
     public function getUser()
     {
-        if (isset($_SESSION['id'])) {
-            $array['prenom'] = $_SESSION['prenom'];
-            $array['nom']    = $_SESSION['nom'];
-            $array['email']  = $_SESSION['email'];
-        }
-
-        if (isset($array)) {
+        $userSession = self::getUserSession();
+        if ($userSession !== null) {
+            $array['prenom'] = $userSession['prenom'];
+            $array['nom']    = $userSession['nom'];
+            $array['email']  = $userSession['email'];
             return $array;
         }
-
     }
 
     public function getType()
@@ -84,8 +90,8 @@ class AdminController extends MainController
     }
 
     public function redirectLogin() {
-        if (!isset($_SESSION['prenom']) && !isset($_SESSION['nom']) && !isset($_SESSION['email']) && !isset($_SESSION['id'])) {
-            header('Location: /index.php?access=log&type=connexion');
+        if (self::getUserSession() == null) {
+           $this->redirect('log', ['type' => 'connexion']);
         } 
     }
 }

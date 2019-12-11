@@ -29,14 +29,20 @@ class AuthController extends MainController
 
     public function defaultMethod()
     {
-        self::connectOrNot();
+        $action = self::getAction();
+
+        if (isset($action) && !empty($action)) {
+            self::$action();
+        } else {
+            $this->redirect('home');
+        }
     }
 
-    public function connectOrNot()
+    public function connexion()
     {
         $user = self::getUserInDb();
 
-        if ($user) {
+        if (isset($user) && !empty($user)) {
             $outputPassword = $this->outputUser['password'];
             $passwordHash   = $user['password'];
 
@@ -50,7 +56,6 @@ class AuthController extends MainController
         } else {
             header('Location: /index.php?access=log&type=connexion&error=true');
         }
-
     }
 
     public function checkPassword($outputPassword, $passwordHash)
@@ -68,16 +73,25 @@ class AuthController extends MainController
     public function createSession($user)
     {
         session_start();
-        $_SESSION['id']     = $user['id'];
-        $_SESSION['prenom'] = $user['prenom'];
-        $_SESSION['nom']    = $user['nom'];
-        $_SESSION['email']  = $user['mail'];
-        $_SESSION['actif']  = $user['actif'];
-        $_SESSION['admin']  = $user['admin'];
+        $_SESSION['user'] = [
+            'id' => $user['id'],
+            'prenom' => $user['prenom'],
+            'nom' => $user['nom'],
+            'email' => $user['mail'],
+            'actif' => $user['actif'],
+            'admin' => $user['admin'],
+        ];
     }
 
-    public function deleteSession()
+    public function deconnexion()
     {
+        setcookie("PHPSESSID", "", time() - 3600, "/");
         session_destroy();
+        $this->redirect('home');
+    }
+
+    public function getAction()
+    {
+        return filter_input(INPUT_GET, 'action');
     }
 }
