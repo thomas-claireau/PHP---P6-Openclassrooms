@@ -11,6 +11,7 @@ use Twig\Error\SyntaxError;
  * Manages the admin page
  * @package App\Controller
  */
+
 class AdminController extends MainController
 {
     /**
@@ -26,18 +27,21 @@ class AdminController extends MainController
         session_start();
 
         self::redirectLogin();
-       
+
         return $this->render('admin.twig', [
-            'isActif'    => self::isActif(),
-            'isAdmin'    => self::isAdmin(),
-            'user'       => self::getUser(),
-            'type'       => self::getType(),
-            'action'     => self::getAction(),
+            'isActif' => self::isActif(),
+            'isAdmin' => self::isAdmin(),
+            'user' => self::getUser(),
+            'type' => self::getType(),
+            'action' => self::getAction(),
+            'isError' => self::isError(),
             'requestUri' => self::getRequestUri(),
+
         ]);
     }
 
-    public function getUserSession() {
+    public function getUserSession()
+    {
         return $_SESSION['user'];
     }
 
@@ -55,13 +59,18 @@ class AdminController extends MainController
         }
     }
 
+    public function isError()
+    {
+        return filter_input(INPUT_GET, 'error');
+    }
+
     public function getUser()
     {
         $userSession = self::getUserSession();
         if ($userSession !== null) {
             $array['prenom'] = $userSession['prenom'];
-            $array['nom']    = $userSession['nom'];
-            $array['email']  = $userSession['email'];
+            $array['nom'] = $userSession['nom'];
+            $array['email'] = $userSession['mail'];
             return $array;
         }
     }
@@ -85,9 +94,10 @@ class AdminController extends MainController
         return $_SERVER['REQUEST_URI'];
     }
 
-    public function redirectLogin() {
+    public function redirectLogin()
+    {
         if (self::getUserSession() == null) {
-           $this->redirect('log', ['type' => 'connexion']);
-        } 
+            $this->redirect('log', ['type' => 'connexion']);
+        }
     }
 }

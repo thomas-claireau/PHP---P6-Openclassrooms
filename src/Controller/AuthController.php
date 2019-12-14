@@ -42,16 +42,15 @@ class AuthController extends MainController
 
     public function connexion()
     {
-        $user = self::getUserInDb();
+        $user = self::getUser(['mail' => $this->outputUser['mail']]);
 
         if (isset($user) && !empty($user)) {
             $outputPassword = $this->outputUser['password'];
-            $passwordHash   = $user['password'];
+            $passwordHash = $user['password'];
 
             if (self::checkPassword($outputPassword, $passwordHash)) {
                 header('Location: /index.php?access=admin');
                 self::createSession($user);
-
             } else {
                 header('Location: /index.php?access=log&type=connexion&error=true');
             }
@@ -67,9 +66,9 @@ class AuthController extends MainController
         }
     }
 
-    public function getUserInDb()
+    public function getUser(array $key)
     {
-        return ModelFactory::getModel('User')->readData($this->outputUser['email'], 'mail');
+        return ModelFactory::getModel('User')->readData($key[key($key)], key($key));
     }
 
     public function createSession($user)
@@ -79,7 +78,7 @@ class AuthController extends MainController
             'id' => $user['id'],
             'prenom' => $user['prenom'],
             'nom' => $user['nom'],
-            'email' => $user['mail'],
+            'mail' => $user['mail'],
             'actif' => $user['actif'],
             'admin' => $user['admin'],
         ];
@@ -103,17 +102,52 @@ class AuthController extends MainController
     }
 
     // Admin Account
-    public function addAccount() {
+    public function addAccount()
+    {
     }
 
-    public function updateAccount() {
-        echo '<pre>';
-        var_dump($this->data);
-        echo '</pre>';
-        exit;
+    public function updateAccount()
+    {
+        session_start();
+        $outputData = $this->data;
+        $actualData = self::getUser(['id' => $_SESSION['user']['id']]);
+
+        // output
+        $name = $outputData['nom'];
+        $firstname = $outputData['prenom'];
+        $email = $outputData['email'];
+        $pass = $outputData['password'];
+
+        // actual
+        $actualId = $actualData['id'];
+        $actualName = $actualData["nom"];
+        $actualFirstname = $actualData["prenom"];
+        $actualEmail = $actualData["email"];
+        $actualPassHash = $actualData["password"];
+
+        $isCorrectPass = self::checkPassword($pass, $actualPassHash);
+
+        if ($isCorrectPass) {
+            $updateArray = array_diff($outputData, $actualData);
+
+            if (isset($updateArray) && !empty($updateArray)) {
+                foreach ($updateArray as $key => $item) {
+                    if ($key !== "password") {
+                        ModelFactory::getModel('User')->updateData($actualData[$key], [$key => $outputData[$key]], ['id' => $actualId]);
+                        $_SESSION['user'][$key] = $outputData[$key];
+                    }
+                }
+            }
+
+            $this->redirect('admin', ['type' => 'account', 'action' => 'view']);
+
+        } else {
+            $this->redirect('admin', ['type' => 'account', 'action' => 'view', 'error' => true]);
+        }
     }
 
-    public function removeAccount() {
+    public function removeAccount()
+    {
     }
 
     // Admin comment

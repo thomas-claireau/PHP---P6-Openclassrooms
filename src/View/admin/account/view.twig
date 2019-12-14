@@ -8,53 +8,29 @@
 			<ul>
 				<li>
 					<label for="nom">Nom :</label>
-					<input
-						type="text"
-						name="nom"
-						id="nom"
-						value="{{ user.nom }}"
-						placeholder="Votre nom"
-					/>
+					<input type="text" name="nom" id="nom" value="{{ user.nom }}" placeholder="Votre nom"/>
 				</li>
 				<li>
 					<label for="prenom">Prénom :</label>
-					<input
-						type="text"
-						name="prenom"
-						id="prenom"
-						value="{{ user.prenom }}"
-						placeholder="Votre prénom"
-					/>
+					<input type="text" name="prenom" id="prenom" value="{{ user.prenom }}" placeholder="Votre prénom"/>
 				</li>
 				<li>
-					<label for="email">Email :</label>
-					<input
-						type="mail"
-						name="email"
-						id="email"
-						value="{{ user.email }}"
-						placeholder="Votre adresse email"
-					/>
+					<label for="mail">Email :</label>
+					<input type="mail" name="mail" id="mail" value="{{ user.email }}" placeholder="Votre adresse email"/>
 				</li>
 				<li>
 					<label for="password">Mot de passe :</label>
-					<input
-						type="password"
-						name="password"
-						id="password"
-						value="password"
-						required
-					/>
-					<a
-						class="password-change"
-						href="/index.php?access=log&type=mot-de-passe-oublie"
-					>
+					<input type="password" name="password" id="password" value="password" required placeholder="Confirmez votre mot de passe pour mettre à jour"/>
+					{% if isError %}
+						<div class="error">Votre mot de passe est incorrect</div>
+					{% endif %}
+					<a class="password-change" href="/index.php?access=log&type=mot-de-passe-oublie">
 						Changement de mot de passe ?
 					</a>
 				</li>
 			</ul>
 			<div class="actions">
-				<input type="submit" class="btn vertFonce" value="Mettre à jour" />
+				<input type="submit" class="btn vertFonce" value="Mettre à jour"/>
 				<a href="#" class="btn vertFonce triggerForm">Mettre à jour</a>
 			</div>
 		</form>

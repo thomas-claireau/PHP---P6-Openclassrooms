@@ -54,12 +54,20 @@
 				display: none;
 			}
 
+			.error {
+				display: inherit;
+			}
+
 			.actions a {
 				width: 310px;
 			}
 
 			.password-change {
 				display: none;
+				font-weight: 300;
+				font-size: 18px;
+				margin-top: 10px;
+				margin-bottom: -25px;
 			}
 		}
 
@@ -68,6 +76,16 @@
 				border: 1px solid darken($grisClair, 20%);
 				border-radius: 10px;
 				padding: 10px;
+				width: 75%;
+			}
+
+			.error {
+				display: none;
+				font-weight: 300;
+				font-size: 18px;
+				margin-top: 10px;
+				margin-bottom: -25px;
+				color: $rougeFonce;
 			}
 		}
 
