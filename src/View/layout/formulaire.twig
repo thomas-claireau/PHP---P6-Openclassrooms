@@ -1,5 +1,7 @@
 {% if templateName == 'contact' %}
 	{% set actionUrl = '/index.php?access=mail' %}
+{% elseif templateName == 'log' and type == 'creation' %}
+	{% set actionUrl = '/index.php?access=auth&action=addAccount' %}
 {% else %}
 	{% set actionUrl = '/index.php?access=auth&action=' ~ type %}
 {% endif %}

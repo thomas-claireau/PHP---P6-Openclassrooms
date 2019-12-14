@@ -111,10 +111,10 @@ abstract class MainModel
      * @param string $value
      * @param string|null $key
      */
-    public function deleteData(string $value, string $key = null)
+    public function deleteData(string $value, array $key)
     {
-        if (isset($key)) {
-            $query = 'DELETE FROM ' . $this->table . ' WHERE ' . $key . ' = ?';
+        if (isset($key) && !empty($key)) {
+            $query = 'DELETE FROM ' . $this->table . ' WHERE ' . key($key) . ' = ' . $key[key($key)];
         } else {
             $query = 'DELETE FROM ' . $this->table . ' WHERE id = ?';
         }

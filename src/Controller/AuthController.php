@@ -104,6 +104,21 @@ class AuthController extends MainController
     // Admin Account
     public function addAccount()
     {
+        session_start();
+        // output
+        $array = [];
+        $array['nom'] = $this->data['nom'];
+        $array['prenom'] = $this->data['prenom'];
+        $array['mail'] = $this->data['mail'];
+        $array['password'] = password_hash($this->data['password'], PASSWORD_DEFAULT);
+        $array['actif'] = 1;
+        $array['admin'] = 0;
+
+        ModelFactory::getModel('User')->createData($array);
+        $user = self::getUser(['mail' => $array['mail']]);
+        self::createSession($user);
+
+        header('Location: /index.php/?access=admin');
     }
 
     public function updateAccount()
@@ -148,6 +163,12 @@ class AuthController extends MainController
 
     public function removeAccount()
     {
+        session_start();
+        $actualData = self::getUser(['id' => $_SESSION['user']['id']]);
+        $actualId = $actualData['id'];
+        ModelFactory::getModel('User')->deleteData('id', ['id' => $actualId]);
+        self::deconnexion();
+        $this->redirect('home');
     }
 
     // Admin comment
