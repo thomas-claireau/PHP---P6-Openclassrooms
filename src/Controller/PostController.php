@@ -22,8 +22,28 @@ class PostController extends MainController
      */
     public function defaultMethod()
     {
-        return $this->render('post.twig', [
-            'test' => 'PostController',
-        ]);
+        $action = self::getAction();
+
+        if (isset($action) && !empty($action)) {
+            self::$action();
+        } else {
+            return $this->render('post.twig', [
+                'test' => 'PostController',
+            ]);
+        }
     }
+
+    public function getAction()
+    {
+        return filter_input(INPUT_GET, 'action');
+    }
+
+    public function create()
+    {
+        echo '<pre>';
+        var_dump($this->checkAllInput());
+        echo '</pre>';
+        exit;
+    }
+
 }

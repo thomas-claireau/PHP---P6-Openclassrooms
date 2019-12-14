@@ -1,3 +1,23 @@
 @import './posts/view.scss';
 @import './posts/update.scss';
 @import './posts/create.scss';
+
+.posts {
+    #titre {
+		margin-bottom: 20px;
+		font-size: 18px;
+		border: 0;
+		padding: 10px 20px 20px 0px;
+		width: 100%;
+		outline: 0;
+    }
+    
+    button[type="submit"] {
+        border: none;
+    }
+
+    label[for="image"] {
+        margin: -20px 0 20px 0;
+        display: block;
+    }
+}

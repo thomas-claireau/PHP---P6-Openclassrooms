@@ -12,28 +12,34 @@
 	</div>
 </div>
 
-<textarea name="" id="editor">
-	<h1>Le titre de l'article</h1>
-	<div class="content-post">
-		<blockquote>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</blockquote>
-		<h2>Un test de titre h2</h2>
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-			<a href="#">reprehenderit in voluptate</a>
-			velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
-		<h3>Un test de titre h3</h3>
-		<p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-			<a href="#">reprehenderit in voluptate</a>
-			velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
+<form method="post" action="/index.php/?access=post&action=update" enctype="multipart/form-data">
+	<input type="text" name="titre" id="titre" placeholder="Rentrez ici le titre de votre article" value="Le titre de votre article" required>
+	<label for="image">
+		Choisissez l'image principale de l'article
+		<input type="file" name="image" id="image" accept="image/x-png,image/gif,image/jpeg" required>
+	</label>
+	<textarea name="" id="editor">
+		<div class="content-post">
+			<blockquote>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</blockquote>
+			<h2>Un test de titre h2</h2>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+				<a href="#">reprehenderit in voluptate</a>
+				velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+			<h3>Un test de titre h3</h3>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+				<a href="#">reprehenderit in voluptate</a>
+				velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+		</div>
+	</textarea>
+	<div class="actions">
+		<a class="btn rougeFonce" href="/index.php?access=admin&type=posts&action=view">Retour</a>
+		<button class="btn vertFonce" type="submit">Modifier</a>
 	</div>
-</textarea>
+</form>
 
-<div class="actions">
-	<a class="btn rougeFonce" href="/index.php?access=admin&type=posts&action=view">Retour</a>
-	<a class="btn vertFonce" href="#">Modifier</a>
-</div>

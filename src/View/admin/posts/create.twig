@@ -2,9 +2,17 @@
 	<h2>Créer un article</h2>
 </div>
 
-<textarea name="" id="editor"></textarea>
-
-<div class="actions">
-	<a class="btn rougeFonce" href="/index.php?access=admin&type=posts&action=view">Retour</a>
-	<a class="btn vertFonce" href="#">Créer</a>
-</div>
+<form method="post" action="/index.php/?access=post&action=create" enctype="multipart/form-data">
+	<label for="titre">
+		<input type="text" name="titre" id="titre" placeholder="Rentrez ici le titre de votre article" required>
+	</label>
+	<label for="image">
+		Choisissez l'image principale de l'article
+		<input type="file" name="image" id="image" accept="image/x-png,image/gif,image/jpeg" required>
+	</label>
+	<textarea name="editor" id="editor"></textarea>
+	<div class="actions">
+		<a class="btn rougeFonce" href="/index.php?access=admin&type=posts&action=view">Retour</a>
+		<button class="btn vertFonce" type="submit">Créer</button>
+	</div>
+</form>
