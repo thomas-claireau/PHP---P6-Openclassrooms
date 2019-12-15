@@ -1,6 +1,8 @@
 import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/silver';
 
+import functions from '../../functions';
+
 const tinyPlugins = ['paste', 'link', 'autoresize', 'image', 'imagetools'];
 
 tinyPlugins.forEach((plugin) => {
@@ -22,7 +24,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			images_upload_handler: (blobInfo, success, failure) => {
 				const xhr = new XMLHttpRequest();
 				xhr.withCredentials = false;
-				xhr.open('POST', './src/js/pages/admin/upload.php');
+				xhr.open('POST', './src/assets/img/upload.php/?id=' + functions.$_GET('id'));
 			  
 				xhr.onload = function() {
 					var json;
@@ -31,15 +33,15 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						failure('HTTP Error: ' + xhr.status);
 						return;
 					}
-
-					console.log(xhr.responseText);
-				
+					
 					json = JSON.parse(xhr.responseText);
 				
 					if (!json || typeof json.location != 'string') {
 						failure('Invalid JSON: ' + xhr.responseText);
 						return;
 					}
+
+					json.location = './src/assets/img/' + json.location;
 				
 					success(json.location);
 				};

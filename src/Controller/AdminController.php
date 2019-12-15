@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Factory\ModelFactory;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -28,6 +29,8 @@ class AdminController extends MainController
 
         self::redirectLogin();
 
+        self::getLastPostId();
+
         return $this->render('admin.twig', [
             'isActif' => self::isActif(),
             'isAdmin' => self::isAdmin(),
@@ -36,7 +39,7 @@ class AdminController extends MainController
             'action' => self::getAction(),
             'isError' => self::isError(),
             'requestUri' => self::getRequestUri(),
-
+            'lastPostId' => self::getLastPostId(),
         ]);
     }
 
@@ -68,10 +71,25 @@ class AdminController extends MainController
     {
         $userSession = self::getUserSession();
         if ($userSession !== null) {
+            $array['id'] = $userSession['id'];
             $array['prenom'] = $userSession['prenom'];
             $array['nom'] = $userSession['nom'];
             $array['email'] = $userSession['mail'];
             return $array;
+        }
+    }
+
+    public function getPost()
+    {
+        return ModelFactory::getModel('Post')->listData();
+    }
+
+    public function getLastPostId()
+    {
+        $posts = self::getPost();
+
+        if (isset($posts) && !empty($posts)) {
+            return $posts[count($posts) - 1]['id'];
         }
     }
 

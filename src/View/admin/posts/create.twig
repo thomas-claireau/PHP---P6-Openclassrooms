@@ -2,7 +2,7 @@
 	<h2>Créer un article</h2>
 </div>
 
-<form method="post" action="/index.php/?access=post&action=create" enctype="multipart/form-data">
+<form method="post" action="/index.php/?access=post&action=create&idUser={{ user.id }}&id={{ lastPostId + 1 }}&uploadImage=1" enctype="multipart/form-data">
 	<label for="titre">
 		<input type="text" name="titre" id="titre" placeholder="Rentrez ici le titre de votre article" required>
 	</label>

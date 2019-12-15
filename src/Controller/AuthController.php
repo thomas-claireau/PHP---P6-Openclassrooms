@@ -171,7 +171,8 @@ class AuthController extends MainController
         $this->redirect('home');
     }
 
+    // Admin Post
+
     // Admin comment
 
-    // Admin Post
 }

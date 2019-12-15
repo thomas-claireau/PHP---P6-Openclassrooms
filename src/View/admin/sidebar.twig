@@ -18,9 +18,11 @@
 				<li>
 					<a href="/index.php?access=admin&type=posts&action=view">Consulter vos articles</a>
 				</li>
-				<li>
-					<a href="/index.php?access=admin&type=posts&action=create">Créer un article</a>
-				</li>
+				{% if lastPostId %}
+					<li>
+						<a href="/index.php?access=admin&type=posts&action=create&id={{ lastPostId + 1 }}">Créer un article</a>
+					</li>
+				{% endif %}
 				<li>
 					<a href="/index.php?access=admin&type=posts&action=remove">Suprimer un article</a>
 				</li>
