@@ -2,6 +2,10 @@
 	{% set actionUrl = '/index.php?access=mail' %}
 {% elseif templateName == 'log' and type == 'creation' %}
 	{% set actionUrl = '/index.php?access=auth&action=addAccount' %}
+{% elseif templateName == 'log' and type == 'mot-de-passe-oublie' %}
+	{% set actionUrl = '/index.php?access=auth&action=sendForgotPassword' %}
+{% elseif templateName == 'log' and type == 'reset-password' %}
+	{% set actionUrl = '/index.php?access=admin&action=newPassword' %}
 {% else %}
 	{% set actionUrl = '/index.php?access=auth&action=' ~ type %}
 {% endif %}
@@ -34,11 +38,12 @@
 				{% set picto = field.picto %}
 				{% set value = field.value %}
 				{% set required = field.required == true ? 'required' : null %}
+				{% set hidden = field.hidden == true ? 'hidden' : null %}
 
 				<div class="field {{ name }}{% if type == 'submit' %}field-submit{% endif %}">
-					<label for="{{ name }}">
+					<label for="{{ name }}" class="{{ hidden ? hidden : ""}}">
 						{% if tag == "input" %}
-							<input class="{% if type != 'submit' %}input{% else %}btn vertFonce{% endif %}" type="{{ type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}{% if required %} *{% endif %}" value="{{ value }}" {{ required }}/>
+							<input class="{% if type != 'submit' %}input{% else %}btn vertFonce{% endif %}" type="{{ hidden ? hidden : type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}{% if required %} *{% endif %}" value="{{ value }}" {{ required }}/>
 							<img class="js-inject-me" src="{{ imgDir }}pictos/{{ picto }}.svg" alt=""/>
 						{% else %}
 							<textarea class="input" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" {{ required }}></textarea>

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Model\Factory\ModelFactory;
+use DateTime;
+use DateTimeZone;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -27,9 +29,15 @@ class AdminController extends MainController
     {
         session_start();
 
-        self::redirectLogin();
+        if (self::getAction() !== 'newPassword') {
+            self::redirectLogin();
+        }
 
         self::getLastPostId();
+
+        if (self::getAction() == 'newPassword') {
+            self::newPassword();
+        }
 
         return $this->render('admin.twig', [
             'isActif' => self::isActif(),
@@ -112,10 +120,66 @@ class AdminController extends MainController
         return $_SERVER['REQUEST_URI'];
     }
 
+    public function getToken()
+    {
+        return filter_input(INPUT_GET, 'token');
+    }
+
     public function redirectLogin()
     {
-        if (self::getUserSession() == null) {
+        if (self::getUserSession() == null && !self::getToken()) {
             $this->redirect('log', ['type' => 'connexion']);
+        }
+
+        if (self::getToken()) {
+            self::forgotPassword();
+        }
+    }
+
+    public function forgotPassword()
+    {
+        $idUser = filter_input(INPUT_GET, 'id');
+        $getToken = filter_input(INPUT_GET, 'token');
+
+        $user = ModelFactory::getModel('User')->readData($idUser, 'id');
+
+        if ($user) {
+            $userToken = $user['token'];
+            $userDateToken = $user['dateToken'];
+
+            $dateToken = new DateTime($userDateToken, new DateTimeZone('Europe/Paris'));
+            $dateNow = new DateTime('now', new DateTimeZone('Europe/Paris'));
+            $dateDiff = $dateToken->diff($dateNow)->format('%h');
+
+            // // si le token a été initialité il y a plus d'une heure, on redirige
+            if ($dateDiff > 0) {
+                $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+            } else {
+                $this->redirect('log', ['type' => 'reset-password', 'token' => $userToken, 'id' => $user['id']]);
+            }
+
+        } else {
+            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+        }
+    }
+
+    public function newPassword()
+    {
+        if (isset($_POST)) {
+            $post = filter_input_array(INPUT_POST);
+            $email = $post['email'];
+            $password = $post['password'];
+            $confirmPassword = $post['confirm-password'];
+
+            if ($password === $confirmPassword) {
+                $newPassword = password_hash($password, PASSWORD_DEFAULT);
+                ModelFactory::getModel('User')->updateData($newPassword, ['password' => $newPassword, 'token' => null, 'dateToken' => null], ['mail' => '"' . $email . '"']);
+                $this->redirect('log', ['type' => 'password-forgot-ok']);
+            } else {
+                $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+            }
+        } else {
+            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
     }
 }

@@ -4,6 +4,10 @@
   padding: 40px 30px;
   border-radius: 5px;
 
+  label.hidden {
+    display: none;
+  }
+
   div.container-error {
     border: 1px solid $rougeFonce;
     border-radius: 20px;

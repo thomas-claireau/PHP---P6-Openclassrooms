@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Model\Factory\ModelFactory;
+use DateTime;
+use DateTimeZone;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -169,6 +171,61 @@ class AuthController extends MainController
         ModelFactory::getModel('User')->deleteData('id', ['id' => $actualId]);
         self::deconnexion();
         $this->redirect('home');
+    }
+
+    public function sendForgotPassword()
+    {
+        require_once 'setup/configMail.php';
+        $serveurName = $configMail['smtp'];
+        $port = $configMail['port'];
+        $username = $configMail['username'];
+        $password = $configMail['password'];
+        $mail = $this->checkAllInput('login')['email'];
+
+        $user = ModelFactory::getModel('User')->readData($mail, 'mail');
+
+        if ($user) {
+            $idUser = $user['id'];
+            $firstname = $user['prenom'];
+            $name = $user['nom'];
+
+            //Generate a random string.
+            $token = openssl_random_pseudo_bytes(32);
+            $token = bin2hex($token);
+            $dateToken = new DateTime('now', new DateTimeZone('Europe/Paris'));
+            $dateToken = $dateToken->format('Y-m-d H:i:s');
+            $link = $_SERVER['HTTP_ORIGIN'] . "/index.php?access=admin&id=$idUser&token=$token";
+
+            // send token in bdd
+            ModelFactory::getModel('User')->updateData($token, ['token' => $token], ['id' => $idUser]);
+            ModelFactory::getModel('User')->updateData($dateToken, ['dateToken' => $dateToken], ['id' => $idUser]);
+
+            // exit;
+
+            $transport = new \Swift_SmtpTransport($serveurName, $port);
+            $transport->setUsername($username);
+            $transport->setPassword($password);
+
+            $mailer = new \Swift_Mailer($transport);
+
+            // Create a reset password message
+            $bodyConfirmation = "
+                <p>Bonjour $firstname $name ! Vous avez demandé à changer votre mot de passe</p>
+                <p>Pour le modifier, merci de suivre le <a href='$link'>lien suivant</a></p>
+                <p>Attention, ce lien ne sera plus actif dans une heure.</p>
+                ";
+
+            $messageConfirmation = (new \Swift_Message('Réinitialisation de mot de passe'))
+                ->setFrom([$username => 'Thomas Claireau'])
+                ->setTo($mail)
+                ->addPart($bodyConfirmation, 'text/html')
+            ;
+
+            $result = $mailer->send($messageConfirmation);
+            $this->redirect('log', ['type' => 'send-forgot-ok']);
+        } else {
+            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+        }
     }
 
     // Admin Post
