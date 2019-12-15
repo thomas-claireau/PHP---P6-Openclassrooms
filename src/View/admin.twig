@@ -1,23 +1,38 @@
-{% extends 'layout/layout.twig' %}
+{% extends 'admin/layout.twig' %}
 
-{% block subtitle %}Le titre de la page admin {% endblock %} 
-
-{% block description %}Description méta pour la page admin {% endblock %} 
+{% block title %}Administration
+{% endblock %}
 
 {% block main %}
+	{% if not type %}
+		{% set path = "admin/commons.twig" %}
+		{% set class = 'commons' %}
+	{% else %}
+		{% if isAdmin and type == 'posts' %}
+			{% set path = 'admin/' ~ type ~ '.twig' %}
 
-<main id="home">
-  <section>
-    <h2>Un titre h2</h2>
+			{% if action == 'view' or action == 'update' or action == 'remove' or action == 'create' %}
+				{% set class = type ~ ' ' ~ action %}
+			{% else %}
+				{% set class = type %}
+			{% endif %}
+		{% else %}
+			{% if type == 'comments' or type == 'account' %}
+				{% set path = 'admin/' ~ type ~ '.twig' %}
 
-    <p>
-      Corps de la page
-    </p>
-  </section>
+				{% if action == 'view' or action == 'update' or action == 'remove' or action == 'create' %}
+					{% set class = type ~ ' ' ~ action %}
+				{% else %}
+					{% set class = type %}
+				{% endif %}
+			{% else %}
+				{% set path = "admin/commons.twig" %}
+				{% set class = 'commons' %}
+			{% endif %}
+		{% endif %}
+	{% endif %}
 
-  <section>
-    <h2>Un exemple d'utilisation</h2>
-    <p>{{ test }}</p>
-  </section>
-</main>
+	<main id="home" class="{{ class }}">
+		{% include path %}
+	</main>
 {% endblock %}

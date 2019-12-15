@@ -1,14 +1,15 @@
 {% extends 'layout/layout.twig' %}
 
 {% if type %}
-    {% if type == "connexion" %}
-        {% set title = "Page de connexion" %}
-        {% set subtitle = "Sous titre de la page connexion" %}
-        {% set description = "description de la page" %}
-        {% set isForm = true %}
-        {% set formulaire = {
+	{% if type == "connexion" %}
+		{% set title = "Page de connexion" %}
+		{% set subtitle = "Sous titre de la page connexion" %}
+		{% set description = "description de la page" %}
+		{% set isForm = true %}
+		{% set type = type %}
+		{% set formulaire = {
             1: {
-                1: { tag: 'input', type: 'text', name: 'identifiant', placeholder: 'Votre identifiant', picto: 'people', required: true},
+                1: { tag: 'input', type: 'mail', name: 'mail', placeholder: 'Votre adresse email', picto: 'people', required: true},
             },
             2: {
                 1: { tag: 'input', type: 'password', name: 'password', placeholder: 'Votre mot de passe', picto: 'people', required:
@@ -20,12 +21,13 @@
         }
     %}
 
-    {% elseif type == "creation" %}
-        {% set title = "Page de création" %}
-        {% set subtitle = "Sous titre de la page creation" %}
-        {% set description = "description de la page" %}
-        {% set isForm = true %}
-        {% set formulaire = {
+	{% elseif type == "creation" %}
+		{% set title = "Page de création" %}
+		{% set subtitle = "Sous titre de la page creation" %}
+		{% set description = "description de la page" %}
+		{% set isForm = true %}
+		{% set type = type %}
+		{% set formulaire = {
             1: {
                 1: { tag: 'input', type: 'text', name: 'prenom', placeholder: 'Votre prénom', picto: 'people', required: true},
             },
@@ -33,7 +35,7 @@
                 1: { tag: 'input', type: 'text', name: 'nom', placeholder: 'Votre nom', picto: 'people', required: true},
             },
             3: {
-                1: { tag: 'input', type: 'mail', name: 'email', placeholder: 'Entrez une adresse email', picto: 'mail', required: true},
+                1: { tag: 'input', type: 'mail', name: 'mail', placeholder: 'Entrez une adresse email', picto: 'mail', required: true},
             },
             4: {
                 1: { tag: 'input', type: 'password', name: 'password', placeholder: 'Choisissez un mot de passe', picto: 'people', required: true},
@@ -44,12 +46,13 @@
         }
     %}
 
-    {% elseif type == "mot-de-passe-oublie" %}
-        {% set title = "Page de mot de passe oublié" %}
-        {% set subtitle = "Sous titre de la page mot de passe oublié" %}
-        {% set description = "description de la page" %}
-        {% set isForm = true %}
-        {% set formulaire = {
+	{% elseif type == "mot-de-passe-oublie" %}
+		{% set title = "Page de mot de passe oublié" %}
+		{% set subtitle = "Sous titre de la page mot de passe oublié" %}
+		{% set description = "description de la page" %}
+		{% set isForm = true %}
+		{% set type = type %}
+		{% set formulaire = {
             1: {
                 1: { tag: 'input', type: 'mail', name: 'email', placeholder: 'Entrez votre adresse email', picto: 'mail', required: true},
             },
@@ -59,8 +62,40 @@
         }
     %}
 
+	{% elseif type == "reset-password" %}
+		{% set title = "Bonjour" ~ " " ~ user.prenom ~ " " ~ user.nom %}
+		{% set subtitle = "Vous pouvez changer votre mot de passe ci-dessous" %}
+		{% set description = "description de la page" %}
+		{% set isForm = true %}
+		{% set type = type %}
+		{% set formulaire = {
+            1: {
+                1: { tag: 'input', type: 'mail', name: 'email', placeholder: 'Entrez votre adresse email', picto: 'mail', required: true, hidden: true, value: user.mail},
+            },
+            2: {
+                2: { tag: 'input', type: 'password', name: 'password', placeholder: 'Choisissez un mot de passe', picto: 'people', required: true},
+            },
+            3: {
+                3: { tag: 'input', type: 'password', name: 'confirm-password', placeholder: 'Confirmez votre mot de passe', picto: 'people', required: true},
+            },
+            4: {
+                1: { tag: 'input', type: 'submit', value: 'Changer mon mot de passe'},
+            }
+        }
+    %}
+
     {% elseif type == "creation-ok" %}
         {% set title = "Page de succès création" %}
+        {% set subtitle = "Sous titre de la page succès création" %}
+        {% set description = "description de la page" %}
+        {% set isForm = false %}
+    {% elseif type == "send-forgot-ok" %}
+        {% set title = "Email envoyé" %}
+        {% set subtitle = "Sous titre de la page succès création" %}
+        {% set description = "description de la page" %}
+        {% set isForm = false %}
+    {% elseif type == "password-forgot-ok" %}
+        {% set title = "Votre mot de passe a bien été modifié !" %}
         {% set subtitle = "Sous titre de la page succès création" %}
         {% set description = "description de la page" %}
         {% set isForm = false %}
@@ -85,11 +120,26 @@
     <main id="log" class="{{ type }}">
         {% if isForm %}
             {{include("layout/formulaire.twig", {fields: formulaire})}}
+            {% if type == "connexion" %}
+                <a class="link-forgot-password" href="/index.php?access=log&type=mot-de-passe-oublie">Mot de passe oublié ?</a>
+            {% endif %}
         {% else %}
-            <div class="success">
-                <p>Félicitation votre compte a été créé !</p>
-                <p>Vous avez reçu un email vous invitant à confirmer votre compte.</p>
-            </div>
+            {% if type == 'creation-ok' %}                
+                <div class="success">
+                    <p>Félicitation votre compte a été créé !</p>
+                    <p>Vous avez reçu un email vous invitant à confirmer votre compte.</p>
+                </div>
+            {% elseif type == 'send-forgot-ok' %}
+                <div class="success">
+                    <p>Vérifiez votre boite mail</p>
+                    <p>Vous avez reçu un mail avec un lien de changement de mot de passe</p>
+                </div>
+            {% elseif type == 'password-forgot-ok' %}
+                <div class="success">
+                    <p>Vous pouvez dès à présent vous connecter avec vos nouveaux identifiants en cliquant ci-dessous.</p>
+                    <a class="btn vertFonce" href="/index.php?access=log&type=connexion">Se connecter</a>
+                </div>
+            {% endif %}
         {% endif %}
     </main>
 {% endblock %}

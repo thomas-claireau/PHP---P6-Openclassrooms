@@ -1,44 +1,57 @@
 {% if templateName == 'contact' %}
-    {% set actionUrl = '/index.php?access=mail' %}
+	{% set actionUrl = '/index.php?access=mail' %}
+{% elseif templateName == 'log' and type == 'creation' %}
+	{% set actionUrl = '/index.php?access=auth&action=addAccount' %}
+{% elseif templateName == 'log' and type == 'mot-de-passe-oublie' %}
+	{% set actionUrl = '/index.php?access=auth&action=sendForgotPassword' %}
+{% elseif templateName == 'log' and type == 'reset-password' %}
+	{% set actionUrl = '/index.php?access=admin&action=newPassword' %}
+{% else %}
+	{% set actionUrl = '/index.php?access=auth&action=' ~ type %}
 {% endif %}
 
 
 <form id="form-contact" action="{{actionUrl}}" method="post" class="formulaire">
-    {% if error %}
-        <div class="container-error {{ error }}">
-            {% if error == "mail" %}
-                <p>Votre adresse email n'est pas valide</p>
-            {% endif %}
+	{% if errorContact %}
+		<div class="container-error {{ error }}">
+			{% if errorContact == "mail" %}
+				<p>Votre adresse email n'est pas valide</p>
+			{% endif %}
 
-            {% if error == "tel" %}
-                <p>Votre numéro de téléphone n'est pas valide</p>
-            {% endif %}
-        </div>
-    {% endif %}
+			{% if errorContact == "tel" %}
+				<p>Votre numéro de téléphone n'est pas valide</p>
+			{% endif %}
+		</div>
+	{% elseif (errorLog) %}
+		<div class="container-error">
+			<p>Votre adresse email ou votre mot de passe est invalide. Veuillez réessayer.</p>
+		</div>
+	{% endif %}
 
-    {% for blocks in fields %}
-        <div>
-            {% for field in blocks %}
-                {% set tag = field.tag %}
-                {% set type = field.type %}
-                {% set name = field.name %}
-                {% set placeholder = field.placeholder %}
-                {% set picto = field.picto %}
-                {% set value = field.value %}
-                {% set required = field.required == true ? 'required' : null %}
+	{% for blocks in fields %}
+		<div>
+			{% for field in blocks %}
+				{% set tag = field.tag %}
+				{% set type = field.type %}
+				{% set name = field.name %}
+				{% set placeholder = field.placeholder %}
+				{% set picto = field.picto %}
+				{% set value = field.value %}
+				{% set required = field.required == true ? 'required' : null %}
+				{% set hidden = field.hidden == true ? 'hidden' : null %}
 
-                <div class="field {{ name }}{% if type == 'submit' %}field-submit{% endif %}">
-                    <label for="{{ name }}">
-                        {% if tag == "input" %}
-                            <input class="{% if type != 'submit' %}input{% else %}btn vertFonce{% endif %}" type="{{ type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}{% if required %} *{% endif %}" value="{{ value }}" {{ required }}/>
-                            <img class="js-inject-me" src="{{ imgDir }}pictos/{{ picto }}.svg" alt=""/>
-                        {% else %}
-                            <textarea class="input" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" {{ required }}></textarea>
-                        {% endif %}
-                    </label>
-                </div>
+				<div class="field {{ name }}{% if type == 'submit' %}field-submit{% endif %}">
+					<label for="{{ name }}" class="{{ hidden ? hidden : ""}}">
+						{% if tag == "input" %}
+							<input class="{% if type != 'submit' %}input{% else %}btn vertFonce{% endif %}" type="{{ hidden ? hidden : type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}{% if required %} *{% endif %}" value="{{ value }}" {{ required }}/>
+							<img class="js-inject-me" src="{{ imgDir }}pictos/{{ picto }}.svg" alt=""/>
+						{% else %}
+							<textarea class="input" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" {{ required }}></textarea>
+						{% endif %}
+					</label>
+				</div>
 
-            {% endfor %}
-        </div>
-    {% endfor %}
+			{% endfor %}
+		</div>
+	{% endfor %}
 </form>

@@ -1,0 +1,121 @@
+.comments.remove {
+  .commentaires {
+    .commentaire {
+      transform: translateY(0);
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+
+      &:hover,
+      &.active {
+        transform: translateY(-5px);
+        transition: all 0.3s ease-in-out;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        position: absolute;
+        top: 50%;
+        right: 30px;
+        transform: translateY(-50%);
+
+        .retour {
+          text-decoration: underline;
+          opacity: 0;
+          z-index: -1;
+          cursor: pointer;
+        }
+
+        .confirm {
+          opacity: 0;
+          z-index: -1;
+          transition: all 0.3s ease-in-out;
+          position: relative;
+          margin-top: 30px;
+          cursor: pointer;
+
+          width: 30px;
+          height: 30px;
+
+          svg {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+
+            path {
+              fill: $rougeFonce;
+              transition: all 0.3s ease-in-out;
+            }
+          }
+
+          &:hover {
+            &:before {
+              background-color: $rougeFonce;
+              border-color: #fff;
+              transition: all 0.3s ease-in-out;
+            }
+
+            svg {
+              path {
+                fill: #fff;
+                transition: all 0.3s ease-in-out;
+              }
+            }
+          }
+
+          &:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border: 2px solid $rougeFonce;
+            z-index: 1;
+            border-radius: 50px;
+            transition: background-color 0.3s ease-in-out;
+          }
+        }
+      }
+
+      &.active {
+        background-color: $rougeFonce;
+        color: #fff;
+        transition: all 0.3s ease-in-out;
+        cursor: default;
+
+        .contenu {
+          width: 90%;
+        }
+        .retour {
+          opacity: 1;
+          z-index: 1;
+        }
+        .confirm {
+          opacity: 1;
+          z-index: 1000;
+          transition: opacity 0.3s ease-in-out;
+        }
+      }
+
+      &.remove {
+        opacity: 0;
+        z-index: -1;
+        transform: translateX(-1000px);
+        transition: all 0.3s ease-in-out;
+      }
+
+      .right {
+        .contenu {
+          margin-top: 10px;
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}

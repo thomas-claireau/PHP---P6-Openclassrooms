@@ -4,8 +4,14 @@
 # Exclude config folder
 /config
 
+# Exclude posts-images
+/public/src/assets/img/posts_images/
+
 # Exclude public dist folder
 /public/dist/
+
+#exclude package lock public folder
+/public/package-lock.json
 
 /public/.cache-loader/
 

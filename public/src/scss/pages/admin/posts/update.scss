@@ -1,0 +1,40 @@
+.posts.update {
+	textarea {
+		height: 100%;
+	}
+
+	.infos-article {
+		margin-bottom: 30px;
+		.auteur {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+
+			.avatar {
+				background-image: url('https://via.placeholder.com/50');
+				background-size: cover;
+				background-position: center;
+				width: 70px;
+				height: 70px;
+				border-radius: 50%;
+				border: 1px solid $grisFonce;
+				margin-right: 20px;
+			}
+
+			.nom {
+				font-size: 25px;
+			}
+		}
+	}
+
+	.actions {
+		margin-top: 30px;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+
+		a:first-child {
+			margin-right: 20px;
+		}
+	}
+}

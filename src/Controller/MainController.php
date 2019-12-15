@@ -41,6 +41,7 @@ abstract class MainController
         $this->twig->addGlobal('isDistFolder', $this->folder_exist('dist'));
         $this->twig->addGlobal('templateName', $this->getTemplateName());
         $this->twig->addGlobal('imgDir', $this->getImgDir());
+        $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
     }
 
     /**
@@ -64,7 +65,6 @@ abstract class MainController
     public function redirect(string $page, array $params = [])
     {
         header('Location: ' . $this->url($page, $params));
-
         exit;
     }
 
@@ -139,5 +139,70 @@ abstract class MainController
         }
 
         return $publicPath;
+    }
+
+    public function checkAllInput($context)
+    {
+        if ($context == 'contact') {
+            $location = '/index.php?access=contact';
+        } elseif ($context == 'login') {
+            $location = '/index.php?access=log&type=connexion';
+        } else {
+            return false;
+        }
+
+        if (isset($_POST['email']) && self::getMail() == false) {
+            header('Location: ' . $location . '&error=mail');
+            exit;
+        } elseif (isset($_POST['tel']) && self::getTel() == false) {
+            header('Location: ' . $location . '&error=tel');
+            exit;
+        } else {
+            if (isset($_POST) && !empty($_POST)) {
+                $array = [];
+                foreach ($_POST as $key => $item) {
+                    if ($key == 'email') {
+                        $array[$key] = self::getMail();
+                    } elseif ($key == 'tel') {
+                        $array[$key] = self::getTel();
+                    } else {
+                        $array[$key] = $item;
+                    }
+                }
+
+                return $array;
+            }
+        }
+    }
+
+    public function getMail()
+    {
+        $mail = htmlspecialchars($_POST['email']);
+
+        if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+            return $mail;
+        }
+
+        return false;
+    }
+
+    public function getTel()
+    {
+        $tel = htmlspecialchars($_POST['tel']);
+
+        $tel = str_replace(' ', '', $tel);
+        $tel = str_replace('-', '', $tel);
+        $tel = str_replace('.', '', $tel);
+
+        if (preg_match("/^((\+)33|0)[1-9](\d{2}){4}$/", $tel)) {
+            return $tel;
+        }
+
+        return false;
+    }
+
+    public function getHomeUrl()
+    {
+        return 'https://' . $_SERVER['HTTP_HOST'];
     }
 }

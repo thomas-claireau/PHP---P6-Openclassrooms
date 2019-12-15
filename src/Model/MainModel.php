@@ -29,8 +29,8 @@ abstract class MainModel
     public function __construct(PDOModel $database)
     {
         $this->database = $database;
-        $model          = explode('\\', get_class($this));
-        $this->table    = ucfirst(str_replace('Model', '', array_pop($model)));
+        $model = explode('\\', get_class($this));
+        $this->table = ucfirst(str_replace('Model', '', array_pop($model)));
     }
 
     /**
@@ -57,9 +57,9 @@ abstract class MainModel
      */
     public function createData(array $data)
     {
-        $keys   = implode(', ', array_keys($data));
+        $keys = implode(', ', array_keys($data));
         $values = implode('", "', $data);
-        $query  = 'INSERT INTO ' . $this->table . ' (' . $keys . ') VALUES ("' . $values . '")';
+        $query = 'INSERT INTO ' . $this->table . ' (' . $keys . ') VALUES ("' . $values . '")';
 
         $this->database->setData($query);
     }
@@ -87,7 +87,7 @@ abstract class MainModel
      * @param array $data
      * @param string|null $key
      */
-    public function updateData(string $value, array $data, string $key = null)
+    public function updateData(string $value, array $data, array $key)
     {
         $set = null;
 
@@ -97,10 +97,10 @@ abstract class MainModel
 
         $set = substr_replace($set, '', -2);
 
-        if (isset($key)) {
-            $query = 'UPDATE ' . $this->table . ' SET ' . $set . ' WHERE ' . $key . ' = ?';
+        if (isset($key) && !empty($key)) {
+            $query = 'UPDATE ' . $this->table . ' SET ' . $set . ' WHERE ' . key($key) . ' = ' . $key[key($key)];
         } else {
-            $query = 'UPDATE ' . $this->table . ' SET ' . $set . ' WHERE id = ?';
+            $query = 'UPDATE ' . $this->table . ' SET ' . $set;
         }
 
         $this->database->setData($query, [$value]);
@@ -111,10 +111,10 @@ abstract class MainModel
      * @param string $value
      * @param string|null $key
      */
-    public function deleteData(string $value, string $key = null)
+    public function deleteData(string $value, array $key)
     {
-        if (isset($key)) {
-            $query = 'DELETE FROM ' . $this->table . ' WHERE ' . $key . ' = ?';
+        if (isset($key) && !empty($key)) {
+            $query = 'DELETE FROM ' . $this->table . ' WHERE ' . key($key) . ' = ' . $key[key($key)];
         } else {
             $query = 'DELETE FROM ' . $this->table . ' WHERE id = ?';
         }
