@@ -38,21 +38,21 @@ export default {
 	loader: () => {
 		const loader = document.querySelector('.LoaderBalls');
 		loader.classList.add('active');
-		setTimeout(function() {
+		setTimeout(function () {
 			loader.classList.remove('active');
 		}, 1500);
 	},
 	$_GET: (param) => {
 		const vars = {};
-		window.location.href.replace( location.hash, '' ).replace( 
+		window.location.href.replace(location.hash, '').replace(
 			/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-			function( m, key, value ) { // callback
+			function (m, key, value) { // callback
 				vars[key] = value !== undefined ? value : '';
 			}
 		);
-	
-		if ( param ) {
-			return vars[param] ? vars[param] : null;	
+
+		if (param) {
+			return vars[param] ? vars[param] : null;
 		}
 		return vars;
 	}

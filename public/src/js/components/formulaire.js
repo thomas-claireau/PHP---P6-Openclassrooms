@@ -20,7 +20,17 @@ window.addEventListener("DOMContentLoaded", event => {
           functions.checkInput(currentInput, regexMail, true);
         } else if (e.target.id == "tel") {
           functions.checkInput(currentInput, regexTel, true);
-        } else {
+        } else if (e.target.id == "password") {
+          const inputConfirmPassword = document.querySelector('input#confirm-password');
+          inputConfirmPassword.value = "";
+          inputConfirmPassword.parentNode.parentNode.classList.remove('ok');
+        } else if (e.target.id == "confirm-password") {
+          const inputPassword = document.querySelector('input#password');
+          const regexPassword = RegExp("^" + inputPassword.value + "$");
+
+          functions.checkInput(currentInput, regexPassword, true);
+        }
+        else {
           functions.checkInput(currentInput, regexText, false);
         }
       });
