@@ -33,10 +33,16 @@ class AdminController extends MainController
             self::redirectLogin();
         }
 
-        self::getLastPostId();
-
         if (self::getAction() == 'newPassword') {
             self::newPassword();
+        }
+
+        if (self::getType() == 'posts' && self::getAction() == 'view') {
+            $posts = self::getPost(['id_user' => $_SESSION['user']['id']]);
+        }
+
+        if (self::getType() == 'posts') {
+            self::getLastPostId();
         }
 
         return $this->render('admin.twig', [
@@ -48,6 +54,7 @@ class AdminController extends MainController
             'isError' => self::isError(),
             'requestUri' => self::getRequestUri(),
             'lastPostId' => self::getLastPostId(),
+            'posts' => $posts ? $posts : false,
         ]);
     }
 
@@ -87,8 +94,12 @@ class AdminController extends MainController
         }
     }
 
-    public function getPost()
+    public function getPost(array $key = null)
     {
+        if (isset($key) && !empty($key)) {
+            return ModelFactory::getModel('Post')->listData($key[key($key)], key($key));
+        }
+
         return ModelFactory::getModel('Post')->listData();
     }
 
