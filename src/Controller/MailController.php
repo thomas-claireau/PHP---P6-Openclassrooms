@@ -33,7 +33,7 @@ class MailController extends MainController
         $username    = $configMail['username'];
         $password    = $configMail['password'];
 
-        $infos   = self::checkAllInput();
+        $infos   = self::checkAllInput('contact');
         $prenom  = $infos['prenom'];
         $nom     = $infos['nom'];
         $mail    = $infos['email'];
@@ -89,56 +89,5 @@ class MailController extends MainController
         $result = $mailer->send($messageConfirmation);
         $result = $mailer->send($messageMySelf);
         header('Location: /index.php?access=contact&success=true');
-    }
-
-    public function checkAllInput()
-    {
-        if (self::getMail() == false) {
-            header('Location: /index.php?access=contact&error=mail');
-            exit;
-        } elseif (self::getTel() == false) {
-            header('Location: /index.php?access=contact&error=tel');
-            exit;
-        } else {
-            if (isset($_POST) && !empty($_POST)) {
-                $array = [];
-                foreach ($_POST as $key => $item) {
-                    if ($key == 'email') {
-                        $array[$key] = self::getMail();
-                    } elseif ($key == 'tel') {
-                        $array[$key] = self::getTel();
-                    } else {
-                        $array[$key] = $item;
-                    }
-                }
-
-                return $array;
-            }
-        }
-    }
-
-    public function getMail()
-    {
-        $mail = htmlspecialchars($_POST['email']);
-
-        if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-            return $mail;
-        } else {
-            return false;
-        }
-    }
-
-    public function getTel()
-    {
-        $tel = htmlspecialchars($_POST['tel']);
-        $tel = str_replace(' ', '', $tel);
-        $tel = str_replace('-', '', $tel);
-        $tel = str_replace('.', '', $tel);
-
-        if (preg_match("/^((\+)33|0)[1-9](\d{2}){4}$/", $tel)) {
-            return $tel;
-        } else {
-            return false;
-        }
     }
 }

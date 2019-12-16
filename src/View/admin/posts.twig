@@ -1,0 +1,6 @@
+{% if action == 'view' or action == 'update' or action == 'create' or action == 'remove' %}
+    {% set path = 'admin/posts/' ~ action ~ '.twig' %}
+    {% include path %}
+{% else %}
+    {% include "admin/posts/view.twig" %}
+{% endif %}

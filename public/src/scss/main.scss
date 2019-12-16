@@ -1,150 +1,157 @@
-@import "../assets/css/font-awesome.min.css";
+@import '../assets/css/font-awesome.min.css';
 
-@import "vars";
-@import "./fonts";
+@import 'vars';
+@import './fonts';
 
-@import "global/container";
-@import "global/menu";
-@import "global/header";
-@import "global/footer";
+@import 'global/container';
+@import 'global/menu';
+@import 'global/header';
+@import 'global/footer';
 
-@import "components/btn";
-@import "components/mouseScroll";
-@import "components/filter";
-@import "components/formulaire";
+@import 'components/btn';
+@import 'components/mouseScroll';
+@import 'components/filter';
+@import 'components/formulaire';
+@import './pages/home/articles';
 
 // global page
-@import "pages/home.scss";
-@import "pages/blog.scss";
-@import "pages/post.scss";
-@import "pages/contact.scss";
-@import "pages/log.scss";
+@import 'pages/home.scss';
+@import 'pages/blog.scss';
+@import 'pages/post.scss';
+@import 'pages/contact.scss';
+@import 'pages/log.scss';
+@import 'pages/admin.scss';
+@import 'pages/loader.scss';
 
 html {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .js-inject-me {
-  opacity: 0;
+	opacity: 0;
 
-  &.activeSvg {
-    opacity: 1;
-  }
+	&.activeSvg {
+		opacity: 1;
+	}
 }
 
 .back {
-  background-color: #fff;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: block;
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  transform: scale(1);
-  transition: all 0.3s ease-in-out;
+	background-color: #fff;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: block;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	transform: scale(1);
+	transition: all 0.3s ease-in-out;
 
-  svg {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: 50%;
-    left: 46%;
-    transform: translate(-50%, -50%);
+	svg {
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		top: 50%;
+		left: 46%;
+		transform: translate(-50%, -50%);
 
-    path {
-      fill: inherit;
-      transition: all 0.2s ease-in-out;
-    }
-  }
+		path {
+			fill: inherit;
+			transition: all 0.2s ease-in-out;
+		}
+	}
 
-  &:hover {
-    transform: scale(1.05);
-    transition: all 0.3s ease-in-out;
+	&:hover {
+		transform: scale(1.05);
+		transition: all 0.3s ease-in-out;
 
-    svg {
-      path {
-        fill: $vertFonce;
-        transition: all 0.2s ease-in-out;
-      }
-    }
-  }
+		svg {
+			path {
+				fill: $vertFonce;
+				transition: all 0.2s ease-in-out;
+			}
+		}
+	}
 }
 
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+	box-sizing: inherit;
 }
 
 body,
 textarea {
-  font-family: "Roboto";
-  margin: 0;
-  padding: 0;
-  color: $mainColor;
+	font-family: 'Roboto';
+	margin: 0;
+	padding: 0;
+	color: $mainColor;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  .title {
-    font-family: "Raleway";
-    margin: 0;
-    padding: 0;
-    color: darken($mainColor, 10%);
-  }
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	.title {
+		font-family: 'Raleway';
+		margin: 0;
+		padding: 0;
+		color: darken($mainColor, 10%);
+	}
 
-  ul {
-    margin: 0;
-    padding: 0;
-    li {
-      list-style: none;
-    }
-  }
+	ul {
+		margin: 0;
+		padding: 0;
+		li {
+			list-style: none;
+		}
+	}
 
-  h1 {
-    position: relative;
-    z-index: 2;
-    color: #fff;
+	h1 {
+		position: relative;
+		z-index: 2;
+		color: #fff;
 
-    span {
-      font-size: 80px;
-      font-weight: 300;
-      display: block;
-      margin-left: -10px;
-      margin-bottom: 4px;
+		span {
+			font-size: 80px;
+			font-weight: 300;
+			display: block;
+			margin-left: -10px;
+			margin-bottom: 4px;
 
-      @media screen and (max-width: $break-tablet) {
-        font-size: 60px;
-        line-height: 60px;
-      }
-    }
+			@media screen and (max-width: $break-tablet) {
+				font-size: 60px;
+				line-height: 60px;
+			}
+		}
 
-    @media screen and (max-width: $break-tablet) {
-      font-size: 30px;
-    }
-  }
+		@media screen and (max-width: $break-tablet) {
+			font-size: 30px;
+		}
+	}
 
-  :not(.content-post) {
-    h2 {
-      margin: 40px 0;
-      text-align: center;
-      font-size: 50px;
-      font-weight: 600;
-    }
-  }
+	:not(.content-post) {
+		h2 {
+			margin: 40px 0;
+			text-align: center;
+			font-size: 50px;
+			font-weight: 600;
+		}
+	}
 
-  h3 {
-    font-size: 25px;
-    line-height: 25px;
-    font-weight: 600;
-    margin: 20px 0 15px 0;
-  }
+	h3 {
+		font-size: 25px;
+		line-height: 25px;
+		font-weight: 600;
+		margin: 20px 0 15px 0;
+	}
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	input[type='submit'] {
+		white-space: normal;
+	}
 }

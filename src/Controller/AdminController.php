@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Model\Factory\ModelFactory;
+use DateTime;
+use DateTimeZone;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -11,6 +14,7 @@ use Twig\Error\SyntaxError;
  * Manages the admin page
  * @package App\Controller
  */
+
 class AdminController extends MainController
 {
     /**
@@ -20,10 +24,162 @@ class AdminController extends MainController
      * @throws RuntimeError
      * @throws SyntaxError
      */
+
     public function defaultMethod()
     {
+        session_start();
+
+        if (self::getAction() !== 'newPassword') {
+            self::redirectLogin();
+        }
+
+        self::getLastPostId();
+
+        if (self::getAction() == 'newPassword') {
+            self::newPassword();
+        }
+
         return $this->render('admin.twig', [
-            'test' => 'AdminController',
+            'isActif' => self::isActif(),
+            'isAdmin' => self::isAdmin(),
+            'user' => self::getUser(),
+            'type' => self::getType(),
+            'action' => self::getAction(),
+            'isError' => self::isError(),
+            'requestUri' => self::getRequestUri(),
+            'lastPostId' => self::getLastPostId(),
         ]);
+    }
+
+    public function getUserSession()
+    {
+        return $_SESSION['user'];
+    }
+
+    public function isAdmin()
+    {
+        if (self::getUserSession() != null) {
+            return self::getUserSession()['admin'];
+        }
+    }
+
+    public function isActif()
+    {
+        if (self::getUserSession() != null) {
+            return self::getUserSession()['actif'];
+        }
+    }
+
+    public function isError()
+    {
+        return filter_input(INPUT_GET, 'error');
+    }
+
+    public function getUser()
+    {
+        $userSession = self::getUserSession();
+        if ($userSession !== null) {
+            $array['id'] = $userSession['id'];
+            $array['prenom'] = $userSession['prenom'];
+            $array['nom'] = $userSession['nom'];
+            $array['email'] = $userSession['mail'];
+            return $array;
+        }
+    }
+
+    public function getPost()
+    {
+        return ModelFactory::getModel('Post')->listData();
+    }
+
+    public function getLastPostId()
+    {
+        $posts = self::getPost();
+
+        if (isset($posts) && !empty($posts)) {
+            return $posts[count($posts) - 1]['id'];
+        }
+    }
+
+    public function getType()
+    {
+        if (isset($_GET['type'])) {
+            return $_GET['type'];
+        }
+    }
+
+    public function getAction()
+    {
+        if (isset($_GET['action'])) {
+            return $_GET['action'];
+        }
+    }
+
+    public function getRequestUri()
+    {
+        return $_SERVER['REQUEST_URI'];
+    }
+
+    public function getToken()
+    {
+        return filter_input(INPUT_GET, 'token');
+    }
+
+    public function redirectLogin()
+    {
+        if (self::getUserSession() == null && !self::getToken()) {
+            $this->redirect('log', ['type' => 'connexion']);
+        }
+
+        if (self::getToken()) {
+            self::forgotPassword();
+        }
+    }
+
+    public function forgotPassword()
+    {
+        $idUser = filter_input(INPUT_GET, 'id');
+        $getToken = filter_input(INPUT_GET, 'token');
+
+        $user = ModelFactory::getModel('User')->readData($idUser, 'id');
+
+        if ($user) {
+            $userToken = $user['token'];
+            $userDateToken = $user['dateToken'];
+
+            $dateToken = new DateTime($userDateToken, new DateTimeZone('Europe/Paris'));
+            $dateNow = new DateTime('now', new DateTimeZone('Europe/Paris'));
+            $dateDiff = $dateToken->diff($dateNow)->format('%h');
+
+            // // si le token a été initialité il y a plus d'une heure, on redirige
+            if ($dateDiff > 0) {
+                $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+            } else {
+                $this->redirect('log', ['type' => 'reset-password', 'token' => $userToken, 'id' => $user['id']]);
+            }
+
+        } else {
+            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+        }
+    }
+
+    public function newPassword()
+    {
+        if (isset($_POST)) {
+            $post = filter_input_array(INPUT_POST);
+            $email = $post['email'];
+            $password = $post['password'];
+            $confirmPassword = $post['confirm-password'];
+
+            if ($password === $confirmPassword) {
+                $newPassword = password_hash($password, PASSWORD_DEFAULT);
+                ModelFactory::getModel('User')->updateData($newPassword, ['password' => $newPassword, 'token' => null, 'dateToken' => null], ['mail' => '"' . $email . '"']);
+                $this->redirect('log', ['type' => 'password-forgot-ok']);
+            } else {
+                $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+            }
+        } else {
+            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+        }
     }
 }

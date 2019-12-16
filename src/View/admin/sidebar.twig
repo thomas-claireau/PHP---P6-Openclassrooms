@@ -1,0 +1,57 @@
+<div class="sidebar">
+	<ul>
+		<div>
+			<div class="label">Site</div>
+			<li>
+				<a href="{{ homeUrl }}">Retour au site</a>
+			</li>
+		</div>
+		<div>
+			<div class="label">Admin</div>
+			<li>
+				<a href="/index.php?access=admin">Dashboard</a>
+			</li>
+		</div>
+		{% if isAdmin %}
+			<div>
+				<div class="label">Articles</div>
+				<li>
+					<a href="/index.php?access=admin&type=posts&action=view">Consulter vos articles</a>
+				</li>
+				{% if lastPostId %}
+					<li>
+						<a href="/index.php?access=admin&type=posts&action=create&id={{ lastPostId + 1 }}">Créer un article</a>
+					</li>
+				{% endif %}
+				<li>
+					<a href="/index.php?access=admin&type=posts&action=remove">Suprimer un article</a>
+				</li>
+			</div>
+		{% endif %}
+
+		<div>
+			<div class="label">Commentaires</div>
+			<li>
+				<a href="/index.php?access=admin&type=comments&action=view">Consulter vos commentaires</a>
+			</li>
+			<li>
+				<a href="/index.php?access=admin&type=comments&action=update">Modifier un commentaire</a>
+			</li>
+			<li>
+				<a href="/index.php?access=admin&type=comments&action=remove">Supprimer un commentaire</a>
+			</li>
+		</div>
+		<div>
+			<div class="label">Compte</div>
+			<li>
+				<a href="/index.php?access=admin&type=account&action=view">Gérer mon compte</a>
+			</li>
+			<li>
+				<a href="/index.php?access=admin&type=account&action=remove">Supprimer mon compte</a>
+			</li>
+			<li>
+				<a href="/index.php?access=auth&action=deconnexion">Déconnexion</a>
+			</li>
+		</div>
+	</ul>
+</div>

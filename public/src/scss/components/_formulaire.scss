@@ -4,14 +4,19 @@
   padding: 40px 30px;
   border-radius: 5px;
 
+  label.hidden {
+    display: none;
+  }
+
   div.container-error {
     border: 1px solid $rougeFonce;
     border-radius: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     padding: 0 20px;
     color: $rougeFonce;
 
     p {
+      font-size: 13px;
       width: 100%;
     }
   }
