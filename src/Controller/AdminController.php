@@ -37,8 +37,14 @@ class AdminController extends MainController
             self::newPassword();
         }
 
-        if (self::getType() == 'posts' && self::getAction() == 'view') {
+        if (self::getType() == 'posts' && self::getAction() == 'view' || self::getType() == 'posts' && self::getAction() == 'remove') {
             $posts = self::getPost(['id_user' => $_SESSION['user']['id']]);
+        } else {
+            $posts = false;
+        }
+
+        if (self::getType() == 'posts' && self::getAction() == 'update') {
+            $posts = self::renderPost();
         }
 
         if (self::getType() == 'posts') {
@@ -101,6 +107,13 @@ class AdminController extends MainController
         }
 
         return ModelFactory::getModel('Post')->listData();
+    }
+
+    public function renderPost()
+    {
+        $idPost = filter_input(INPUT_GET, 'id');
+        $post = self::getPost(['id' => $idPost]);
+        return $post[0];
     }
 
     public function getLastPostId()

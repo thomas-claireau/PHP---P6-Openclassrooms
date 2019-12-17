@@ -6,6 +6,7 @@ $accepted_origins = array("http://localhost:3000", "http://82.64.201.160", "http
 $idUser = filter_input(INPUT_GET, 'idUser');
 $idPost = filter_input(INPUT_GET, 'id');
 $mainImageUpload = filter_input(INPUT_GET, 'uploadImage');
+$action = filter_input(INPUT_GET, 'action');
 
 if (!$mainImageUpload) {
     $path = 'posts_images';
@@ -56,7 +57,7 @@ if (is_uploaded_file($temp['tmp_name'])) {
     // Respond to the successful upload with JSON.
     echo json_encode(array('location' => $filetowrite));
     if ($mainImageUpload) {
-        $this->redirect('post', ['action' => 'create', 'id' => $idPost, 'idUser' => $idUser]);
+        $this->redirect('post', ['action' => $action, 'id' => $idPost, 'idUser' => $idUser]);
     }
 } else {
     // Notify editor that the upload failed
