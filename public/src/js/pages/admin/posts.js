@@ -13,6 +13,8 @@ tinyPlugins.forEach((plugin) => {
 window.addEventListener('DOMContentLoaded', (event) => {
 	const isPostUpdate = document.querySelector('.posts.update');
 	const isPostCreate = document.querySelector('.posts.create');
+	const isPostRemove = document.querySelector('.posts.remove');
+
 
 	if (isPostUpdate || isPostCreate) {
 		const textarea = document.querySelector('#editor');
@@ -20,7 +22,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		tinymce.init({
 			target: textareaDesc,
 			plugins: tinyPluginsLimited,
-			toolbar: 'undo redo | bold italic',
+			toolbar: 'undo redo',
 			menubar: false,
 		});
 		tinymce.init({
@@ -71,6 +73,35 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				if (tinymce.activeEditor.getContent() == "") {
 					e.preventDefault();
 				}
+			})
+		}
+	}
+
+	if (isPostRemove) {
+		const containerArticles = isPostRemove.querySelector('.articles');
+
+		if (containerArticles) {
+			const articles = containerArticles.querySelectorAll('.article');
+
+			articles.forEach(article => {
+				article.addEventListener('mouseenter', () => {
+					article.classList.add('hover');
+				});
+
+				article.addEventListener('mouseout', (e) => {
+					if (e.toElement.classList.contains('articles') || e.toElement.classList.contains('admin') || e.toElement.classList.contains('liste-articles')) {
+						article.classList.remove('hover');
+						article.classList.remove('active');
+					}
+				});
+
+				article.addEventListener('click', (e) => {
+					e.preventDefault();
+
+					if (article.classList.contains('hover')) {
+						article.classList.add('active');
+					}
+				});
 			})
 		}
 	}

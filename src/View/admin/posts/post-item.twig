@@ -1,4 +1,10 @@
-<a href="{{url}}/index.php?access=admin&type=posts&id={{ id }}&action=update" class="article">
+{% if not remove %}
+	{% set link = url ~ "/index.php?access=admin&type=posts&id=" ~ id ~ "&action=update" %}
+{% else %}
+	{% set link = url ~ "/index.php?access=admin&type=posts&id=" ~ id ~ "&action=remove" %}
+{% endif %}
+
+<a href="{{link}}" class="article">
 	<div class="first">
 		<div class="date-auteur">
 			<div class="date">{{ date|date('d/m/Y') }}</div>
@@ -9,10 +15,16 @@
 		</div>
 		<h3>{{ title }}</h3>
 	</div>
-	<div class="img-article" style="background-image: url({{ url ~ '/' ~ main_img }})"></div>
+	<div class="img-article" style="background-image: url({{url}}/{{main_img}})"></div>
 	<div class="last">
 		<div class="description">
 			<p>{{ description|slice(0, 150)|raw }}</p>
 		</div>
 	</div>
+	{% if remove %}
+		<div class="remove">
+			<p>Confirmez la suppression ci-dessous</p>
+			<button class="btn rougeFonce">Supprimer</button>
+		</div>
+	{% endif %}
 </a>
