@@ -4,7 +4,7 @@
 	{% set link = url ~ "/index.php?access=admin&type=posts&id=" ~ id ~ "&action=remove" %}
 {% endif %}
 
-<a href="{{link}}" class="article">
+<a href="{{link}}" class="article" data-id="{{ id }}">
 	<div class="first">
 		<div class="date-auteur">
 			<div class="date">{{ date|date('d/m/Y') }}</div>

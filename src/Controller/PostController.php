@@ -123,8 +123,20 @@ class PostController extends MainController
         ];
 
         ModelFactory::getModel('Post')->updateData($titlePost, ['title' => $titlePost, 'date' => $datePost, 'description' => $description, 'content' => $contentPost, 'main_img_path' => $mainImagePath], ['id' => $idPost]);
-        
+
         self::deleteSessionPost();
         $this->redirect('admin', ['type' => 'posts', 'action' => 'view']);
+    }
+
+    public function remove()
+    {
+        $idPost = filter_input(INPUT_GET, 'id');
+        ModelFactory::getModel('Post')->deleteData('id', ['id' => $idPost]);
+        $allPosts = ModelFactory::getModel('Post')->listData();
+
+        if (isset($allPosts) && empty($allPosts)) {
+            ModelFactory::getModel('Post')->resetIndex();
+        }
+        $this->redirect('admin', ['type' => 'posts', 'action' => 'remove']);
     }
 }

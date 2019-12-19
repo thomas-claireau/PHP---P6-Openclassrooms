@@ -51,6 +51,13 @@ abstract class MainModel
         return $this->database->getAllData($query);
     }
 
+    public function resetIndex()
+    {
+        $query = 'ALTER TABLE ' . $this->table . ' AUTO_INCREMENT = 1';
+
+        $this->database->setData($query);
+    }
+
     /**
      * Creates a new Data entry
      * @param array $data

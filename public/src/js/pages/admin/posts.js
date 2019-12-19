@@ -100,6 +100,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 					if (article.classList.contains('hover')) {
 						article.classList.add('active');
+						const buttonRemove = article.querySelector('button');
+
+						buttonRemove.addEventListener('click', () => {
+							const idPost = article.dataset.id;
+							const origin = window.location.origin;
+							window.location.href = origin + '/index.php?access=post&action=remove&id=' + idPost;
+						})
 					}
 				});
 			})

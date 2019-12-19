@@ -121,7 +121,9 @@ class AdminController extends MainController
         $posts = self::getPost();
 
         if (isset($posts) && !empty($posts)) {
-            return $posts[count($posts) - 1]['id'];
+            return $posts[count($posts) - 1]['id'] + 1;
+        } else {
+            return 1;
         }
     }
 
