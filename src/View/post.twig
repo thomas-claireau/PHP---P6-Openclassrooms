@@ -2,15 +2,15 @@
 {% set isBlog = true %}
 
 {% block subtitle %}
-    Le titre de la page post
+    {{post.title}}
 {% endblock %}
 
 {% block title %}
-    Un article de blog
+    {{post.title}}
 {% endblock %}
 
 {% block description %}
-    Description méta pour la page post
+    {{post.description|raw}}
 {% endblock %}
 
 {% block main %}
@@ -19,12 +19,12 @@
         <article>
             <section class="infos-post">
                 <div class="date">
-                    <p>11 Aout 2019</p>
+                    <p>{{ post.date|date('d/m/Y') }}</p>
                 </div>
                 <div class="auteur">
                     <div class="avatar"></div>
                     <div class="nom-reseaux">
-                        <div class="nom">Thomas Claireau</div>
+                        <div class="nom">{{ post.prenom }} {{ post.nom}}</div>
                         <div class="reseaux">
                             <ul>
                                 <li><a href="#">Twitter</a></li>
@@ -36,34 +36,12 @@
                 </div>
             </section>
             <section class="image-post">
-                <img src="https://via.placeholder.com/720x405" alt="image-post"/>
+                <img src="{{url}}/{{post.main_img_path}}" alt="image-post"/>
             </section>
             <section class="container-content-post">
                 <div class="content-post">
-                    <blockquote>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </blockquote>
-                    <h2>Un test de titre h2</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        <a href="#">reprehenderit in voluptate</a>
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <h3>Un test de titre h3</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        <a href="#">reprehenderit in voluptate</a>
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
+                    {{post.content|raw}}
                 </div>
-                {% include "./blog/filter.twig" %}
-                <div class="content-post">
-                    <h2>Articles similaires :</h2>
-                </div>
-            </section>
-            <section class="posts-sup">
-                {% include("blog/post-item.twig") %}
-                {% include("blog/post-item.twig") %}
             </section>
         </article>
     </main>

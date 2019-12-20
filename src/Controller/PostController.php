@@ -38,7 +38,7 @@ class PostController extends MainController
             self::$action();
         } else {
             return $this->render('post.twig', [
-                'test' => 'PostController',
+                'post' => self::getPost(),
             ]);
         }
     }
@@ -82,7 +82,7 @@ class PostController extends MainController
 
         $titlePost = $post['content']['titre'];
         $description = $post['content']['description'];
-        $contentPost = htmlspecialchars($post['content']['editor']);
+        $contentPost = $post['content']['editor'];
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
         $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
@@ -138,5 +138,16 @@ class PostController extends MainController
             ModelFactory::getModel('Post')->resetIndex();
         }
         $this->redirect('admin', ['type' => 'posts', 'action' => 'remove']);
+    }
+
+    public function getPost()
+    {
+        $id = self::getId();
+        $post = ModelFactory::getModel('Post')->readData($id, 'id');
+        $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], 'id');
+        $post['nom'] = $userOfPost['nom'];
+        $post['prenom'] = $userOfPost['prenom'];
+
+        return $post;
     }
 }
