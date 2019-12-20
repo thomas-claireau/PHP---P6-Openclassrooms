@@ -38,7 +38,7 @@ class AdminController extends MainController
         }
 
         if (self::getType() == 'posts' && self::getAction() == 'view' || self::getType() == 'posts' && self::getAction() == 'remove') {
-            $posts = self::getPost(['id_user' => $_SESSION['user']['id']]);
+            $posts = self::getPost(['id_user' => filter_var($_SESSION['user']['id'])]);
         } else {
             $posts = false;
         }
