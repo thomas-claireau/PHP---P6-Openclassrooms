@@ -51,7 +51,7 @@ abstract class MainModel
                 if (is_array($param)) {
                     $query_args .= $key . ' ' . key($param) . ' ' . $param[key($param)] . ' ';
                 } else {
-                    $query_args .= $key . ' ' . key($param) . $param;
+                    $query_args .= $key . ' ' . $param;
                 }
             }
 
