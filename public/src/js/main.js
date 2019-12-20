@@ -6,6 +6,7 @@ import functions from './functions';
 import './components/formulaire';
 
 import './pages/admin';
+import './pages/blog';
 
 window.addEventListener('DOMContentLoaded', (event) => {
 	functions.injectSvg();
@@ -14,7 +15,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const pageContainers = $('html, body');
 	const headerH = $('header').outerHeight();
 
-	$('.js-smooth-scroll').click(function(e) {
+	$('.js-smooth-scroll').click(function (e) {
 		e.preventDefault();
 		const target = $(this).attr('href');
 		if (!$(target).length) return;
@@ -42,7 +43,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 // footer toujours en bas (sauf page formulaire)
-document.onreadystatechange = function() {
+document.onreadystatechange = function () {
 	if (document.readyState == 'complete') {
 		const pageContact = document.querySelector('body.contact');
 		const pagesLog = document.querySelector('#log');

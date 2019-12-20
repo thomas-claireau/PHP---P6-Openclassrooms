@@ -33,21 +33,34 @@ class AdminController extends MainController
             self::redirectLogin();
         }
 
-        self::getLastPostId();
-
         if (self::getAction() == 'newPassword') {
             self::newPassword();
+        }
+
+        if (self::getType() == 'posts' && self::getAction() == 'view' || self::getType() == 'posts' && self::getAction() == 'remove') {
+            $posts = self::getPost(['id_user' => filter_var($_SESSION['user']['id'])]);
+        } else {
+            $posts = false;
+        }
+
+        if (self::getType() == 'posts' && self::getAction() == 'update') {
+            $posts = self::renderPost();
+        }
+
+        if (self::getType() == 'posts') {
+            self::getLastPostId();
         }
 
         return $this->render('admin.twig', [
             'isActif' => self::isActif(),
             'isAdmin' => self::isAdmin(),
-            'user' => self::getUser(),
+            'user' => self::setUser(),
             'type' => self::getType(),
             'action' => self::getAction(),
             'isError' => self::isError(),
             'requestUri' => self::getRequestUri(),
             'lastPostId' => self::getLastPostId(),
+            'posts' => $posts ? $posts : false,
         ]);
     }
 
@@ -75,7 +88,7 @@ class AdminController extends MainController
         return filter_input(INPUT_GET, 'error');
     }
 
-    public function getUser()
+    public function setUser()
     {
         $userSession = self::getUserSession();
         if ($userSession !== null) {
@@ -87,9 +100,20 @@ class AdminController extends MainController
         }
     }
 
-    public function getPost()
+    public function getPost(array $key = null)
     {
+        if (isset($key) && !empty($key)) {
+            return ModelFactory::getModel('Post')->listData($key[key($key)], key($key));
+        }
+
         return ModelFactory::getModel('Post')->listData();
+    }
+
+    public function renderPost()
+    {
+        $idPost = filter_input(INPUT_GET, 'id');
+        $post = self::getPost(['id' => $idPost]);
+        return $post[0];
     }
 
     public function getLastPostId()
@@ -97,7 +121,9 @@ class AdminController extends MainController
         $posts = self::getPost();
 
         if (isset($posts) && !empty($posts)) {
-            return $posts[count($posts) - 1]['id'];
+            return $posts[count($posts) - 1]['id'] + 1;
+        } else {
+            return 1;
         }
     }
 

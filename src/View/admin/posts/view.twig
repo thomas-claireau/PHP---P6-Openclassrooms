@@ -3,11 +3,8 @@
         <h2>Vos articles</h2>
     </div>
     <div class="articles">
-        {% include "admin/posts/post-item.twig" %}
-        {% include "admin/posts/post-item.twig" %}
-        {% include "admin/posts/post-item.twig" %}
-        {% include "admin/posts/post-item.twig" %}
-        {% include "admin/posts/post-item.twig" %}
-        {% include "admin/posts/post-item.twig" %}
+        {% for post in posts %}
+            {% include "admin/posts/post-item.twig" with { 'id': post.id,'title': post.title, 'date': post.date ,'description': post.description, 'main_img': post.main_img_path } %}
+        {% endfor %}
     </div>
 </div>

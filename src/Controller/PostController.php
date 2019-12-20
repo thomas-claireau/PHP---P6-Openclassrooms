@@ -68,7 +68,6 @@ class PostController extends MainController
     public function deleteSessionPost()
     {
         unset($_SESSION['post']);
-        session_destroy();
     }
 
     public function uploadImage()
@@ -81,7 +80,8 @@ class PostController extends MainController
     {
         $post = $_SESSION['post'];
 
-        $titlePost = htmlspecialchars($post['content']['titre']);
+        $titlePost = $post['content']['titre'];
+        $description = $post['content']['description'];
         $contentPost = htmlspecialchars($post['content']['editor']);
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
@@ -91,11 +91,52 @@ class PostController extends MainController
             'id_user' => self::getUserId(),
             'title' => $titlePost,
             'date' => $datePost,
+            'description' => $description,
             'content' => $contentPost,
             'main_img_path' => $mainImagePath,
         ];
 
         ModelFactory::getModel('Post')->createData($array);
+        self::deleteSessionPost();
+        $this->redirect('admin', ['type' => 'posts', 'action' => 'view']);
     }
 
+    public function update()
+    {
+        $post = $_SESSION['post'];
+        $idPost = filter_input(INPUT_GET, 'id');
+
+        $titlePost = $post['content']['titre'];
+        $description = $post['content']['description'];
+        $contentPost = htmlspecialchars($post['content']['editor']);
+        $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
+        $datePost = $datePost->format('Y-m-d H:i:s');
+        $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
+
+        $array = [
+            'id_user' => self::getUserId(),
+            'title' => $titlePost,
+            'date' => $datePost,
+            'description' => $description,
+            'content' => $contentPost,
+            'main_img_path' => $mainImagePath,
+        ];
+
+        ModelFactory::getModel('Post')->updateData($titlePost, ['title' => $titlePost, 'date' => $datePost, 'description' => $description, 'content' => $contentPost, 'main_img_path' => $mainImagePath], ['id' => $idPost]);
+
+        self::deleteSessionPost();
+        $this->redirect('admin', ['type' => 'posts', 'action' => 'view']);
+    }
+
+    public function remove()
+    {
+        $idPost = filter_input(INPUT_GET, 'id');
+        ModelFactory::getModel('Post')->deleteData('id', ['id' => $idPost]);
+        $allPosts = ModelFactory::getModel('Post')->listData();
+
+        if (isset($allPosts) && empty($allPosts)) {
+            ModelFactory::getModel('Post')->resetIndex();
+        }
+        $this->redirect('admin', ['type' => 'posts', 'action' => 'remove']);
+    }
 }

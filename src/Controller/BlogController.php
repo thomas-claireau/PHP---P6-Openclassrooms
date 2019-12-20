@@ -22,8 +22,17 @@ class BlogController extends MainController
      */
     public function defaultMethod()
     {
+        $posts = $this->listPosts(['ORDER BY' => ['date' => 'DESC']]);
+
+        foreach ($posts as $key => $post) {
+            $userPost = $this->getUser($post['id_user']);
+            $posts[$key]['prenom'] = $userPost['prenom'];
+            $posts[$key]['nom'] = $userPost['nom'];
+        }
+
         return $this->render('blog.twig', [
-            'test' => 'BlogController',
+            'nbPosts' => count($posts),
+            'listPosts' => $posts,
         ]);
     }
 }

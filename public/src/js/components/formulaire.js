@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", event => {
       input.addEventListener("input", e => {
         const currentInput = e.currentTarget;
 
-        if (e.target.id == "email") {
+        if (e.target.id == "mail") {
           functions.checkInput(currentInput, regexMail, true);
         } else if (e.target.id == "tel") {
           functions.checkInput(currentInput, regexTel, true);

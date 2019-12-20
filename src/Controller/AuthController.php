@@ -107,6 +107,12 @@ class AuthController extends MainController
     public function addAccount()
     {
         session_start();
+
+        require_once 'setup/configMail.php';
+        $serveurName = $configMail['smtp'];
+        $port = $configMail['port'];
+        $username = $configMail['username'];
+        $password = $configMail['password'];
         // output
         $array = [];
         $array['nom'] = $this->data['nom'];
@@ -119,6 +125,30 @@ class AuthController extends MainController
         ModelFactory::getModel('User')->createData($array);
         $user = self::getUser(['mail' => $array['mail']]);
         self::createSession($user);
+
+        // Create the Transport
+        $transport = new \Swift_SmtpTransport($serveurName, $port);
+        $transport->setUsername($username);
+        $transport->setPassword($password);
+
+        // Create the Mailer using your created Transport
+        $mailer = new \Swift_Mailer($transport);
+        $prenom = $array['prenom'];
+        $nom = $array['nom'];
+
+        // Create a confirmation message
+        $bodyConfirmation = "
+            <p>Bonjour $prenom $nom ! Vous êtes désormais inscris sur le blog !</p>
+            Vous pouvez y accéder en vous rendant dans le footer et en cliquant sur 'Lien vers l'admin'.
+        ";
+        $messageConfirmation = (new \Swift_Message('Confirmation d\'inscription'))
+            ->setFrom([$username => 'Thomas Claireau'])
+            ->setTo($array['mail'])
+            ->addPart($bodyConfirmation, 'text/html')
+        ;
+
+        // Send the message
+        $result = $mailer->send($messageConfirmation);
 
         header('Location: /index.php/?access=admin');
     }

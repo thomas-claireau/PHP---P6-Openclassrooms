@@ -68,7 +68,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						if (cross) {
 							cross.addEventListener('click', (e) => {
 								const textareaTarget = comTarget.querySelector('textarea');
-								console.log(tinymce.activeEditor);
 								const contenu = tinymce.activeEditor.getContent();
 								const tinyTarget = comTarget.querySelector('.tox-tinymce');
 

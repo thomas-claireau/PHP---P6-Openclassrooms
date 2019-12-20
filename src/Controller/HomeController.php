@@ -22,8 +22,17 @@ class HomeController extends MainController
      */
     public function defaultMethod()
     {
-        return $this->render('home.twig', [
+        $posts = $this->listPosts(['ORDER BY' => ['date' => 'DESC'], 'LIMIT' => 3]);
 
+        foreach ($posts as $key => $post) {
+            $userPost = $this->getUser($post['id_user']);
+            $posts[$key]['prenom'] = $userPost['prenom'];
+            $posts[$key]['nom'] = $userPost['nom'];
+        }
+
+        return $this->render('home.twig', [
+            'nbPosts' => count($posts),
+            'listPosts' => $posts,
         ]);
     }
 }
