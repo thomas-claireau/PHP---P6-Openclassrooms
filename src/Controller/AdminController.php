@@ -54,7 +54,7 @@ class AdminController extends MainController
         return $this->render('admin.twig', [
             'isActif' => self::isActif(),
             'isAdmin' => self::isAdmin(),
-            'user' => self::getUser(),
+            'user' => self::setUser(),
             'type' => self::getType(),
             'action' => self::getAction(),
             'isError' => self::isError(),
@@ -88,7 +88,7 @@ class AdminController extends MainController
         return filter_input(INPUT_GET, 'error');
     }
 
-    public function getUser()
+    public function setUser()
     {
         $userSession = self::getUserSession();
         if ($userSession !== null) {

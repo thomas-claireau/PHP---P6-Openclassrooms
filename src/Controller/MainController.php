@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\Extension\PhpMvcExtension;
+use App\Model\Factory\ModelFactory;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -128,8 +129,8 @@ abstract class MainController
     public static function getImgDir()
     {
         $HTTP_HOST = $_SERVER['HTTP_HOST'];
-        $isDist    = self::folder_exist('dist');
-        $isDev     = self::isLocalhost();
+        $isDist = self::folder_exist('dist');
+        $isDev = self::isLocalhost();
 
         if ($isDist && !$isDev) {
             $publicPath = $HTTP_HOST . '/dist/' . 'assets/img/';
@@ -204,5 +205,17 @@ abstract class MainController
     public function getHomeUrl()
     {
         return 'https://' . $_SERVER['HTTP_HOST'];
+    }
+
+    public function listPosts(array $params)
+    {
+        return ModelFactory::getModel('Post')->listData(null, null, $params);
+    }
+
+    public function getUser($id)
+    {
+        if ($id) {
+            return ModelFactory::getModel('User')->readData($id, 'id');
+        }
     }
 }

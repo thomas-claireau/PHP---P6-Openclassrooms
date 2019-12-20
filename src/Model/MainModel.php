@@ -39,13 +39,27 @@ abstract class MainModel
      * @param string $key
      * @return array|mixed
      */
-    public function listData(string $value = null, string $key = null)
+    public function listData(string $value = null, string $key = null, array $params = null)
     {
         if (isset($key)) {
             $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $key . ' = ?';
 
             return $this->database->getAllData($query, [$value]);
+        } elseif (isset($params)) {
+            $query_args = null;
+            foreach ($params as $key => $param) {
+                if (is_array($param)) {
+                    $query_args .= $key . ' ' . key($param) . ' ' . $param[key($param)] . ' ';
+                } else {
+                    $query_args .= $key . ' ' . key($param) . $param;
+                }
+            }
+
+            $query = 'SELECT * FROM ' . $this->table . ' ' . $query_args;
+
+            return $this->database->getAllData($query, [$value]);
         }
+
         $query = 'SELECT * FROM ' . $this->table;
 
         return $this->database->getAllData($query);
@@ -77,7 +91,7 @@ abstract class MainModel
      * @param string|null $key
      * @return mixed
      */
-    public function readData(string $value, string $key = null)
+    public function readData(string $value, string $key = null, array $orderBy = null)
     {
         if (isset($key)) {
             $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $key . ' = ?';
