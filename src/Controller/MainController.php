@@ -212,10 +212,8 @@ abstract class MainController
         return ModelFactory::getModel('Post')->listData(null, null, $params);
     }
 
-    public function getUser($id)
+    public function getUser(array $key)
     {
-        if ($id) {
-            return ModelFactory::getModel('User')->readData($id, 'id');
-        }
+        return ModelFactory::getModel('User')->readData($key[key($key)], key($key));
     }
 }

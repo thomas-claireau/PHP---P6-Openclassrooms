@@ -44,7 +44,7 @@ class AuthController extends MainController
 
     public function connexion()
     {
-        $user = self::getUser(['mail' => $this->outputUser['mail']]);
+        $user = $this->getUser(['mail' => $this->outputUser['mail']]);
 
         if (isset($user) && !empty($user)) {
             $outputPassword = $this->outputUser['password'];
@@ -66,11 +66,6 @@ class AuthController extends MainController
         if ($outputPassword && $passwordHash) {
             return password_verify($outputPassword, $passwordHash);
         }
-    }
-
-    public function getUser(array $key)
-    {
-        return ModelFactory::getModel('User')->readData($key[key($key)], key($key));
     }
 
     public function createSession($user)
@@ -123,7 +118,7 @@ class AuthController extends MainController
         $array['admin'] = 0;
 
         ModelFactory::getModel('User')->createData($array);
-        $user = self::getUser(['mail' => $array['mail']]);
+        $user = $this->getUser(['mail' => $array['mail']]);
         self::createSession($user);
 
         // Create the Transport
@@ -157,7 +152,7 @@ class AuthController extends MainController
     {
         session_start();
         $outputData = $this->data;
-        $actualData = self::getUser(['id' => $_SESSION['user']['id']]);
+        $actualData = $this->getUser(['id' => $_SESSION['user']['id']]);
 
         // output
         $name = $outputData['nom'];
@@ -196,7 +191,7 @@ class AuthController extends MainController
     public function removeAccount()
     {
         session_start();
-        $actualData = self::getUser(['id' => $_SESSION['user']['id']]);
+        $actualData = $this->getUser(['id' => $_SESSION['user']['id']]);
         $actualId = $actualData['id'];
         ModelFactory::getModel('User')->deleteData('id', ['id' => $actualId]);
         self::deconnexion();
