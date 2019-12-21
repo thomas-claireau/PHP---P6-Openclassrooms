@@ -4,7 +4,7 @@
 		<div class="avatar"></div>
 	</div>
 	<div class="infos">
-		<form action="/index.php/?access=auth&action=updateAccount" method="post" class="disabled">
+		<form action="/index.php/?access=auth&action=updateAccount" method="post" class="disabled" enctype="multipart/form-data">
 			<ul>
 				<li>
 					<label for="nom">Nom :</label>
@@ -13,6 +13,10 @@
 				<li>
 					<label for="prenom">Prénom :</label>
 					<input type="text" name="prenom" id="prenom" value="{{ user.prenom }}" placeholder="Votre prénom"/>
+				</li>
+				<li class="avatar">
+					<label for="avatar_img_path">Avatar :</label>
+					<input type="file" name="avatar_img_path" id="avatar" accept="image/x-png,image/gif,image/jpeg"/>
 				</li>
 				<li>
 					<label for="mail">Email :</label>

@@ -122,7 +122,7 @@ abstract class MainModel
      * @param array $data
      * @param string|null $key
      */
-    public function updateData(string $value, array $data, array $key)
+    public function updateData($value, array $data, array $key)
     {
         $set = null;
 

@@ -98,7 +98,6 @@ class AuthController extends MainController
         return filter_input(INPUT_GET, 'type');
     }
 
-    // Admin Account
     public function addAccount()
     {
         session_start();
@@ -157,6 +156,7 @@ class AuthController extends MainController
     {
         session_start();
         $outputData = $this->data;
+
         $actualData = $this->getUser(['id' => $_SESSION['user']['id']]);
 
         // output
@@ -167,14 +167,22 @@ class AuthController extends MainController
 
         // actual
         $actualId = $actualData['id'];
-        $actualName = $actualData["nom"];
-        $actualFirstname = $actualData["prenom"];
-        $actualEmail = $actualData["email"];
         $actualPassHash = $actualData["password"];
+
+        $actualData['avatar_img_path'] = 'test';
 
         $isCorrectPass = self::checkPassword($pass, $actualPassHash);
 
         if ($isCorrectPass) {
+            if (isset($_FILES) && !empty($_FILES)) {
+                $avatarImgPath = $_FILES['avatar_img_path']['name'];
+
+                if ($avatarImgPath) {
+                    $outputData['avatar_img_path'] = './src/assets/img/avatars_images/' . $actualId . '/' . $avatarImgPath;
+                    $this->uploadImg('uploadAvatar', $actualId);
+                }
+            }
+
             $updateArray = array_diff($outputData, $actualData);
 
             if (isset($updateArray) && !empty($updateArray)) {
@@ -261,9 +269,4 @@ class AuthController extends MainController
             $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
     }
-
-    // Admin Post
-
-    // Admin comment
-
 }

@@ -4,7 +4,7 @@
 		justify-content: flex-start;
 		align-items: center;
 	}
-	.avatar {
+	div.avatar {
 		background-image: url('https://via.placeholder.com/100');
 		background-size: cover;
 		background-position: center;
@@ -41,6 +41,12 @@
 			&:not(:last-child) {
 				margin-bottom: 20px;
 			}
+
+			&.avatar {
+				input {
+					border: none;
+				}
+			}
 		}
 
 		form.disabled {
@@ -48,6 +54,10 @@
 				cursor: default;
 				pointer-events: none;
 				border: none;
+			}
+
+			.avatar {
+				display: none;
 			}
 
 			input[type='submit'] {
