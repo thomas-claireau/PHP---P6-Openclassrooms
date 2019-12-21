@@ -120,7 +120,7 @@ class AuthController extends MainController
         ModelFactory::getModel('User')->createData($array);
         $user = $this->getUser(['mail' => $array['mail']]);
         self::createSession($user);
-        $this->uploadImg('uploadAvatar');
+        $this->uploadImg('uploadAvatar', $user['id']);
 
         // Create the Transport
         $transport = new \Swift_SmtpTransport($serveurName, $port);

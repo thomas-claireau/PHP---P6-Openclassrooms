@@ -12,7 +12,7 @@
 	</div>
 </div>
 
-<form method="post" action="/index.php/?access=post&id={{ posts.id }}&action=update&uploadImage=1" enctype="multipart/form-data">
+<form method="post" action="/index.php/?access=post&id={{ posts.id }}&action=update&uploadImage=1&type=uploadMainImage" enctype="multipart/form-data">
 	<input type="text" name="titre" id="titre" placeholder="Rentrez ici le titre de votre article" value="{{ posts.title }}" required>
 	<label for="image">
 		Choisissez l'image principale de l'article

@@ -217,7 +217,7 @@ abstract class MainController
         return ModelFactory::getModel('User')->readData($key[key($key)], key($key));
     }
 
-    public function uploadImg($type = null)
+    public function uploadImg($type = null, $id = null, $action = null)
     {
         $accepted_origins = array("http://localhost:3000", "http://82.64.201.160", "http://recette.thomas-claireau.fr");
         $type = $type == null ? filter_input(INPUT_GET, 'type') : $type;
@@ -237,7 +237,6 @@ abstract class MainController
                     break;
                 case 'uploadAvatar':
                     $path .= '/avatars_images';
-                    $id = filter_input(INPUT_GET, 'id');
                     break;
             }
 
@@ -250,11 +249,6 @@ abstract class MainController
             }
 
             $imageFolder = $path . '/' . $id . '/';
-
-            // echo '<pre>';
-            // var_dump($imageFolder);
-            // echo '</pre>';
-            // exit;
 
             reset($_FILES);
             $temp = current($_FILES);
@@ -291,7 +285,7 @@ abstract class MainController
 
                 if ($type == 'uploadMainImage') {
                     $this->redirect('post', [
-                        'action' => 'create',
+                        'action' => $action,
                         'id' => $id,
                         'idUser' => $idUser,
                     ]

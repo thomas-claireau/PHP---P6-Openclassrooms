@@ -43,11 +43,6 @@ class PostController extends MainController
         }
     }
 
-    public function uploadTest()
-    {
-        $this->uploadImg();
-    }
-
     public function getUserId()
     {
         return filter_input(INPUT_GET, 'idUser');
@@ -78,8 +73,8 @@ class PostController extends MainController
     public function uploadImage()
     {
         self::saveSessionPost();
-        // include 'php ../../src/assets/img/upload.php';
-        $this->uploadImg();
+        $action = filter_input(INPUT_GET, 'action');
+        $this->uploadImg(null, null, $action);
     }
 
     public function create()
