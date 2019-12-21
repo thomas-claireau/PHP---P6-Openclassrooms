@@ -65,6 +65,20 @@ abstract class MainModel
         return $this->database->getAllData($query);
     }
 
+    public function getLastId($key)
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' ORDER BY ' . $key . ' DESC LIMIT 1';
+
+        return $this->database->getAllData($query);
+    }
+
+    public function setIndex($id)
+    {
+        $query = 'ALTER TABLE ' . $this->table . ' AUTO_INCREMENT = ' . $id;
+
+        $this->database->setData($query);
+    }
+
     public function resetIndex()
     {
         $query = 'ALTER TABLE ' . $this->table . ' AUTO_INCREMENT = 1';

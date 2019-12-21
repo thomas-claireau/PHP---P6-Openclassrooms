@@ -96,6 +96,7 @@
 			opacity: 0;
 			color: $rougeFonce;
 			transition: opacity 0.3s ease-in-out;
+			z-index: 1;
 		}
 
 		&:after {

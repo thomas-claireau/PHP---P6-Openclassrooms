@@ -120,6 +120,7 @@ class AuthController extends MainController
         ModelFactory::getModel('User')->createData($array);
         $user = $this->getUser(['mail' => $array['mail']]);
         self::createSession($user);
+        $this->uploadImg('uploadAvatar');
 
         // Create the Transport
         $transport = new \Swift_SmtpTransport($serveurName, $port);
@@ -194,7 +195,11 @@ class AuthController extends MainController
         $actualData = $this->getUser(['id' => $_SESSION['user']['id']]);
         $actualId = $actualData['id'];
         ModelFactory::getModel('User')->deleteData('id', ['id' => $actualId]);
+        $lastUserId = ModelFactory::getModel('User')->getLastId('id')[0]['id'];
+        ModelFactory::getModel('User')->setIndex($lastUserId);
+
         self::deconnexion();
+
         $this->redirect('home');
     }
 

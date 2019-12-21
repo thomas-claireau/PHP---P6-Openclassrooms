@@ -11,7 +11,7 @@
 {% endif %}
 
 
-<form id="form-contact" action="{{actionUrl}}" method="post" class="formulaire">
+<form id="form-contact" action="{{actionUrl}}" method="post" class="formulaire" enctype="multipart/form-data">
 	{% if errorContact %}
 		<div class="container-error {{ error }}">
 			{% if errorContact == "mail" %}
@@ -40,7 +40,7 @@
 				{% set value = field.value %}
 				{% set required = field.required == true ? 'required' : null %}
 				{% set hidden = field.hidden == true ? 'hidden' : null %}
-				{% set params = params %}
+				{% set params = field.params %}
 
 				<div class="field {{ name }}{% if type == 'submit' %}field-submit{% endif %}">
 					{% if label %}
