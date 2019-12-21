@@ -167,4 +167,93 @@
 			}
 		}
 	}
+
+	.comments {
+		&.disabled {
+			display: none;
+		}
+
+		.container-list-comments {
+			.list-comments {
+				margin-top: 30px;
+				.comment {
+					display: flex;
+					justify-content: flex-start;
+					align-items: flex-start;
+					flex-direction: column;
+					padding-left: 20px;
+					margin-bottom: 30px;
+					position: relative;
+
+					&:before {
+						content: '';
+						position: absolute;
+						top: 45%;
+						left: 0;
+						transform: translateY(-50%);
+						width: 4px;
+						height: 85%;
+						background-color: darken($grisClair, 8%);
+					}
+
+					.infos {
+						display: flex;
+						justify-content: flex-start;
+						align-items: center;
+
+						.left {
+							.avatar {
+								background-size: cover;
+								background-position: center;
+								width: 50px;
+								height: 50px;
+								border-radius: 50%;
+								margin-right: 10px;
+							}
+						}
+
+						.right {
+							.user {
+								font-size: 20px;
+								font-weight: 500;
+							}
+
+							.date {
+								font-size: 15px;
+								font-weight: 300;
+							}
+						}
+					}
+
+					.content {
+						h5 {
+							font-size: 17px;
+							margin-top: 20px;
+						}
+
+						p {
+							font-style: italic;
+						}
+					}
+				}
+			}
+		}
+
+		#titre {
+			padding: 10px 20px;
+			width: 100%;
+			border: 1px solid #ccc;
+			margin-top: 10px;
+			outline: 0;
+		}
+
+		h4 {
+			margin: 20px 0;
+		}
+
+		.action {
+			width: 100%;
+			margin-top: 30px;
+		}
+	}
 }

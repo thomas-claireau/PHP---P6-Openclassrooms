@@ -14,17 +14,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const isPostUpdate = document.querySelector('.posts.update');
 	const isPostCreate = document.querySelector('.posts.create');
 	const isPostRemove = document.querySelector('.posts.remove');
-	const isPostView = document.querySelector('.posts.view');
+	const postDetail = document.querySelector('#post');
 
-	if (isPostView) {
-		const articles = isPostView.querySelectorAll('.article');
-
-		if (articles) {
-			articles.forEach(article => {
-				const containerArticle = article.querySelectorAll('div');
-				console.log(containerArticle);
-			})
-		}
+	if (postDetail) {
+		const textareaComment = postDetail.querySelector('#commentaire');
+		console.log(textareaComment);
+		tinymce.init({
+			target: textareaComment,
+			plugins: tinyPluginsLimited,
+			toolbar: 'undo redo',
+			menubar: false,
+		});
 	}
 
 	if (isPostUpdate || isPostCreate) {
