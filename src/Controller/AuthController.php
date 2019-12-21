@@ -119,6 +119,10 @@ class AuthController extends MainController
 
         ModelFactory::getModel('User')->createData($array);
         $user = $this->getUser(['mail' => $array['mail']]);
+
+        $avatarImgPath = 'src/assets/img/avatars_images/' . $user['id'] . '/' . $_FILES['avatar']['name'];
+        ModelFactory::getModel('User')->updateData($user['id'], ['avatar_img_path' => $avatarImgPath], ['id' => $user['id']]);
+
         self::createSession($user);
         $this->uploadImg('uploadAvatar', $user['id']);
 
