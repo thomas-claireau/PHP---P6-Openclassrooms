@@ -6,6 +6,10 @@
 	align-items: center;
 	flex-direction: column;
 
+	footer {
+		display: none;
+	}
+
 	.mot-de-passe-oublie {
 		input[type='submit'] {
 			font-size: 15px;
@@ -42,7 +46,7 @@
 	}
 
 	main {
-		width: 345px;
+		width: 450px;
 
 		@media screen and (max-width: $break-tablet) {
 			width: auto;
@@ -54,7 +58,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		margin-bottom: 100px;
+		margin: 160px 0 100px 0;
 
 		> div:first-child {
 			@media screen and (max-width: $break-large) {

@@ -216,4 +216,89 @@ abstract class MainController
     {
         return ModelFactory::getModel('User')->readData($key[key($key)], key($key));
     }
+
+    public function uploadImg()
+    {
+        $accepted_origins = array("http://localhost:3000", "http://82.64.201.160", "http://recette.thomas-claireau.fr");
+        $type = filter_input(INPUT_GET, 'type');
+
+        if ($type) {
+            $path = './src/assets/img';
+
+            switch ($type) {
+                case 'uploadTiny':
+                    $path .= '/posts_images';
+                    $id = filter_input(INPUT_GET, 'id');
+                    break;
+                case 'uploadMainImage':
+                    $path .= '/posts_images';
+                    $idUser = filter_input(INPUT_GET, 'idUser');
+                    $id = filter_input(INPUT_GET, 'id');
+                    break;
+                case 'uploadAvatar':
+                    $path .= '/avatars_images';
+                    $id = filter_input(INPUT_GET, 'id');
+                    break;
+            }
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
+            if (!file_exists($path . '/' . $id)) {
+                mkdir($path . '/' . $id, 0777, true);
+            }
+
+            $imageFolder = $path . '/' . $id . '/';
+
+            reset($_FILES);
+            $temp = current($_FILES);
+
+            if (is_uploaded_file($temp['tmp_name'])) {
+                if (isset($_SERVER['HTTP_ORIGIN'])) {
+                    // Same-origin requests won't set an origin. If the origin is set, it must be valid.
+                    if (in_array($_SERVER['HTTP_ORIGIN'], $accepted_origins)) {
+                        header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+                    } else {
+                        header("HTTP/1.1 403 Origin Denied");
+                        return;
+                    }
+                }
+
+                // Sanitize input
+                if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $temp['name'])) {
+                    header("HTTP/1.1 400 Invalid file name.");
+                    return;
+                }
+
+                // Verify extension
+                if (!in_array(strtolower(pathinfo($temp['name'], PATHINFO_EXTENSION)), array("gif", "jpg", "png"))) {
+                    header("HTTP/1.1 400 Invalid extension.");
+                    return;
+                }
+
+                // Accept upload if there was no origin, or if it is an accepted origin
+                $filetowrite = $imageFolder . $temp['name'];
+                move_uploaded_file($temp['tmp_name'], $filetowrite);
+
+                // Respond to the successful upload with JSON.
+                echo json_encode(array('location' => $filetowrite));
+
+                if ($type == 'uploadMainImage') {
+                    $this->redirect('post', [
+                        'action' => 'create',
+                        'id' => $id,
+                        'idUser' => $idUser,
+                    ]
+                    );
+                }
+            } else {
+                // Notify editor that the upload failed
+                header("HTTP/1.1 500 Server Error");
+            }
+        } else {
+            // Notify editor that the upload failed
+            header("HTTP/1.1 404 Url Error");
+        }
+    }
 }

@@ -30,7 +30,7 @@ class LogController extends MainController
         return $this->render('log.twig', [
             'type' => $this->getType(),
             'errorLog' => $this->isFormError(),
-            'user' => $user,
+            'user' => isset($user) ? $user : false,
         ]);
     }
 

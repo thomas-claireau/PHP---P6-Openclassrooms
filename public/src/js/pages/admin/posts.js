@@ -32,11 +32,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 			menubar: false,
 			max_chars: "10",
-			images_upload_url: './src/js/pages/admin/upload.php',
 			images_upload_handler: (blobInfo, success, failure) => {
 				const xhr = new XMLHttpRequest();
 				xhr.withCredentials = false;
-				xhr.open('POST', './src/assets/img/upload.php/?id=' + functions.$_GET('id'));
+				const url = `${window.location.origin}/?access=post&action=uploadTest&type=uploadTiny&id=${functions.$_GET('id')}`;
+				xhr.open('POST', url);
+
+				console.log(url);
 
 				xhr.onload = function () {
 					var json;
@@ -46,14 +48,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						return;
 					}
 
+					console.log(xhr.responseText);
+
 					json = JSON.parse(xhr.responseText);
 
 					if (!json || typeof json.location != 'string') {
 						failure('Invalid JSON: ' + xhr.responseText);
 						return;
 					}
-
-					json.location = './src/assets/img/' + json.location;
 
 					success(json.location);
 				};

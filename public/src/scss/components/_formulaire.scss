@@ -1,182 +1,194 @@
 .formulaire {
-  background-color: #fff;
-  box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
-  padding: 40px 30px;
-  border-radius: 5px;
+	background-color: #fff;
+	box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+	padding: 40px 30px;
+	border-radius: 5px;
 
-  label.hidden {
-    display: none;
-  }
+	label.hidden {
+		display: none;
+	}
 
-  div.container-error {
-    border: 1px solid $rougeFonce;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    padding: 0 20px;
-    color: $rougeFonce;
+	label {
+		position: relative;
+	}
 
-    p {
-      font-size: 13px;
-      width: 100%;
-    }
-  }
+	.label {
+		color: #fff;
+		margin-bottom: 5px;
+		display: block;
+	}
 
-  > div {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+	div.container-error {
+		border: 1px solid $rougeFonce;
+		border-radius: 20px;
+		margin-bottom: 20px;
+		padding: 0 20px;
+		color: $rougeFonce;
 
-    @media screen and (max-width: $break-tablet) {
-      flex-direction: column;
-    }
-  }
+		p {
+			font-size: 13px;
+			width: 100%;
+		}
+	}
 
-  .field {
-    position: relative;
-    width: 100%;
+	> div {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
 
-    &:not(.field-submit) {
-      margin-bottom: 20px;
-    }
+		@media screen and (max-width: $break-tablet) {
+			flex-direction: column;
+		}
+	}
 
-    &.field-submit {
-      input {
-        border-color: $vertFonce;
-      }
-    }
+	.field {
+		position: relative;
+		width: 100%;
 
-    &.prenom,
-    &.email {
-      margin-right: 20px;
+		&:not(.field-submit) {
+			margin-bottom: 20px;
+		}
 
-      @media screen and (max-width: $break-tablet) {
-        margin-right: 0;
-      }
-    }
+		&.field-submit {
+			input {
+				border-color: $vertFonce;
+			}
+		}
 
-    svg {
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      transform: translateY(-50%);
-      z-index: 1;
-      width: 22px;
-      height: 22px;
+		&.prenom,
+		&.email {
+			margin-right: 20px;
 
-      path {
-        fill: #fff;
-        stroke: $grisFonce;
-        transition: all 0.3s ease-in-out;
-      }
-    }
+			@media screen and (max-width: $break-tablet) {
+				margin-right: 0;
+			}
+		}
 
-    &[for="email"] {
-      svg path {
-        stroke-width: 3px;
-      }
-    }
+		svg {
+			position: absolute;
+			top: 50%;
+			left: 10px;
+			transform: translateY(-50%);
+			z-index: 1;
+			width: 22px;
+			height: 22px;
 
-    &:before {
-      content: "\f00d";
-      font-family: FontAwesome;
-      position: absolute;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      opacity: 0;
-      color: $rougeFonce;
-      transition: opacity 0.3s ease-in-out;
-    }
+			path {
+				fill: #fff;
+				stroke: $grisFonce;
+				transition: all 0.3s ease-in-out;
+			}
+		}
 
-    &:after {
-      content: "\f00c";
-      font-family: FontAwesome;
-      position: absolute;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      opacity: 0;
-      color: $vertFonce;
-      transition: opacity 0.3s ease-in-out;
-    }
+		&[for='email'] {
+			svg path {
+				stroke-width: 3px;
+			}
+		}
 
-    &.ok {
-      &:after {
-        opacity: 1;
-        transition: opacity 0.3s ease-in-out;
-      }
-    }
+		&:before {
+			content: '\f00d';
+			font-family: FontAwesome;
+			position: absolute;
+			top: 50%;
+			right: 20px;
+			transform: translateY(-50%);
+			opacity: 0;
+			color: $rougeFonce;
+			transition: opacity 0.3s ease-in-out;
+		}
 
-    &.error {
-      &:before {
-        opacity: 1;
-        transition: opacity 0.3s ease-in-out;
-      }
+		&:after {
+			content: '\f00c';
+			font-family: FontAwesome;
+			position: absolute;
+			top: 50%;
+			right: 20px;
+			transform: translateY(-50%);
+			opacity: 0;
+			color: $vertFonce;
+			transition: opacity 0.3s ease-in-out;
+		}
 
-      input {
-        border-color: $rougeFonce;
-        transition: all 0.3s ease-in-out;
-      }
-    }
-  }
+		&.ok {
+			&:after {
+				opacity: 1;
+				transition: opacity 0.3s ease-in-out;
+			}
+		}
 
-  input {
-    padding: 0 50px 0 40px;
-  }
+		&.error {
+			&:before {
+				opacity: 1;
+				transition: opacity 0.3s ease-in-out;
+			}
 
-  textarea {
-    padding: 0 10px 0 40px;
-  }
+			input {
+				border-color: $rougeFonce;
+				transition: all 0.3s ease-in-out;
+			}
+		}
+	}
 
-  input,
-  textarea {
-    -webkit-appearance: none;
-    background-color: #fff;
-    border: 1px solid darken($grisClair, 10%);
-    border-color: $grisClair;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1),
-      0 5px 15px rgba(0, 0, 0, 0.05);
-    outline: 0;
-    border-radius: 10px;
-    min-height: 40px;
+	input {
+		padding: 0 50px 0 40px;
 
-    &:hover,
-    &:focus,
-    &.active {
-      outline: 0;
-      box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1),
-        0 15px 15px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease-in-out;
+		&[type='file'] {
+			padding-top: 7px;
+		}
+	}
 
-      + svg {
-        path {
-          stroke: none;
-          fill: $grisFonce;
-          transition: all 0.3s ease-in-out;
-        }
-      }
-    }
+	textarea {
+		padding: 0 10px 0 40px;
+	}
 
-    &.active {
-      border-color: $vertFonce;
-      transition: all 0.3s ease-in-out;
-    }
+	input,
+	textarea {
+		-webkit-appearance: none;
+		background-color: #fff;
+		border: 1px solid darken($grisClair, 10%);
+		border-color: $grisClair;
+		transition: all 0.3s ease-in-out;
+		box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+		outline: 0;
+		border-radius: 10px;
+		min-height: 40px;
 
-    @media screen and (max-width: $break-tablet) {
-      width: 100%;
-    }
-  }
+		&:hover,
+		&:focus,
+		&.active {
+			outline: 0;
+			box-shadow: 0 15px 35px rgba(130, 90, 90, 0.1), 0 15px 15px rgba(0, 0, 0, 0.05);
+			transition: all 0.3s ease-in-out;
 
-  textarea {
-    width: 100%;
-    height: 150px;
-    padding: 20px;
-    resize: none;
-  }
+			+ svg {
+				path {
+					stroke: none;
+					fill: $grisFonce;
+					transition: all 0.3s ease-in-out;
+				}
+			}
+		}
 
-  .btn {
-    padding: 10px 30px;
-    margin: 15px auto 0px auto;
-  }
+		&.active {
+			border-color: $vertFonce;
+			transition: all 0.3s ease-in-out;
+		}
+
+		@media screen and (max-width: $break-tablet) {
+			width: 100%;
+		}
+	}
+
+	textarea {
+		width: 100%;
+		height: 150px;
+		padding: 20px;
+		resize: none;
+	}
+
+	.btn {
+		padding: 10px 30px;
+		margin: 15px auto 0px auto;
+	}
 }
