@@ -22,7 +22,7 @@
                     <p>{{ post.date|date('d/m/Y') }}</p>
                 </div>
                 <div class="auteur">
-                    <div class="avatar"></div>
+                    <div class="avatar" style="background-image: url('{{ post.avatar_img_path ? post.avatar_img_path : avatar_default }}')"></div>
                     <div class="nom-reseaux">
                         <div class="nom">{{ post.prenom }} {{ post.nom}}</div>
                         <div class="reseaux">

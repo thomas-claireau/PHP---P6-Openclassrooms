@@ -8,7 +8,7 @@
 		</div>
 		<div class="right">
 			<div class="user">
-				<div class="avatar"></div>
+				<div class="avatar" style="background-image: url('{{ user.avatar_img_path ? user.avatar_img_path : avatar_default }}')"></div>
 				<div class="nom">{{ user.prenom }}
 					{{ user.nom }}</div>
 			</div>

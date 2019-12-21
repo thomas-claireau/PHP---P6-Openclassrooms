@@ -148,6 +148,7 @@ class PostController extends MainController
         $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], 'id');
         $post['nom'] = $userOfPost['nom'];
         $post['prenom'] = $userOfPost['prenom'];
+        $post['avatar_img_path'] = $userOfPost['avatar_img_path'];
 
         return $post;
     }

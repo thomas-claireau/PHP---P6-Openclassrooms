@@ -4,7 +4,7 @@
 
 <div class="infos-article">
 	<div class="auteur">
-		<div class="avatar"></div>
+		<div class="avatar" style="background-image: url('{{ user.avatar_img_path ? user.avatar_img_path : avatar_default }}')"></div>
 		<div class="auteur-date">
 			<div class="nom">{{ user.prenom }} {{ user.nom }}</div>
 			<div class="date">{{ posts.date|date('d/m/Y') }}</div>

@@ -43,6 +43,7 @@ abstract class MainController
         $this->twig->addGlobal('templateName', $this->getTemplateName());
         $this->twig->addGlobal('imgDir', $this->getImgDir());
         $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
+        $this->twig->addGlobal('avatar_default', './src/assets/img/pictos/default_avatar.png');
     }
 
     /**

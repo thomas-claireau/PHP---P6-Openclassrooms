@@ -6,7 +6,7 @@
     <div class="commentaires">
         <div class="commentaire">
             <div class="left">
-                <div class="avatar"></div>
+                <div class="avatar" style="background-image: url('{{ user.avatar_img_path }}')"></div>
             </div>
             <div class="right">
                 <div class="name">Thomas Claireau</div>
@@ -28,7 +28,7 @@
         </div>
         <div class="commentaire">
             <div class="left">
-                <div class="avatar"></div>
+                <div class="avatar" style="background-image: url('{{ user.avatar_img_path }}')"></div>
             </div>
             <div class="right">
                 <div class="name">Thomas Claireau</div>
@@ -50,7 +50,7 @@
         </div>
         <div class="commentaire">
             <div class="left">
-                <div class="avatar"></div>
+                <div class="avatar" style="background-image: url('{{ user.avatar_img_path ? user.avatar_img_path : avatar_default }}')"></div>
             </div>
             <div class="right">
                 <div class="name">Thomas Claireau</div>

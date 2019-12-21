@@ -28,6 +28,7 @@ class HomeController extends MainController
             $userPost = $this->getUser(['id' => $post['id_user']]);
             $posts[$key]['prenom'] = $userPost['prenom'];
             $posts[$key]['nom'] = $userPost['nom'];
+            $posts[$key]['avatar_img_path'] = $userPost['avatar_img_path'];
         }
 
         return $this->render('home.twig', [

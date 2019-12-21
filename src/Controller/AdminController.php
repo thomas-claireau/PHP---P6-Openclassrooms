@@ -91,11 +91,13 @@ class AdminController extends MainController
     public function setUser()
     {
         $userSession = self::getUserSession();
+
         if ($userSession !== null) {
             $array['id'] = $userSession['id'];
             $array['prenom'] = $userSession['prenom'];
             $array['nom'] = $userSession['nom'];
             $array['email'] = $userSession['mail'];
+            $array['avatar_img_path'] = $userSession['avatar_img_path'];
             return $array;
         }
     }

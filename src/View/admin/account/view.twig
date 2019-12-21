@@ -1,7 +1,7 @@
 <div>
 	<div class="titre-avatar">
 		<h2>Mon compte</h2>
-		<div class="avatar"></div>
+		<div class="avatar" style="background-image: url('{{ user.avatar_img_path ? user.avatar_img_path : avatar_default }}')"></div>
 	</div>
 	<div class="infos">
 		<form action="/index.php/?access=auth&action=updateAccount" method="post" class="disabled" enctype="multipart/form-data">

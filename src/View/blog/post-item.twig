@@ -3,7 +3,7 @@
         <div class="date-auteur">
             <div class="date">{{ post.date|date('d/m/Y') }}</div>
             <div class="auteur">
-                <div class="avatar"></div>
+                <div class="avatar" style="background-image: url('{{ post.avatar_img_path ? post.avatar_img_path : avatar_default }}')"></div>
                 <div class="nom">{{ post.prenom }} {{ post.nom }}</div>
             </div>
         </div>
