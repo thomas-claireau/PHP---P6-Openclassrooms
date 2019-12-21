@@ -5,26 +5,28 @@
 {% endif %}
 
 <a href="{{link}}" class="article" data-id="{{ id }}">
-	<div class="first">
-		<div class="date-auteur">
-			<div class="date">{{ date|date('d/m/Y') }}</div>
-			<div class="auteur">
-				<div class="avatar" style="background-image: url('{{ user.avatar_img_path ? user.avatar_img_path : avatar_default }}')"></div>
-				<div class="nom">{{ user.prenom }} {{ user.nom }}</div>
+	<div class="content">		
+		<div class="first">
+			<div class="date-auteur">
+				<div class="date">{{ date|date('d/m/Y') }}</div>
+				<div class="auteur">
+					<div class="avatar" style="background-image: url('{{ user.avatar_img_path ? user.avatar_img_path : avatar_default }}')"></div>
+					<div class="nom">{{ user.prenom }} {{ user.nom }}</div>
+				</div>
+			</div>
+			<h3>{{ title }}</h3>
+		</div>
+		<div class="img-article" style="background-image: url({{url}}/{{main_img}})"></div>
+		<div class="last">
+			<div class="description">
+				<p>{{ description|slice(0, 150)|raw }}</p>
 			</div>
 		</div>
-		<h3>{{ title }}</h3>
+		{% if remove %}
+			<div class="remove">
+				<p>Confirmez la suppression ci-dessous</p>
+				<button class="btn rougeFonce">Supprimer</button>
+			</div>
+		{% endif %}
 	</div>
-	<div class="img-article" style="background-image: url({{url}}/{{main_img}})"></div>
-	<div class="last">
-		<div class="description">
-			<p>{{ description|slice(0, 150)|raw }}</p>
-		</div>
-	</div>
-	{% if remove %}
-		<div class="remove">
-			<p>Confirmez la suppression ci-dessous</p>
-			<button class="btn rougeFonce">Supprimer</button>
-		</div>
-	{% endif %}
 </a>

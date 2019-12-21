@@ -14,7 +14,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const isPostUpdate = document.querySelector('.posts.update');
 	const isPostCreate = document.querySelector('.posts.create');
 	const isPostRemove = document.querySelector('.posts.remove');
+	const isPostView = document.querySelector('.posts.view');
 
+	if (isPostView) {
+		const articles = isPostView.querySelectorAll('.article');
+
+		if (articles) {
+			articles.forEach(article => {
+				const containerArticle = article.querySelectorAll('div');
+				console.log(containerArticle);
+			})
+		}
+	}
 
 	if (isPostUpdate || isPostCreate) {
 		const textarea = document.querySelector('#editor');
@@ -83,7 +94,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		const containerArticles = isPostRemove.querySelector('.articles');
 
 		if (containerArticles) {
-			const articles = containerArticles.querySelectorAll('.article');
+			const articles = containerArticles.querySelectorAll('.article .content');
 
 			articles.forEach(article => {
 				article.addEventListener('mouseenter', () => {
@@ -105,7 +116,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						const buttonRemove = article.querySelector('button');
 
 						buttonRemove.addEventListener('click', () => {
-							const idPost = article.dataset.id;
+							const idPost = article.parentNode.dataset.id;
 							const origin = window.location.origin;
 							window.location.href = origin + '/index.php?access=post&action=remove&id=' + idPost;
 						})

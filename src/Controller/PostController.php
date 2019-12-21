@@ -81,8 +81,8 @@ class PostController extends MainController
     {
         $post = $_SESSION['post'];
 
-        $titlePost = $post['content']['titre'];
-        $description = $post['content']['description'];
+        $titlePost = addslashes($post['content']['titre']);
+        $description = addslashes($post['content']['description']);
         $contentPost = addslashes($post['content']['editor']);
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
