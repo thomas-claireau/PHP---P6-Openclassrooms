@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			images_upload_handler: (blobInfo, success, failure) => {
 				const xhr = new XMLHttpRequest();
 				xhr.withCredentials = false;
-				const url = `${window.location.origin}/?access=post&action=uploadTest&type=uploadTiny&id=${functions.$_GET('id')}`;
+				const url = `${window.location.origin}/?access=post&action=uploadImage&type=uploadTiny&id=${functions.$_GET('id')}`;
 				xhr.open('POST', url);
 
 				console.log(url);

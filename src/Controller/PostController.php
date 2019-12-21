@@ -83,7 +83,7 @@ class PostController extends MainController
 
         $titlePost = $post['content']['titre'];
         $description = $post['content']['description'];
-        $contentPost = $post['content']['editor'];
+        $contentPost = addslashes($post['content']['editor']);
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
         $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
@@ -109,7 +109,7 @@ class PostController extends MainController
 
         $titlePost = $post['content']['titre'];
         $description = $post['content']['description'];
-        $contentPost = htmlspecialchars($post['content']['editor']);
+        $contentPost = $post['content']['editor'];
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
         $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
