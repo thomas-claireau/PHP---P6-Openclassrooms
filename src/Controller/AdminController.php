@@ -70,8 +70,8 @@ class AdminController extends MainController
             'isError' => self::isError(),
             'requestUri' => self::getRequestUri(),
             'lastPostId' => self::getLastPostId(),
-            'posts' => $posts ? $posts : false,
-            'comments' => $comments ? $comments : false,
+            'posts' => isset($posts) ? $posts : false,
+            'comments' => isset($comments) ? $comments : false,
         ]);
     }
 

@@ -109,14 +109,24 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				});
 
 				// remove element in front
-				const btnRemove = isCommentsRemove.querySelector('.confirm');
+				const btnRemove = commentaire.querySelector('.confirm');
 				btnRemove.addEventListener('click', () => {
 					if (commentaire.classList.contains('active')) {
 						commentaire.classList.add('remove');
+						const idCom = encodeURIComponent(commentaire.dataset.id);
+						const xhr = new XMLHttpRequest();
+						const url = window.location.origin + '/index.php?access=comment&action=remove&id=' + idCom;
+						xhr.open('GET', url);
+						xhr.send(null);
 
-						setTimeout(() => {
-							commentaire.remove();
-						}, 300);
+						xhr.addEventListener('readystatechange', function (e) {
+							if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+								setTimeout(() => {
+									commentaire.remove();
+								}, 300);
+							}
+						});
+
 					}
 				});
 

@@ -59,8 +59,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						return;
 					}
 
-					console.log(xhr.responseText);
-
 					json = JSON.parse(xhr.responseText);
 
 					if (!json || typeof json.location != 'string') {

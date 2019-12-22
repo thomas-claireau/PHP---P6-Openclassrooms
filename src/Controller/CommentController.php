@@ -79,7 +79,9 @@ class CommentController extends MainController
 
     public function remove()
     {
-
+        $id = filter_input(INPUT_GET, 'id');
+        ModelFactory::getModel('Comment')->deleteData('id', ['id' => $id]);
+        // $this->redirect('admin', ['type' => 'comments', 'action' => 'remove']);
     }
 
 }
