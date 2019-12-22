@@ -39,7 +39,16 @@ class PostController extends MainController
         } else {
             return $this->render('post.twig', [
                 'post' => self::getPost(),
+                'user' => self::isLog(),
+                'comments' => self::getComment(),
             ]);
+        }
+    }
+
+    public function isLog()
+    {
+        if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+            return $_SESSION['user'];
         }
     }
 
@@ -151,5 +160,27 @@ class PostController extends MainController
         $post['avatar_img_path'] = $userOfPost['avatar_img_path'];
 
         return $post;
+    }
+
+    public function getComment()
+    {
+        $commentsDb = ModelFactory::getModel('Comment')->listData();
+        $comments = [];
+
+        if (isset($commentsDb) && !empty($commentsDb)) {
+            foreach ($commentsDb as $key => $comment) {
+                $idUser = $comment['id_user'];
+                $user = ModelFactory::getModel('User')->readData($idUser, 'id');
+
+                $array['prenom'] = $user['prenom'];
+                $array['nom'] = $user['nom'];
+                $array['avatar'] = $user['avatar_img_path'];
+
+                $comment = array_merge($array, $comment);
+                array_push($comments, $comment);
+            }
+        }
+
+        return $comments;
     }
 }

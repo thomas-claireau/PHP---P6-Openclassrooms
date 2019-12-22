@@ -56,7 +56,7 @@ abstract class MainController
     {
         $params['access'] = $page;
 
-        return 'index.php?' . http_build_query($params);
+        return '/index.php?' . http_build_query($params);
     }
 
     /**
@@ -66,7 +66,7 @@ abstract class MainController
      */
     public function redirect(string $page, array $params = [])
     {
-        header('Location: ' . $this->url($page, $params));
+        header('Location: ' . $_SERVER['HTTP_ORIGIN'] . $this->url($page, $params));
         exit;
     }
 
