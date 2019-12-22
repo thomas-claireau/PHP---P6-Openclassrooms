@@ -78,6 +78,7 @@ class AuthController extends MainController
             'mail' => $user['mail'],
             'actif' => $user['actif'],
             'admin' => $user['admin'],
+            'avatar_img_path' => $user['avatar_img_path'],
         ];
     }
 
