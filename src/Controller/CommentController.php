@@ -68,7 +68,13 @@ class CommentController extends MainController
 
     public function update()
     {
+        $idCom = $this->data['commentId'];
+        $title = $this->data['titre'];
+        $content = $this->data['commentaire-' . $idCom];
 
+        ModelFactory::getModel('Comment')->updateData($idCom, ['title' => $title, 'content' => $content], ['id' => $idCom]);
+
+        $this->redirect('admin', ['type' => 'comments', 'action' => 'update']);
     }
 
     public function remove()

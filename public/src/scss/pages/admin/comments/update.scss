@@ -20,10 +20,17 @@
 					flex-direction: column;
 
 					&.disabled {
-						textarea {
+						textarea,
+						input {
 							border: none;
 							cursor: pointer;
 							overflow: hidden;
+						}
+
+						input:not([type='submit']) {
+							font-size: 20px;
+							font-weight: 500;
+							margin-top: 20px;
 						}
 
 						input[type='submit'] {
@@ -116,8 +123,18 @@
 							padding: 20px;
 						}
 
+						input:not([type='submit']) {
+							margin-top: 20px;
+							font-size: 20px;
+							font-weight: 500;
+							padding: 10px 20px;
+							border: 1px solid #ccc;
+							width: 100%;
+						}
+
 						.tox-tinymce {
 							margin-top: 20px;
+							width: 100%;
 						}
 
 						.actions {

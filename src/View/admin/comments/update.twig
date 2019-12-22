@@ -4,65 +4,30 @@
 		<p>Sélectionnez un commentaire à modifier</p>
 	</div>
 	<div class="commentaires">
-		<div class="commentaire">
-			<div class="left">
-				<div class="avatar"></div>
-			</div>
-			<div class="right">
-				<div class="name">Thomas Claireau</div>
-				<div class="date-view">
-					<div class="date">26 Novembre 2019, à 14h00 -</div>
-					<a href="#" class="view">Voir l'article</a>
+		{% for comment in comments %}
+			<div class="commentaire">
+				<div class="left">
+                    <div class="avatar" style="background-color: url('{{ comment.avatar }}')"></div>
 				</div>
-				<form action="" method="post" class="disabled">
-					<textarea name="commentaire-1" id="commentaire-1" spellcheck="false">
-Le commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla
-                    </textarea>
-					<div class="actions">
-						<input type="submit" class="btn vertFonce" value="Modifier" />
+				<div class="right">
+					<div class="name">{{ comment.prenom }} {{ comment.nom }}</div>
+                    <div class="date-view">
+                        <div class="date">Le {{ comment.date|date('d/m/Y') }}, à {{ comment.date|date('H:i') }} -
+                        </div>
+                        <a href="/index.php?access=post&id={{ comment.id_post }}" class="view">Voir l'article</a>
 					</div>
-				</form>
-			</div>
-		</div>
-		<div class="commentaire">
-			<div class="left">
-				<div class="avatar"></div>
-			</div>
-			<div class="right">
-				<div class="name">Thomas Claireau</div>
-				<div class="date-view">
-					<div class="date">26 Novembre 2019, à 14h00 -</div>
-					<a href="#" class="view">Voir l'article</a>
+					<form action="/index.php?access=comment&action=update" method="post" class="disabled">
+						<input type="hidden" name="commentId" value={{comment.id}}>
+						<input type="text" name="titre" value="{{ comment.title }}" placeholder="Le titre de votre commentaire">
+						<div name="content" id="commentaire-{{comment.id}}" spellcheck="false">
+							{{ comment.content|raw }}
+						</div>
+						<div class="actions">
+							<input type="submit" class="btn vertFonce" value="Modifier" />
+						</div>
+					</form>
 				</div>
-				<form action="" method="post" class="disabled">
-					<textarea name="commentaire-2" id="commentaire-2" spellcheck="false">
-Le commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla
-                    </textarea>
-					<div class="actions">
-						<input type="submit" class="btn vertFonce" value="Modifier" />
-					</div>
-				</form>
 			</div>
-		</div>
-		<div class="commentaire">
-			<div class="left">
-				<div class="avatar"></div>
-			</div>
-			<div class="right">
-				<div class="name">Thomas Claireau</div>
-				<div class="date-view">
-					<div class="date">26 Novembre 2019, à 14h00 -</div>
-					<a href="#" class="view">Voir l'article</a>
-				</div>
-				<form action="" method="post" class="disabled">
-					<textarea name="commentaire-3" id="commentaire-3" spellcheck="false">
-Le commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla
-                    </textarea>
-					<div class="actions">
-						<input type="submit" class="btn vertFonce" value="Modifier" />
-					</div>
-				</form>
-			</div>
-		</div>
+		{% endfor %}
 	</div>
 </div>

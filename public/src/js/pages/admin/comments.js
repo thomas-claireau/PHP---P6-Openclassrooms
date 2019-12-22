@@ -17,14 +17,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 		commentaires.forEach((commentaire, index) => {
 			commentaire.addEventListener('click', (e) => {
-				if (e.target.tagName !== 'A') {
+				if (e.target.tagName !== 'A' && !commentaire.classList.contains('active')) {
 					functions.loader();
 				}
 				const indexCom = index + 1;
 				const textarea = commentaire.querySelector('#commentaire-' + indexCom);
 				const defaultContenu = textarea.value;
 
-				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA') {
+				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'FORM') {
 					if (!commentaire.classList.contains('active')) {
 						// tinymce editor commentaire
 						tinymce.init({
