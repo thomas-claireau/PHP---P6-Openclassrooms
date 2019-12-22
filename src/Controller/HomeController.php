@@ -25,9 +25,10 @@ class HomeController extends MainController
         $posts = $this->listPosts(['ORDER BY' => ['date' => 'DESC'], 'LIMIT' => 3]);
 
         foreach ($posts as $key => $post) {
-            $userPost = $this->getUser($post['id_user']);
+            $userPost = $this->getUser(['id' => $post['id_user']]);
             $posts[$key]['prenom'] = $userPost['prenom'];
             $posts[$key]['nom'] = $userPost['nom'];
+            $posts[$key]['avatar_img_path'] = $userPost['avatar_img_path'];
         }
 
         return $this->render('home.twig', [

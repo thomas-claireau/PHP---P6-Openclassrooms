@@ -28,39 +28,50 @@ class AdminController extends MainController
     public function defaultMethod()
     {
         session_start();
+        $action = self::getAction();
+        $type = self::getType();
 
-        if (self::getAction() !== 'newPassword') {
+        if ($action !== 'newPassword') {
             self::redirectLogin();
         }
 
-        if (self::getAction() == 'newPassword') {
+        if ($action == 'newPassword') {
             self::newPassword();
         }
 
-        if (self::getType() == 'posts' && self::getAction() == 'view' || self::getType() == 'posts' && self::getAction() == 'remove') {
-            $posts = self::getPost(['id_user' => filter_var($_SESSION['user']['id'])]);
+        // controller posts
+        if ($type == 'posts') {
+            if ($action == 'view' || $action == 'remove') {
+                $posts = self::getPost(['id_user' => filter_var($_SESSION['user']['id'])]);
+            } elseif ($action == 'update') {
+                $posts = self::renderPost();
+            } else {
+                $posts = false;
+            }
+        }
+
+        // controller comments
+        if ($type == 'comments') {
+            if ($action == 'view' || $action == 'update' || $action == 'remove') {
+                $comments = self::getComment(['id_user' => filter_var($_SESSION['user']['id'])]);
+            } else {
+                $comments = false;
+            }
         } else {
-            $posts = false;
-        }
-
-        if (self::getType() == 'posts' && self::getAction() == 'update') {
-            $posts = self::renderPost();
-        }
-
-        if (self::getType() == 'posts') {
-            self::getLastPostId();
+            $comments = false;
         }
 
         return $this->render('admin.twig', [
             'isActif' => self::isActif(),
             'isAdmin' => self::isAdmin(),
             'user' => self::setUser(),
-            'type' => self::getType(),
-            'action' => self::getAction(),
+            'type' => $type,
+            'action' => $action,
             'isError' => self::isError(),
             'requestUri' => self::getRequestUri(),
             'lastPostId' => self::getLastPostId(),
-            'posts' => $posts ? $posts : false,
+            'posts' => isset($posts) ? $posts : false,
+            'comments' => isset($comments) ? $comments : false,
         ]);
     }
 
@@ -91,11 +102,13 @@ class AdminController extends MainController
     public function setUser()
     {
         $userSession = self::getUserSession();
+
         if ($userSession !== null) {
             $array['id'] = $userSession['id'];
             $array['prenom'] = $userSession['prenom'];
             $array['nom'] = $userSession['nom'];
             $array['email'] = $userSession['mail'];
+            $array['avatar_img_path'] = $userSession['avatar_img_path'];
             return $array;
         }
     }
@@ -107,6 +120,31 @@ class AdminController extends MainController
         }
 
         return ModelFactory::getModel('Post')->listData();
+    }
+
+    public function getComment(array $key = null)
+    {
+        if (isset($key) && !empty($key)) {
+            $commentsDb = ModelFactory::getModel('Comment')->listData($key[key($key)], key($key));
+
+            $comments = [];
+
+            if (isset($commentsDb) && !empty($commentsDb)) {
+                foreach ($commentsDb as $key => $comment) {
+                    $idUser = $comment['id_user'];
+                    $user = ModelFactory::getModel('User')->readData($idUser, 'id');
+
+                    $array['prenom'] = $user['prenom'];
+                    $array['nom'] = $user['nom'];
+                    $array['avatar'] = $user['avatar_img_path'];
+
+                    $comment = array_merge($array, $comment);
+                    array_push($comments, $comment);
+                }
+            }
+
+            return $comments;
+        }
     }
 
     public function renderPost()

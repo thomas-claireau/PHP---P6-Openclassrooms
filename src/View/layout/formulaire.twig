@@ -11,7 +11,7 @@
 {% endif %}
 
 
-<form id="form-contact" action="{{actionUrl}}" method="post" class="formulaire">
+<form id="form-contact" action="{{actionUrl}}" method="post" class="formulaire" enctype="multipart/form-data">
 	{% if errorContact %}
 		<div class="container-error {{ error }}">
 			{% if errorContact == "mail" %}
@@ -34,16 +34,21 @@
 				{% set tag = field.tag %}
 				{% set type = field.type %}
 				{% set name = field.name %}
+				{% set label = field.label %}
 				{% set placeholder = field.placeholder %}
 				{% set picto = field.picto %}
 				{% set value = field.value %}
 				{% set required = field.required == true ? 'required' : null %}
 				{% set hidden = field.hidden == true ? 'hidden' : null %}
+				{% set params = field.params %}
 
 				<div class="field {{ name }}{% if type == 'submit' %}field-submit{% endif %}">
+					{% if label %}
+						<div class="label">{{label}}</div>
+					{% endif %}
 					<label for="{{ name }}" class="{{ hidden ? hidden : ""}}">
 						{% if tag == "input" %}
-							<input class="{% if type != 'submit' %}input{% else %}btn vertFonce{% endif %}" type="{{ hidden ? hidden : type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}{% if required %} *{% endif %}" value="{{ value }}" {{ required }}/>
+							<input class="{% if type != 'submit' %}input{% else %}btn vertFonce{% endif %}" type="{{ hidden ? hidden : type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}{% if required %} *{% endif %}" value="{{ value }}" {{ required }} {{ params }}/>
 							<img class="js-inject-me" src="{{ imgDir }}pictos/{{ picto }}.svg" alt=""/>
 						{% else %}
 							<textarea class="input" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" {{ required }}></textarea>

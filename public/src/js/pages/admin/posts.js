@@ -14,7 +14,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	const isPostUpdate = document.querySelector('.posts.update');
 	const isPostCreate = document.querySelector('.posts.create');
 	const isPostRemove = document.querySelector('.posts.remove');
+	const postDetail = document.querySelector('#post');
 
+	if (postDetail) {
+		const textareaComment = postDetail.querySelector('#commentaire');
+		console.log(textareaComment);
+		tinymce.init({
+			target: textareaComment,
+			plugins: tinyPluginsLimited,
+			toolbar: 'undo redo',
+			menubar: false,
+		});
+	}
 
 	if (isPostUpdate || isPostCreate) {
 		const textarea = document.querySelector('#editor');
@@ -32,11 +43,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 			menubar: false,
 			max_chars: "10",
-			images_upload_url: './src/js/pages/admin/upload.php',
 			images_upload_handler: (blobInfo, success, failure) => {
 				const xhr = new XMLHttpRequest();
 				xhr.withCredentials = false;
-				xhr.open('POST', './src/assets/img/upload.php/?id=' + functions.$_GET('id'));
+				const url = `${window.location.origin}/?access=post&action=uploadImage&type=uploadTiny&id=${functions.$_GET('id')}`;
+				xhr.open('POST', url);
+
+				console.log(url);
 
 				xhr.onload = function () {
 					var json;
@@ -52,8 +65,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						failure('Invalid JSON: ' + xhr.responseText);
 						return;
 					}
-
-					json.location = './src/assets/img/' + json.location;
 
 					success(json.location);
 				};
@@ -81,7 +92,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		const containerArticles = isPostRemove.querySelector('.articles');
 
 		if (containerArticles) {
-			const articles = containerArticles.querySelectorAll('.article');
+			const articles = containerArticles.querySelectorAll('.article .content');
 
 			articles.forEach(article => {
 				article.addEventListener('mouseenter', () => {
@@ -103,7 +114,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 						const buttonRemove = article.querySelector('button');
 
 						buttonRemove.addEventListener('click', () => {
-							const idPost = article.dataset.id;
+							const idPost = article.parentNode.dataset.id;
 							const origin = window.location.origin;
 							window.location.href = origin + '/index.php?access=post&action=remove&id=' + idPost;
 						})

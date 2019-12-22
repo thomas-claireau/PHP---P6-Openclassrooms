@@ -44,7 +44,7 @@ class AuthController extends MainController
 
     public function connexion()
     {
-        $user = self::getUser(['mail' => $this->outputUser['mail']]);
+        $user = $this->getUser(['mail' => $this->outputUser['mail']]);
 
         if (isset($user) && !empty($user)) {
             $outputPassword = $this->outputUser['password'];
@@ -68,11 +68,6 @@ class AuthController extends MainController
         }
     }
 
-    public function getUser(array $key)
-    {
-        return ModelFactory::getModel('User')->readData($key[key($key)], key($key));
-    }
-
     public function createSession($user)
     {
         session_start();
@@ -83,6 +78,7 @@ class AuthController extends MainController
             'mail' => $user['mail'],
             'actif' => $user['actif'],
             'admin' => $user['admin'],
+            'avatar_img_path' => $user['avatar_img_path'],
         ];
     }
 
@@ -103,7 +99,6 @@ class AuthController extends MainController
         return filter_input(INPUT_GET, 'type');
     }
 
-    // Admin Account
     public function addAccount()
     {
         session_start();
@@ -123,8 +118,13 @@ class AuthController extends MainController
         $array['admin'] = 0;
 
         ModelFactory::getModel('User')->createData($array);
-        $user = self::getUser(['mail' => $array['mail']]);
+        $user = $this->getUser(['mail' => $array['mail']]);
+
+        $avatarImgPath = 'src/assets/img/avatars_images/' . $user['id'] . '/' . $_FILES['avatar']['name'];
+        ModelFactory::getModel('User')->updateData($user['id'], ['avatar_img_path' => $avatarImgPath], ['id' => $user['id']]);
+
         self::createSession($user);
+        $this->uploadImg('uploadAvatar', $user['id']);
 
         // Create the Transport
         $transport = new \Swift_SmtpTransport($serveurName, $port);
@@ -157,7 +157,8 @@ class AuthController extends MainController
     {
         session_start();
         $outputData = $this->data;
-        $actualData = self::getUser(['id' => $_SESSION['user']['id']]);
+
+        $actualData = $this->getUser(['id' => $_SESSION['user']['id']]);
 
         // output
         $name = $outputData['nom'];
@@ -167,14 +168,22 @@ class AuthController extends MainController
 
         // actual
         $actualId = $actualData['id'];
-        $actualName = $actualData["nom"];
-        $actualFirstname = $actualData["prenom"];
-        $actualEmail = $actualData["email"];
         $actualPassHash = $actualData["password"];
+
+        $actualData['avatar_img_path'] = 'test';
 
         $isCorrectPass = self::checkPassword($pass, $actualPassHash);
 
         if ($isCorrectPass) {
+            if (isset($_FILES) && !empty($_FILES)) {
+                $avatarImgPath = $_FILES['avatar_img_path']['name'];
+
+                if ($avatarImgPath) {
+                    $outputData['avatar_img_path'] = './src/assets/img/avatars_images/' . $actualId . '/' . $avatarImgPath;
+                    $this->uploadImg('uploadAvatar', $actualId);
+                }
+            }
+
             $updateArray = array_diff($outputData, $actualData);
 
             if (isset($updateArray) && !empty($updateArray)) {
@@ -196,10 +205,14 @@ class AuthController extends MainController
     public function removeAccount()
     {
         session_start();
-        $actualData = self::getUser(['id' => $_SESSION['user']['id']]);
+        $actualData = $this->getUser(['id' => $_SESSION['user']['id']]);
         $actualId = $actualData['id'];
         ModelFactory::getModel('User')->deleteData('id', ['id' => $actualId]);
+        $lastUserId = ModelFactory::getModel('User')->getLastId('id')[0]['id'];
+        ModelFactory::getModel('User')->setIndex($lastUserId);
+
         self::deconnexion();
+
         $this->redirect('home');
     }
 
@@ -257,9 +270,4 @@ class AuthController extends MainController
             $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
     }
-
-    // Admin Post
-
-    // Admin comment
-
 }

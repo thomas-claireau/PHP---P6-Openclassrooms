@@ -35,6 +35,10 @@ html {
 	}
 }
 
+.tox-tinymce {
+	padding-left: 10px;
+}
+
 .back {
 	background-color: #fff;
 	width: 50px;
@@ -97,6 +101,11 @@ textarea {
 		margin: 0;
 		padding: 0;
 		color: darken($mainColor, 10%);
+		word-break: break-word;
+	}
+
+	p {
+		word-break: break-word;
 	}
 
 	ul {

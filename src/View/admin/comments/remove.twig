@@ -4,71 +4,32 @@
         <p>Sélectionnez un commentaire à supprimer</p>
     </div>
     <div class="commentaires">
-        <div class="commentaire">
-            <div class="left">
-                <div class="avatar"></div>
-            </div>
-            <div class="right">
-                <div class="name">Thomas Claireau</div>
-                <div class="date-view">
-                    <div class="date">26 Novembre 2019, à 14h00 -
+        {% for comment in comments %}
+            <div class="commentaire" data-id="{{ comment.id }}">
+                <div class="left">
+                    <div class="avatar" style="background-image: url('{{ comment.avatar }}')"></div>
+                </div>
+                <div class="right">
+                    <div class="name">{{ comment.prenom }} {{ comment.nom }}</div>
+                    <div class="date-view">
+                        <div class="date">Le {{ comment.date|date('d/m/Y') }}, à {{ comment.date|date('H:i') }} -
+                        </div>
+                        <a href="/index.php?access=post&id={{ comment.id_post }}" class="view">Voir l'article</a>
                     </div>
-                    <a href="#" class="view">Voir l'article</a>
-                </div>
-                <div class="contenu">
-                    Le commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla blablaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla
-                </div>
-            </div>
-            <div class="controls">
-                <div class="retour">Annuler</div>
-                <div class="confirm">
-                    <img src="{{ imgDir }}pictos/cross.svg" class="js-inject-me" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="commentaire">
-            <div class="left">
-                <div class="avatar"></div>
-            </div>
-            <div class="right">
-                <div class="name">Thomas Claireau</div>
-                <div class="date-view">
-                    <div class="date">26 Novembre 2019, à 14h00 -
+                    <div class="titre">
+                        {{ comment.title }}
                     </div>
-                    <a href="#" class="view">Voir l'article</a>
-                </div>
-                <div class="contenu">
-                    Le commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla blablaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla
-                </div>
-            </div>
-            <div class="controls">
-                <div class="retour">Annuler</div>
-                <div class="confirm">
-                    <img src="{{ imgDir }}pictos/cross.svg" class="js-inject-me" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="commentaire">
-            <div class="left">
-                <div class="avatar"></div>
-            </div>
-            <div class="right">
-                <div class="name">Thomas Claireau</div>
-                <div class="date-view">
-                    <div class="date">26 Novembre 2019, à 14h00 -
+                    <div class="contenu">
+                        {{comment.content|raw}}
                     </div>
-                    <a href="#" class="view">Voir l'article</a>
                 </div>
-                <div class="contenu">
-                    Le commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla blablaLe commentaire bla bla blaLe commentaire bla bla blaLe commentaire bla bla
-                </div>
-            </div>
-            <div class="controls">
-                <div class="retour">Annuler</div>
-                <div class="confirm">
-                    <img src="{{ imgDir }}pictos/cross.svg" class="js-inject-me" alt="">
+                <div class="controls">
+                    <div class="retour">Annuler</div>
+                    <div class="confirm">
+                        <img src="{{ imgDir }}pictos/cross.svg" class="js-inject-me" alt="">
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
 </div>

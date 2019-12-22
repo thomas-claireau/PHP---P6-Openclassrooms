@@ -38,8 +38,17 @@ class PostController extends MainController
             self::$action();
         } else {
             return $this->render('post.twig', [
-                'test' => 'PostController',
+                'post' => self::getPost(),
+                'user' => self::isLog(),
+                'comments' => self::getComment(),
             ]);
+        }
+    }
+
+    public function isLog()
+    {
+        if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+            return $_SESSION['user'];
         }
     }
 
@@ -73,16 +82,17 @@ class PostController extends MainController
     public function uploadImage()
     {
         self::saveSessionPost();
-        include 'php ../../src/assets/img/upload.php';
+        $action = filter_input(INPUT_GET, 'action');
+        $this->uploadImg(null, null, $action);
     }
 
     public function create()
     {
         $post = $_SESSION['post'];
 
-        $titlePost = $post['content']['titre'];
-        $description = $post['content']['description'];
-        $contentPost = htmlspecialchars($post['content']['editor']);
+        $titlePost = addslashes($post['content']['titre']);
+        $description = addslashes($post['content']['description']);
+        $contentPost = addslashes($post['content']['editor']);
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
         $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
@@ -108,7 +118,7 @@ class PostController extends MainController
 
         $titlePost = $post['content']['titre'];
         $description = $post['content']['description'];
-        $contentPost = htmlspecialchars($post['content']['editor']);
+        $contentPost = $post['content']['editor'];
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
         $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
@@ -138,5 +148,40 @@ class PostController extends MainController
             ModelFactory::getModel('Post')->resetIndex();
         }
         $this->redirect('admin', ['type' => 'posts', 'action' => 'remove']);
+    }
+
+    public function getPost()
+    {
+        $id = self::getId();
+        $post = ModelFactory::getModel('Post')->readData($id, 'id');
+        $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], 'id');
+        $post['nom'] = $userOfPost['nom'];
+        $post['prenom'] = $userOfPost['prenom'];
+        $post['avatar_img_path'] = $userOfPost['avatar_img_path'];
+
+        return $post;
+    }
+
+    public function getComment()
+    {
+        $commentsDb = ModelFactory::getModel('Comment')->listData(self::getId(), 'id_post');
+
+        $comments = [];
+
+        if (isset($commentsDb) && !empty($commentsDb)) {
+            foreach ($commentsDb as $key => $comment) {
+                $idUser = $comment['id_user'];
+                $user = ModelFactory::getModel('User')->readData($idUser, 'id');
+
+                $array['prenom'] = $user['prenom'];
+                $array['nom'] = $user['nom'];
+                $array['avatar'] = $user['avatar_img_path'];
+
+                $comment = array_merge($array, $comment);
+                array_push($comments, $comment);
+            }
+        }
+
+        return $comments;
     }
 }

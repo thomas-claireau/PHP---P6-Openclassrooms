@@ -51,7 +51,7 @@ abstract class MainModel
                 if (is_array($param)) {
                     $query_args .= $key . ' ' . key($param) . ' ' . $param[key($param)] . ' ';
                 } else {
-                    $query_args .= $key . ' ' . key($param) . $param;
+                    $query_args .= $key . ' ' . $param;
                 }
             }
 
@@ -63,6 +63,20 @@ abstract class MainModel
         $query = 'SELECT * FROM ' . $this->table;
 
         return $this->database->getAllData($query);
+    }
+
+    public function getLastId($key)
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' ORDER BY ' . $key . ' DESC LIMIT 1';
+
+        return $this->database->getAllData($query);
+    }
+
+    public function setIndex($id)
+    {
+        $query = 'ALTER TABLE ' . $this->table . ' AUTO_INCREMENT = ' . $id;
+
+        $this->database->setData($query);
     }
 
     public function resetIndex()
@@ -108,7 +122,7 @@ abstract class MainModel
      * @param array $data
      * @param string|null $key
      */
-    public function updateData(string $value, array $data, array $key)
+    public function updateData($value, array $data, array $key)
     {
         $set = null;
 

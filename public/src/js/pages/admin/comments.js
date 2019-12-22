@@ -17,14 +17,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 		commentaires.forEach((commentaire, index) => {
 			commentaire.addEventListener('click', (e) => {
-				if (e.target.tagName !== 'A') {
+				if (e.target.tagName !== 'A' && !commentaire.classList.contains('active')) {
 					functions.loader();
 				}
 				const indexCom = index + 1;
 				const textarea = commentaire.querySelector('#commentaire-' + indexCom);
 				const defaultContenu = textarea.value;
 
-				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA') {
+				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'FORM') {
 					if (!commentaire.classList.contains('active')) {
 						// tinymce editor commentaire
 						tinymce.init({
@@ -109,14 +109,24 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				});
 
 				// remove element in front
-				const btnRemove = isCommentsRemove.querySelector('.confirm');
+				const btnRemove = commentaire.querySelector('.confirm');
 				btnRemove.addEventListener('click', () => {
 					if (commentaire.classList.contains('active')) {
 						commentaire.classList.add('remove');
+						const idCom = encodeURIComponent(commentaire.dataset.id);
+						const xhr = new XMLHttpRequest();
+						const url = window.location.origin + '/index.php?access=comment&action=remove&id=' + idCom;
+						xhr.open('GET', url);
+						xhr.send(null);
 
-						setTimeout(() => {
-							commentaire.remove();
-						}, 300);
+						xhr.addEventListener('readystatechange', function (e) {
+							if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+								setTimeout(() => {
+									commentaire.remove();
+								}, 300);
+							}
+						});
+
 					}
 				});
 
