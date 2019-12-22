@@ -164,7 +164,8 @@ class PostController extends MainController
 
     public function getComment()
     {
-        $commentsDb = ModelFactory::getModel('Comment')->listData();
+        $commentsDb = ModelFactory::getModel('Comment')->listData(self::getId(), 'id_post');
+
         $comments = [];
 
         if (isset($commentsDb) && !empty($commentsDb)) {
