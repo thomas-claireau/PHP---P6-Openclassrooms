@@ -116,10 +116,20 @@ class AdminController extends MainController
     public function getPost(array $key = null)
     {
         if (isset($key) && !empty($key)) {
-            return ModelFactory::getModel('Post')->listData($key[key($key)], key($key));
+            $posts = ModelFactory::getModel('Post')->listData($key[key($key)], key($key));
+
+            foreach ($posts as $key => $post) {
+                foreach ($post as $i => $item) {
+                    if ($i == 'description') {
+                        $posts[$key][$i] = htmlspecialchars_decode($item);
+                    }
+                }
+            }
+        } else {
+            $posts = ModelFactory::getModel('Post')->listData();
         }
 
-        return ModelFactory::getModel('Post')->listData();
+        return $posts;
     }
 
     public function getComment(array $key = null)
