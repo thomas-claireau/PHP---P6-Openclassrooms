@@ -157,15 +157,10 @@ class PostController extends MainController
         $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], 'id');
         $post['nom'] = $userOfPost['nom'];
         $post['prenom'] = $userOfPost['prenom'];
-        $post['avatar_img_path'] = $userOfPost['avatar_img_path'];
-        $post['content'] = htmlspecialchars_decode($post['content']);
+        $post['avatar_img_path'] = $this->setRelativePathImg($userOfPost['avatar_img_path']);
+        $post['content'] = $this->setRelativePathImg(htmlspecialchars_decode($post['content']));
         $post['description'] = htmlspecialchars_decode($post['description']);
         $post['title'] = htmlspecialchars_decode($post['title']);
-
-        $replacement = $this->isLocalhost() ? '<img src="./src/' : '<img src="./dist/';
-
-        $post['content'] = preg_replace("#<img src=\"src/#", $replacement, $post['content']);
-        $post['content'] = preg_replace("#<img src=\"dist/#", $replacement, $post['content']);
 
         return $post;
     }
@@ -183,7 +178,7 @@ class PostController extends MainController
 
                 $array['prenom'] = $user['prenom'];
                 $array['nom'] = $user['nom'];
-                $array['avatar'] = $user['avatar_img_path'];
+                $array['avatar'] = $this->setRelativePathImg($user['avatar_img_path']);
 
                 $comment['title'] = htmlspecialchars_decode($comment['title']);
                 $comment['content'] = htmlspecialchars_decode($comment['content']);

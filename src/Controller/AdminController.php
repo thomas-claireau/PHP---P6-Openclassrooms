@@ -108,7 +108,7 @@ class AdminController extends MainController
             $array['prenom'] = $userSession['prenom'];
             $array['nom'] = $userSession['nom'];
             $array['email'] = $userSession['mail'];
-            $array['avatar_img_path'] = $userSession['avatar_img_path'];
+            $array['avatar_img_path'] = $this->setRelativePathImg($userSession['avatar_img_path']);
             return $array;
         }
     }
@@ -136,7 +136,7 @@ class AdminController extends MainController
 
                     $array['prenom'] = $user['prenom'];
                     $array['nom'] = $user['nom'];
-                    $array['avatar'] = $user['avatar_img_path'];
+                    $array['avatar'] = $this->setRelativePathImg($user['avatar_img_path']);
 
                     $comment = array_merge($array, $comment);
                     array_push($comments, $comment);

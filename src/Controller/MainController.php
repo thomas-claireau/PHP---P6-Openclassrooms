@@ -305,4 +305,14 @@ abstract class MainController
             header("HTTP/1.1 404 Url Error");
         }
     }
+
+    public function setRelativePathImg($string)
+    {
+        $replacement = self::isLocalhost() ? '<img src="./src/' : '<img src="./dist/';
+
+        $string = preg_replace("#<img src=\"src/#", $replacement, $string);
+        $string = preg_replace("#<img src=\"dist/#", $replacement, $string);
+
+        return $string;
+    }
 }

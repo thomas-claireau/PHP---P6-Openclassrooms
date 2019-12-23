@@ -78,7 +78,7 @@ class AuthController extends MainController
             'mail' => $user['mail'],
             'actif' => $user['actif'],
             'admin' => $user['admin'],
-            'avatar_img_path' => $user['avatar_img_path'],
+            'avatar_img_path' => $this->setRelativePathImg($user['avatar_img_path']),
         ];
     }
 
@@ -169,8 +169,6 @@ class AuthController extends MainController
         // actual
         $actualId = $actualData['id'];
         $actualPassHash = $actualData["password"];
-
-        $actualData['avatar_img_path'] = 'test';
 
         $isCorrectPass = self::checkPassword($pass, $actualPassHash);
 
