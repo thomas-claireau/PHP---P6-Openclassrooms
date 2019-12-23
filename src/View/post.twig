@@ -36,7 +36,8 @@
                 </div>
             </section>
             <section class="image-post">
-                <img src="{{url}}/{{post.main_img_path}}" alt="image-post"/>
+                {% set imgPath = isLocalhost ? './src/' : './dist/' %}
+                <img src="{{url}}/{{imgPath ~ post.main_img_path}}" alt="image-post"/>
             </section>
             <section class="container-content-post">
                 <div class="content-post">

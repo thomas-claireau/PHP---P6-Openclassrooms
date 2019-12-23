@@ -17,7 +17,7 @@
 			<h3>{{ title }}</h3>
 		</div>
 		{% set imgPath = isLocalhost ? './src/' : './dist/' %}
-        <div class="img-article" style="background-image: url({{url}}/{{imgPath ~ main_img_path}})"></div>
+        <div class="img-article" style="background-image: url({{url}}/{{imgPath ~ main_img}})"></div>
 		<div class="last">
 			<div class="description">
 				<p>{{ description|slice(0, 150)|raw }}</p>
