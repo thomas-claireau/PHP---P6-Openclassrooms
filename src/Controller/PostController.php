@@ -90,9 +90,9 @@ class PostController extends MainController
     {
         $post = $_SESSION['post'];
 
-        $titlePost = addslashes($post['content']['titre']);
-        $description = addslashes($post['content']['description']);
-        $contentPost = addslashes($post['content']['editor']);
+        $titlePost = htmlspecialchars($post['content']['titre']);
+        $description = htmlspecialchars($post['content']['description']);
+        $contentPost = htmlspecialchars($post['content']['editor']);
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
         $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
@@ -116,9 +116,9 @@ class PostController extends MainController
         $post = $_SESSION['post'];
         $idPost = filter_input(INPUT_GET, 'id');
 
-        $titlePost = $post['content']['titre'];
-        $description = $post['content']['description'];
-        $contentPost = $post['content']['editor'];
+        $titlePost = htmlspecialchars($post['content']['titre']);
+        $description = htmlspecialchars($post['content']['description']);
+        $contentPost = htmlspecialchars($post['content']['editor']);
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
         $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
@@ -158,6 +158,9 @@ class PostController extends MainController
         $post['nom'] = $userOfPost['nom'];
         $post['prenom'] = $userOfPost['prenom'];
         $post['avatar_img_path'] = $userOfPost['avatar_img_path'];
+        $post['content'] = htmlspecialchars_decode($post['content']);
+        $post['description'] = htmlspecialchars_decode($post['description']);
+        $post['title'] = htmlspecialchars_decode($post['title']);
 
         return $post;
     }
@@ -176,6 +179,9 @@ class PostController extends MainController
                 $array['prenom'] = $user['prenom'];
                 $array['nom'] = $user['nom'];
                 $array['avatar'] = $user['avatar_img_path'];
+
+                $comment['title'] = htmlspecialchars_decode($comment['title']);
+                $comment['content'] = htmlspecialchars_decode($comment['content']);
 
                 $comment = array_merge($array, $comment);
                 array_push($comments, $comment);

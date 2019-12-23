@@ -57,8 +57,8 @@ class CommentController extends MainController
 
         $array['id_user'] = $_SESSION['user']['id'];
         $array['id_post'] = self::getIdPost();
-        $array['title'] = $this->data['titre'];
-        $array['content'] = $this->data['commentaire'];
+        $array['title'] = htmlspecialchars($this->data['titre']);
+        $array['content'] = htmlspecialchars($this->data['commentaire']);
         $array['date'] = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $array['date'] = $array['date']->format('Y-m-d H:i:s');
 
@@ -69,8 +69,8 @@ class CommentController extends MainController
     public function update()
     {
         $idCom = $this->data['commentId'];
-        $title = $this->data['titre'];
-        $content = $this->data['commentaire-' . $idCom];
+        $title = htmlspecialchars($this->data['titre']);
+        $content = htmlspecialchars($this->data['commentaire-' . $idCom]);
 
         ModelFactory::getModel('Comment')->updateData($idCom, ['title' => $title, 'content' => $content], ['id' => $idCom]);
 
@@ -81,7 +81,6 @@ class CommentController extends MainController
     {
         $id = filter_input(INPUT_GET, 'id');
         ModelFactory::getModel('Comment')->deleteData('id', ['id' => $id]);
-        // $this->redirect('admin', ['type' => 'comments', 'action' => 'remove']);
     }
 
 }
