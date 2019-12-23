@@ -43,7 +43,7 @@ abstract class MainController
         $this->twig->addGlobal('templateName', $this->getTemplateName());
         $this->twig->addGlobal('imgDir', $this->getImgDir());
         $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
-        $this->twig->addGlobal('avatar_default', './src/assets/img/pictos/default_avatar.png');
+        $this->twig->addGlobal('avatar_default', self::isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
     }
 
     /**
@@ -224,7 +224,11 @@ abstract class MainController
         $type = $type == null ? filter_input(INPUT_GET, 'type') : $type;
 
         if ($type) {
-            $path = './src/assets/img';
+            if (self::isLocalhost()) {
+                $path = './src/assets/img';
+            } else {
+                $path = './dist/assets/img';
+            }
 
             switch ($type) {
                 case 'uploadTiny':
