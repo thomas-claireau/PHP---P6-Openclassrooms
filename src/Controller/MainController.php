@@ -220,7 +220,7 @@ abstract class MainController
 
     public function uploadImg($type = null, $id = null, $action = null)
     {
-        $accepted_origins = array("http://localhost:3000", "http://82.64.201.160", "http://recette.thomas-claireau.fr");
+        $accepted_origins = array("http://localhost:3000", "http://82.64.201.160", "http://recette.thomas-claireau.fr", "https://recette.thomas-claireau.fr");
         $type = $type == null ? filter_input(INPUT_GET, 'type') : $type;
 
         if ($type) {
