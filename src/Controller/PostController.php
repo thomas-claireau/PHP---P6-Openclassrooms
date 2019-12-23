@@ -95,7 +95,7 @@ class PostController extends MainController
         $contentPost = htmlspecialchars($post['content']['editor']);
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
-        $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
+        $mainImagePath = 'assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
 
         $array = [
             'id_user' => self::getUserId(),
@@ -121,7 +121,7 @@ class PostController extends MainController
         $contentPost = htmlspecialchars($post['content']['editor']);
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
-        $mainImagePath = 'src/assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
+        $mainImagePath = 'assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
 
         $array = [
             'id_user' => self::getUserId(),
