@@ -10,7 +10,8 @@
             </div>
             <h3>{{ post.title }}</h3>
         </div>
-        <div class="img-article" style="background-image: url({{url}}/{{main_img_path}})"></div>
+        {% set imgPath = isLocalhost ? './src/' : './dist/' %}
+        <div class="img-article" style="background-image: url({{url}}/{{imgPath ~ main_img_path}})"></div>
         <div class="last">
             <div class="description">
                 {{ post.description|raw }}
