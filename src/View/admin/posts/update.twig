@@ -19,7 +19,7 @@
 		<input type="file" name="image" id="image" accept="image/x-png,image/gif,image/jpeg" required>
 	</label>
 	<h3>Rentrez une courte description de l'article</h3>
-	<textarea name="description" id="description">{{ posts.description }}</textarea>
+	<textarea name="description" id="description">{{ posts.description|raw }}</textarea>
 	<h3>Rentrez le contenu de l'article</h3>
 	<textarea name="editor" id="editor">{{ posts.content|raw }}</textarea>
 	<div class="actions">
