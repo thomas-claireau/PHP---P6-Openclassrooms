@@ -3,15 +3,9 @@
         <div class="items">
             <ul>
                 <li>
-                    {% if home == true %}
-                        <a href="#start" class="logo js-smooth-scroll">
-                            <img src="https://via.placeholder.com/100" alt="logo-thomas-claireau"/>
-                        </a>
-                    {% else %}
-                        <a href="{{url}}" class="logo">
-                            <img src="https://via.placeholder.com/100" alt="logo-thomas-claireau"/>
-                        </a>
-                    {% endif %}
+                    <a href="#start" class="logo js-smooth-scroll">
+                        <img class="js-inject-me" src="{{ imgDir }}header/logo-site.svg" alt="logo-thomas-claireau"/>
+                    </a>
                 </li>
                 <li>
                     {% if home == true %}
@@ -46,18 +40,18 @@
                 </li>
                 <div class="logos-sociaux">
                     <li>
-                        <a href="#">
-                            <img src="https://via.placeholder.com/30" alt="logo-thomas-claireau"/>
+                        <a href="#" class="github">
+                            <i class="fa fa-github-alt" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="https://via.placeholder.com/30" alt="logo-thomas-claireau"/>
+                        <a href="#" class="linkedin">
+                            <i class="fa fa-linkedin" aria-hidden="true"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <img src="https://via.placeholder.com/30" alt="logo-thomas-claireau"/>
+                        <a href="#" class="twitter">
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
                         </a>
                     </li>
                 </div>
