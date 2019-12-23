@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 	if (postDetail) {
 		const textareaComment = postDetail.querySelector('#commentaire');
-		console.log(textareaComment);
+
 		tinymce.init({
 			target: textareaComment,
 			plugins: tinyPluginsLimited,
@@ -48,8 +48,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				xhr.withCredentials = false;
 				const url = `${window.location.origin}/?access=post&action=uploadImage&type=uploadTiny&id=${functions.$_GET('id')}`;
 				xhr.open('POST', url);
-
-				console.log(url);
 
 				xhr.onload = function () {
 					var json;
