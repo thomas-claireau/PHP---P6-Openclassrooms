@@ -1,6 +1,6 @@
 {
 	"name": "webpack-php-blog",
-	"description": "Config Webpack 4 for PHP blog P5",
+	"description": "Config Webpack 4 for PHP blog",
 	"version": "0.1.0",
 	"main": "index.js",
 	"author": "Thomas Claireau",
