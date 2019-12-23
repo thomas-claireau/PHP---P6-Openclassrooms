@@ -22,17 +22,23 @@ class HomeController extends MainController
      */
     public function defaultMethod()
     {
-        $posts = $this->listPosts(['ORDER BY' => ['date' => 'DESC'], 'LIMIT' => 3]);
+        $postsDb = $this->listPosts(['ORDER BY' => ['date' => 'DESC'], 'LIMIT' => 3]);
 
-        foreach ($posts as $key => $post) {
+        $posts = [];
+
+        foreach ($postsDb as $key => $post) {
             $userPost = $this->getUser(['id' => $post['id_user']]);
             $posts[$key]['prenom'] = $userPost['prenom'];
             $posts[$key]['nom'] = $userPost['nom'];
-            $posts[$key]['avatar_img_path'] = $userPost['avatar_img_path'];
+            $post['content'] = htmlspecialchars_decode($post['content']);
+            $post['description'] = htmlspecialchars_decode($post['description']);
+            $post['title'] = htmlspecialchars_decode($post['title']);
+
+            $posts[$key] = $post;
         }
 
         return $this->render('home.twig', [
-            'nbPosts' => count($posts),
+            'nbPosts' => count($postsDb),
             'listPosts' => $posts,
         ]);
     }
