@@ -308,10 +308,17 @@ abstract class MainController
 
     public function setRelativePathImg($string)
     {
-        $replacement = self::isLocalhost() ? '<img src="./src/' : '<img src="./dist/';
-
-        $string = preg_replace("#<img src=\"src/#", $replacement, $string);
-        $string = preg_replace("#<img src=\"dist/#", $replacement, $string);
+        if (strpos($string, '<img')) {
+            $replacement = self::isLocalhost() ? '<img src="./src/' : '<img src="./dist/';
+            $regex = ["#<img src=\"src/#", "#<img src=\"dist/#"];
+        } else {
+            $replacement = self::isLocalhost() ? './src/' : './dist/';
+            $regex = ["#./src/#", "#./dist/#"];
+        }
+        
+        foreach($regex as $item) {
+            $string = preg_replace($item, $replacement, $string);
+        }
 
         return $string;
     }
