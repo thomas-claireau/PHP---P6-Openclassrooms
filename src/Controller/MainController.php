@@ -210,7 +210,19 @@ abstract class MainController
 
     public function listPosts(array $params)
     {
-        return ModelFactory::getModel('Post')->listData(null, null, $params);
+        $posts = ModelFactory::getModel('Post')->listData(null, null, $params);
+
+        foreach($posts as $key => $post) {
+            $idUser = $post['id_user'];
+
+            $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], $idUser);
+
+            $avatar = $userOfPost['avatar_img_path'];
+
+            $posts[$key]['avatar_img_path'] = $this->setRelativePathImg($avatar);
+        }
+
+        return $posts;
     }
 
     public function getUser(array $key)
