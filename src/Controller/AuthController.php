@@ -179,7 +179,8 @@ class AuthController extends MainController
                 $avatarImgPath = $_FILES['avatar_img_path']['name'];
 
                 if ($avatarImgPath) {
-                    $outputData['avatar_img_path'] = './src/assets/img/avatars_images/' . $actualId . '/' . $avatarImgPath;
+                    $pathImg = $this->isLocalhost() ? './src/' : './dist/';
+                    $outputData['avatar_img_path'] = $pathImg . 'assets/img/avatars_images/' . $actualId . '/' . $avatarImgPath;
                     $this->uploadImg('uploadAvatar', $actualId);
                 }
             }
