@@ -162,6 +162,11 @@ class PostController extends MainController
         $post['description'] = htmlspecialchars_decode($post['description']);
         $post['title'] = htmlspecialchars_decode($post['title']);
 
+        $replacement = $this->isLocalhost() ? '<img src="./src/' : '<img src="./dist/';
+
+        $post['content'] = preg_replace("#<img src=\"src/#", $replacement, $post['content']);
+        $post['content'] = preg_replace("#<img src=\"dist/#", $replacement, $post['content']);
+
         return $post;
     }
 
