@@ -1,16 +1,17 @@
 <section id="portfolio" class="portfolio">
     <div class="container">
         <h2>Portfolio</h2>
-        {% include "./blog/filter.twig" %}
     </div>
-    <div class="projets">
-        <div class="projet"></div>
-        <div class="projet"></div>
-        <div class="projet"></div>
-        <div class="projet"></div>
-        <div class="projet"></div>
-        <div class="projet"></div>
-        <div class="projet"></div>
-        <div class="projet"></div>
+    <div class="projets container">
+        {% set projets = ['cuda', 'shtc', 'films-plein-air', 'jeu-de-plateau', 'chalets-caviar', 'fitactive'] %}
+        {% for projet in projets %}
+            {% set urlProjet = projet == 'shtc' ? 'http://shtc.fr' : 'https://app.thomas-claireau.fr/' ~ projet %}
+            <a href="{{ urlProjet }}" target="_blank" class="projet">
+                <video id="{{projet}}-gif" autoplay muted loop>
+                    <source src="{{ imgDir }}portfolio/gif/{{projet}}.m4v" type="video/mp4">
+                </video>
+                <img id="{{projet}}" src="{{ imgDir }}portfolio/{{projet}}.png">
+            </a>
+        {% endfor %}
     </div>
 </section>

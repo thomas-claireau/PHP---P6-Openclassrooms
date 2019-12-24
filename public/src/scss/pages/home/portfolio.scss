@@ -1,55 +1,65 @@
 .portfolio {
-  .filter ul {
-    width: 50%;
-    grid-template-columns: repeat(5, 1fr);
+	.projets {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-column-gap: 20px;
+		grid-row-gap: 40px;
+		justify-items: center;
+		align-items: center;
+		margin-top: 60px;
 
-    @media screen and (max-width: $break-medium) {
-      width: 100%;
-    }
+		.projet {
+			width: 100%;
+			height: 300px;
+			transform: translateY(0);
+			transition: all 0.3s ease-in-out;
+			cursor: pointer;
 
-    @media screen and (max-width: $break-tablet) {
-      grid-template-columns: repeat(3, 1fr);
-      justify-items: center;
-      align-items: center;
-    }
+			img {
+				object-fit: cover;
+				width: 100%;
+				height: 100%;
+			}
 
-    @media screen and (max-width: $break-small) {
-      grid-template-columns: 1fr;
-    }
-  }
-  .projets {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-column-gap: 20px;
-    grid-row-gap: 40px;
-    justify-items: center;
-    align-items: center;
-    margin-top: 60px;
+			video {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				display: none;
+			}
 
-    .projet {
-      background-image: url("https://via.placeholder.com/500x400");
-      background-size: cover;
-      background-position: center;
-      width: 100%;
-      height: 400px;
-    }
+			&:hover {
+				transform: translateY(-10px);
+				transition: all 0.3s ease-in-out;
 
-    @media screen and (max-width: 1500px) and (min-width: $break-large + 1) {
-      grid-template-columns: repeat(3, 1fr);
-    }
+				@media screen and (min-width: $break-medium) {
+					video {
+						display: inherit;
+					}
+				}
 
-    @media screen and (max-width: $break-large) and (min-width: $break-tablet + 1) {
-      grid-template-columns: 1fr 1fr;
-    }
+				img {
+					display: none;
+				}
+			}
+		}
 
-    @media screen and (max-width: $break-tablet) {
-      grid-template-columns: 1fr;
-    }
-  }
+		@media screen and (max-width: 1500px) and (min-width: $break-large + 1) {
+			grid-template-columns: repeat(3, 1fr);
+		}
 
-  @media screen and (max-width: $break-tablet) {
-    width: 100%;
-    padding-right: 20px;
-    padding-left: 20px;
-  }
+		@media screen and (max-width: $break-large) and (min-width: $break-tablet + 1) {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		@media screen and (max-width: $break-tablet) {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media screen and (max-width: $break-tablet) {
+		width: 100%;
+		padding-right: 20px;
+		padding-left: 20px;
+	}
 }

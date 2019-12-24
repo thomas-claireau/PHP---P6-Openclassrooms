@@ -1,76 +1,88 @@
 .list-skills {
-  .skills {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 80px;
-    justify-items: center;
-    align-items: center;
-    width: 70%;
-    margin: auto;
+	.skills {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-column-gap: 80px;
+		justify-items: center;
+		align-items: center;
+		width: 100%;
+		margin: auto;
 
-    &:before {
-      content: "";
-      height: 100%;
-      width: 2px;
-      background-color: lighten($grisFonce, 50%);
-      opacity: 0.5;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+		&:before {
+			content: '';
+			height: 100%;
+			width: 2px;
+			background-color: lighten($grisFonce, 50%);
+			opacity: 0.5;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 
-      @media screen and (max-width: $break-medium) {
-        content: none;
-      }
-    }
+			@media screen and (max-width: $break-medium) {
+				content: none;
+			}
+		}
 
-    .left,
-    .right {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      grid-column-gap: 20px;
-      grid-row-gap: 20px;
-      justify-items: center;
-      align-items: center;
+		.left,
+		.right {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr 1fr;
+			grid-column-gap: 110px;
+			grid-row-gap: 20px;
+			justify-items: center;
+			align-items: center;
 
-      .skill {
-        &:not(:last-child) {
-          @media screen and (max-width: 350px) {
-            margin-right: 0px;
-            margin-bottom: 20px;
-          }
-        }
-      }
+			.skill {
+				&:not(:last-child) {
+					@media screen and (max-width: 350px) {
+						margin-right: 0px;
+						margin-bottom: 20px;
+					}
+				}
+			}
 
-      @media screen and (max-width: 350px) {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-direction: column;
-      }
-    }
+			@media screen and (max-width: 350px) {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				flex-direction: column;
+			}
+		}
 
-    .left {
-      @media screen and (max-width: $break-medium) {
-        margin-bottom: 20px;
-      }
-    }
-    .skill {
-      background-image: url("https://via.placeholder.com/150");
-      background-size: cover;
-      background-position: center;
-      width: 150px;
-      height: 150px;
-    }
+		.left {
+			@media screen and (max-width: $break-medium) {
+				margin-bottom: 20px;
+			}
+		}
+		.skill {
+			background-size: cover;
+			background-position: center;
+			width: 150px;
+			height: 150px;
 
-    @media screen and (max-width: $break-medium) {
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
+			$logos: 'javascript', 'php', 'vuejs', 'typescript', 'sass', 'wordpress', 'webpack',
+				'nodejs';
+
+			@mixin addBg($slug) {
+				@each $logo in $slug {
+					&.#{$logo} {
+						background-image: url('../../../assets/img/pictos/skills/#{$logo}-logo.png');
+					}
+				}
+			}
+
+			@include addBg($logos);
+		}
+
+		@media screen and (max-width: $break-medium) {
+			display: flex;
+			width: 100%;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+	}
 }

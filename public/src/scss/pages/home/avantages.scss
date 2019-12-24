@@ -1,51 +1,57 @@
 .avantages {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 30px;
-  grid-row-gap: 30px;
-  background-color: #fff;
-  box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  margin-top: -100px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-column-gap: 30px;
+	grid-row-gap: 30px;
+	background-color: #fff;
+	box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	margin-top: -100px;
 
-  .avantage {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    position: relative;
+	.avantage {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 20px;
+		position: relative;
 
-    .content {
-      p {
-        text-align: center;
-      }
-    }
+		.content {
+			p {
+				text-align: center;
+			}
+		}
 
-    &:not(:last-child) {
-      &:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: -20px;
-        transform: translateY(-50%);
-        width: 2px;
-        height: 86%;
-        background-color: darken($grisClair, 10%);
+		svg {
+			width: 100px;
+			height: 100px;
+			margin-bottom: 20px;
+		}
 
-        @media screen and (max-width: $break-large) {
-          content: none;
-        }
-      }
-    }
-  }
+		&:not(:last-child) {
+			&:after {
+				content: '';
+				position: absolute;
+				top: 50%;
+				right: -20px;
+				transform: translateY(-50%);
+				width: 2px;
+				height: 86%;
+				background-color: darken($grisClair, 10%);
 
-  @media screen and (max-width: $break-large) and (min-width: $break-tablet + 1) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+				@media screen and (max-width: $break-large) {
+					content: none;
+				}
+			}
+		}
+	}
 
-  @media screen and (max-width: $break-tablet) {
-    grid-template-columns: 1fr;
-    margin-top: 0;
-  }
+	@media screen and (max-width: $break-large) and (min-width: $break-tablet + 1) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media screen and (max-width: $break-tablet) {
+		grid-template-columns: 1fr;
+		margin-top: 0;
+	}
 }
