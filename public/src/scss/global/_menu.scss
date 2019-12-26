@@ -1,3 +1,13 @@
+body:not(.home) #menu {
+	ul {
+		li a.logo svg {
+			g path {
+				fill: inherit;
+			}
+		}
+	}
+}
+
 #menu {
 	position: fixed;
 	top: 0;
