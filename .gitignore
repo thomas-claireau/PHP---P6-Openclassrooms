@@ -7,6 +7,12 @@
 # Exclude public dist folder
 /public/dist/
 
+# Exclude posts-images
+/public/src/assets/img/posts_images/
+
+# Exclude avatar-images
+/public/src/assets/img/avatars_images/
+
 #exclude package lock public folder
 /public/package-lock.json
 
