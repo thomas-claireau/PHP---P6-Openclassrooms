@@ -3,7 +3,9 @@
         <div class="items">
             <ul>
                 <li>
-                    <a href="{{url}}/#start" class="logo js-smooth-scroll">
+                    {% set href = home ? '#start' : url ~ '/#start' %}
+                    {% set smoothScroll = home ? 'js-smooth-scroll' : '' %}
+                    <a href="{{href}}" class="logo {{smoothScroll}}">
                         <img class="js-inject-me" src="{{ imgDir }}header/logo-site.svg" alt="logo-thomas-claireau"/>
                     </a>
                 </li>
