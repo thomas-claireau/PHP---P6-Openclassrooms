@@ -14,7 +14,7 @@
         <div class="img-article" style="background-image: url({{url}}/{{imgPath ~ main_img_path}})"></div>
         <div class="last">
             <div class="description">
-                {{ post.description|raw }}
+                {{ post.description|slice(0, 150)|raw }}
             </div>
         </div>
     </div>
