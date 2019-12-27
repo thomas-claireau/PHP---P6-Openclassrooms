@@ -1,6 +1,11 @@
 .remove {
-  .btn {
-    width: 300px;
-    margin-top: 20px;
-  }
+	.btn {
+		width: 300px;
+		margin-top: 20px;
+
+		@media screen and (max-width: $break-small) {
+			font-size: 15px;
+			width: 90%;
+		}
+	}
 }

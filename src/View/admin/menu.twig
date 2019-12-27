@@ -5,11 +5,18 @@
 				<img class="js-inject-me" src="{{ imgDir }}header/logo-site.svg" alt="logo-thomas-claireau"/>
 			</a>
 			<h1>{{ title }}</h1>
+			<div class="bars-menu-mobile">
+				<div>
+					<span class="bar-1"></span>
+					<span class="bar-2"></span>
+					<span class="bar-3"></span>
+				</div>
+			</div>
 		</div>
 		<div class="right">
 			<div class="user">
 				<div class="avatar" style="background-image: url('{{ user.avatar_img_path ? user.avatar_img_path : avatar_default }}')"></div>
-				<div class="nom">{{ user.prenom }}
+				<div class="nom"><span>{{ user.prenom }}</span>
 					{{ user.nom }}</div>
 			</div>
 		</div>

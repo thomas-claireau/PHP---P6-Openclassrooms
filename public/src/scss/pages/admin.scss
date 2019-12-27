@@ -21,8 +21,24 @@ body.admin {
 			margin-left: 300px;
 		}
 
+		@media screen and (max-width: $break-medium) {
+			margin-left: 20px;
+			margin-right: 20px;
+			left: 0;
+		}
+
 		h2 {
 			text-align: left;
+
+			@media screen and (max-width: $break-tablet) {
+				font-size: 35px;
+			}
+		}
+
+		input {
+			@media screen and (max-width: $break-small) {
+				width: 100%;
+			}
 		}
 
 		&.account,

@@ -30,7 +30,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				}
 				const textarea = commentaire.querySelector('#commentaire-' + indexCom);
 				const defaultContenu = textarea.value;
-				console.log(e.target.tagName);
 
 				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'FORM' || e.target.tagName === 'P' || e.target.tagName === 'INPUT') {
 					if (!commentaire.classList.contains('active')) {
