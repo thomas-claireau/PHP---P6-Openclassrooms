@@ -1,9 +1,25 @@
-body:not(.home) #menu {
-	ul {
-		li a.logo svg {
-			g path {
-				fill: inherit;
+body:not(.home) {
+	#menu {
+		ul {
+			li a.logo svg {
+				g path {
+					fill: inherit;
+				}
 			}
+		}
+	}
+
+	.bars-menu-mobile > div {
+		span {
+			background-color: $grisFonce;
+		}
+	}
+}
+
+body.home {
+	.bars-menu-mobile > div {
+		span {
+			background-color: #fff;
 		}
 	}
 }
@@ -16,12 +32,6 @@ body:not(.home) #menu {
 		z-index: 1000;
 		transform: translateX(-10000px);
 		transition: all 0.3s ease-in-out;
-
-		// &.active {
-		// 	overflow: hidden;
-		// 	transform: translateX(-50%);
-		// 	transition: all 0.3s ease-in-out;
-		// }
 	}
 
 	.bars-menu-mobile {
@@ -42,7 +52,6 @@ body:not(.home) #menu {
 				display: block;
 				height: 3px;
 				width: 100%;
-				background-color: #fff;
 				z-index: 1;
 				transition: all 0.3s ease-in-out;
 
@@ -54,7 +63,7 @@ body:not(.home) #menu {
 
 		&.has-scrolled {
 			span {
-				background-color: $grisFonce;
+				background-color: $grisFonce !important;
 			}
 			&:before {
 				content: '';
