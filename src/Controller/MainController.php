@@ -123,6 +123,8 @@ abstract class MainController
     {
         if (isset($_GET['access'])) {
             return htmlspecialchars($_GET["access"]);
+        } else {
+            return 'home';
         }
 
     }

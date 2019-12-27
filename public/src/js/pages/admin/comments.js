@@ -2,7 +2,7 @@ import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/silver';
 import functions from '../../functions';
 
-const tinyPlugins = ['paste', 'link', 'autoresize'];
+const tinyPlugins = ['paste', 'autoresize'];
 
 tinyPlugins.forEach((plugin) => {
 	require('tinymce/plugins/' + plugin);
@@ -16,22 +16,29 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		const commentaires = isCommentsUpdate.querySelectorAll('.commentaire');
 
 		commentaires.forEach((commentaire, index) => {
+			const indexCom = index + 1;
+			const form = commentaire.querySelector('form');
+
+			if (form) {
+				const textarea = form.querySelector('div[name="content"]');
+				textarea.id = 'commentaire-' + indexCom;;
+			}
+
 			commentaire.addEventListener('click', (e) => {
 				if (e.target.tagName !== 'A' && !commentaire.classList.contains('active')) {
 					functions.loader();
 				}
-				const indexCom = index + 1;
 				const textarea = commentaire.querySelector('#commentaire-' + indexCom);
 				const defaultContenu = textarea.value;
 
-				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'FORM') {
+				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'FORM' || e.target.tagName === 'P' || e.target.tagName === 'INPUT') {
 					if (!commentaire.classList.contains('active')) {
 						// tinymce editor commentaire
 						tinymce.init({
 							target: textarea,
 							plugins: tinyPlugins,
-							toolbar:
-								'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
+							toolbar: 'undo redo',
+							menubar: false,
 						});
 
 						// fermer les commentaires existants

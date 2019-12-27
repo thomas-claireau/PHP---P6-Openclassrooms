@@ -37,14 +37,14 @@
 
 			.skill {
 				&:not(:last-child) {
-					@media screen and (max-width: 350px) {
+					@media screen and (max-width: 450px) {
 						margin-right: 0px;
 						margin-bottom: 20px;
 					}
 				}
 			}
 
-			@media screen and (max-width: 350px) {
+			@media screen and (max-width: 450px) {
 				display: flex;
 				justify-content: space-around;
 				align-items: center;

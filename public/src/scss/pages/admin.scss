@@ -8,12 +8,37 @@ body.admin {
 	position: relative;
 	z-index: -1;
 	#home {
-		width: 50%;
-		margin: 0 auto;
+		// width: 50%;
+		// margin: 0 auto;
+		// padding-top: 200px;
+		margin-left: 370px;
+		margin-right: 200px;
 		padding-top: 200px;
+		position: relative;
+		left: 50px;
+
+		@media screen and (max-width: 1400px) {
+			margin-left: 300px;
+		}
+
+		@media screen and (max-width: $break-medium) {
+			margin-left: 20px;
+			margin-right: 20px;
+			left: 0;
+		}
 
 		h2 {
 			text-align: left;
+
+			@media screen and (max-width: $break-tablet) {
+				font-size: 35px;
+			}
+		}
+
+		input {
+			@media screen and (max-width: $break-small) {
+				width: 100%;
+			}
 		}
 
 		&.account,
@@ -25,12 +50,6 @@ body.admin {
 		&.posts {
 			padding-top: 100px;
 			padding-bottom: 100px;
-
-			&#home {
-				width: 60%;
-				position: relative;
-				left: 50px;
-			}
 		}
 	}
 }

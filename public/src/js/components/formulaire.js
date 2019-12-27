@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", event => {
       input.addEventListener("input", e => {
         const currentInput = e.currentTarget;
 
-        if (e.target.id == "mail") {
+        if (e.target.id == "mail" || e.target.id == "email") {
           functions.checkInput(currentInput, regexMail, true);
         } else if (e.target.id == "tel") {
           functions.checkInput(currentInput, regexTel, true);
