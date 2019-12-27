@@ -137,23 +137,17 @@ class AdminController extends MainController
         if (isset($key) && !empty($key)) {
             $commentsDb = ModelFactory::getModel('Comment')->listData($key[key($key)], key($key));
 
-            $comments = [];
+            foreach ($commentsDb as $key => $comment) {
+                $idUser = $comment['id_user'];
+                $user = ModelFactory::getModel('User')->readData($idUser, 'id');
 
-            if (isset($commentsDb) && !empty($commentsDb)) {
-                foreach ($commentsDb as $key => $comment) {
-                    $idUser = $comment['id_user'];
-                    $user = ModelFactory::getModel('User')->readData($idUser, 'id');
-
-                    $array['prenom'] = $user['prenom'];
-                    $array['nom'] = $user['nom'];
-                    $array['avatar'] = $this->setRelativePathImg($user['avatar_img_path']);
-
-                    $comment = array_merge($array, $comment);
-                    array_push($comments, $comment);
-                }
+                $commentsDb[$key]['prenom'] = $user['prenom'];
+                $commentsDb[$key]['nom'] = $user['nom'];
+                $commentsDb[$key]['avatar'] = $this->setRelativePathImg($user['avatar_img_path']);
+                $commentsDb[$key]['content'] = htmlspecialchars_decode($comment['content']);
             }
 
-            return $comments;
+            return $commentsDb;
         }
     }
 
