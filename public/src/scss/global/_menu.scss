@@ -107,7 +107,7 @@ body.home {
 		overflow: hidden;
 		.bars-menu-mobile {
 			span {
-				background-color: $grisFonce;
+				background-color: $grisFonce !important;
 
 				&.bar-2 {
 					display: none;
