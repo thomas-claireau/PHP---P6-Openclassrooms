@@ -16,11 +16,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		const commentaires = isCommentsUpdate.querySelectorAll('.commentaire');
 
 		commentaires.forEach((commentaire, index) => {
+			const indexCom = index + 1;
+			const form = commentaire.querySelector('form');
+
+			if (form) {
+				const textarea = form.querySelector('div[name="content"]');
+				textarea.id = 'commentaire-' + indexCom;;
+			}
+
 			commentaire.addEventListener('click', (e) => {
 				if (e.target.tagName !== 'A' && !commentaire.classList.contains('active')) {
 					functions.loader();
 				}
-				const indexCom = index + 1;
 				const textarea = commentaire.querySelector('#commentaire-' + indexCom);
 				const defaultContenu = textarea.value;
 
