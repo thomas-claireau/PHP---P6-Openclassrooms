@@ -2,7 +2,7 @@ import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/silver';
 import functions from '../../functions';
 
-const tinyPlugins = ['paste', 'link', 'autoresize'];
+const tinyPlugins = ['paste', 'autoresize'];
 
 tinyPlugins.forEach((plugin) => {
 	require('tinymce/plugins/' + plugin);
@@ -30,15 +30,16 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				}
 				const textarea = commentaire.querySelector('#commentaire-' + indexCom);
 				const defaultContenu = textarea.value;
+				console.log(e.target.tagName);
 
-				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'FORM') {
+				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'FORM' || e.target.tagName === 'P' || e.target.tagName === 'INPUT') {
 					if (!commentaire.classList.contains('active')) {
 						// tinymce editor commentaire
 						tinymce.init({
 							target: textarea,
 							plugins: tinyPlugins,
-							toolbar:
-								'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
+							toolbar: 'undo redo',
+							menubar: false,
 						});
 
 						// fermer les commentaires existants
