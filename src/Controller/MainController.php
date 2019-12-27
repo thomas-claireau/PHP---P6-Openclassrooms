@@ -22,6 +22,7 @@ abstract class MainController
      * @var Environment|null
      */
     protected $twig = null;
+    protected $files = null;
 
     /**
      * MainController constructor
@@ -44,6 +45,8 @@ abstract class MainController
         $this->twig->addGlobal('imgDir', $this->getImgDir());
         $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
         $this->twig->addGlobal('avatar_default', self::isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
+
+        $this->files = filter_var_array($_FILES);
     }
 
     /**
@@ -214,7 +217,7 @@ abstract class MainController
     {
         $posts = ModelFactory::getModel('Post')->listData(null, null, $params);
 
-        foreach($posts as $key => $post) {
+        foreach ($posts as $key => $post) {
             $idUser = $post['id_user'];
 
             $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], $idUser);
@@ -270,8 +273,7 @@ abstract class MainController
             $imageFolder = $path . '/' . $id . '/';
 
             reset($_FILES);
-            $files = filter_var_array($_FILES);
-            $temp = current($files);
+            $temp = current($this->files);
 
             if (is_uploaded_file($temp['tmp_name'])) {
                 if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -330,8 +332,8 @@ abstract class MainController
             $replacement = self::isLocalhost() ? './src/' : './dist/';
             $regex = ["#./src/#", "#./dist/#"];
         }
-        
-        foreach($regex as $item) {
+
+        foreach ($regex as $item) {
             $string = preg_replace($item, $replacement, $string);
         }
 

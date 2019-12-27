@@ -71,7 +71,7 @@ class PostController extends MainController
     {
         $post = filter_input_array(INPUT_POST);
         $_SESSION['post']['content'] = $post;
-        $_SESSION['post']['mainImg'] = filter_var_array($_FILES);
+        $_SESSION['post']['mainImg'] = $this->files;
     }
 
     public function deleteSessionPost()
