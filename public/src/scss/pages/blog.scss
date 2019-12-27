@@ -17,11 +17,11 @@
 		}
 
 		@media screen and (max-width: $break-medium) and (min-width: $break-tablet + 1) {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(2, 1fr) !important;
 		}
 
 		@media screen and (max-width: $break-tablet) {
-			grid-template-columns: 1fr;
+			grid-template-columns: 1fr !important;
 		}
 	}
 }
