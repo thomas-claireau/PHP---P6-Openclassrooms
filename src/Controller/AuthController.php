@@ -51,13 +51,13 @@ class AuthController extends MainController
             $passwordHash = $user['password'];
 
             if (self::checkPassword($outputPassword, $passwordHash)) {
-                header('Location: /index.php?access=admin');
+                $this->redirect('admin');
                 self::createSession($user);
             } else {
-                header('Location: /index.php?access=log&type=connexion&error=true');
+                $this->redirect('log', ['type' => 'connexion', 'error' => true]);
             }
         } else {
-            header('Location: /index.php?access=log&type=connexion&error=true');
+            $this->redirect('log', ['type' => 'connexion', 'error' => true]);
         }
     }
 
@@ -149,8 +149,8 @@ class AuthController extends MainController
 
         // Send the message
         $result = $mailer->send($messageConfirmation);
-
-        header('Location: /index.php/?access=admin');
+        
+        $this->redirect('admin');
     }
 
     public function updateAccount()

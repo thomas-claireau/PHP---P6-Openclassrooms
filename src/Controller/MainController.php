@@ -151,18 +151,22 @@ abstract class MainController
     public function checkAllInput($context)
     {
         if ($context == 'contact') {
-            $location = '/index.php?access=contact';
+            $location = 'contact';
+            $params = array();
         } elseif ($context == 'login') {
-            $location = '/index.php?access=log&type=connexion';
+            $location = 'log';
+            $params = ['type' => 'connexion'];
         } else {
             return false;
         }
 
         if (isset($_POST['email']) && self::getMail() == false) {
-            header('Location: ' . $location . '&error=mail');
+            array_push($params, ['error' => 'mail']);
+            $this->redirect($location, $params);
             exit;
         } elseif (isset($_POST['tel']) && self::getTel() == false) {
-            header('Location: ' . $location . '&error=tel');
+            array_push($params, ['error' => 'tel']);
+            $this->redirect($location, $params);
             exit;
         } else {
             if (isset($_POST) && !empty($_POST)) {

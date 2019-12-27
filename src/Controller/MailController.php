@@ -29,15 +29,15 @@ class MailController extends MainController
     {
         require_once 'setup/configMail.php';
         $serveurName = $configMail['smtp'];
-        $port        = $configMail['port'];
-        $username    = $configMail['username'];
-        $password    = $configMail['password'];
+        $port = $configMail['port'];
+        $username = $configMail['username'];
+        $password = $configMail['password'];
 
-        $infos   = self::checkAllInput('contact');
-        $prenom  = $infos['prenom'];
-        $nom     = $infos['nom'];
-        $mail    = $infos['email'];
-        $tel     = $infos['tel'];
+        $infos = self::checkAllInput('contact');
+        $prenom = $infos['prenom'];
+        $nom = $infos['nom'];
+        $mail = $infos['email'];
+        $tel = $infos['tel'];
         $message = $infos['message'];
 
         // Create the Transport
@@ -88,6 +88,7 @@ class MailController extends MainController
         // Send the message
         $result = $mailer->send($messageConfirmation);
         $result = $mailer->send($messageMySelf);
-        header('Location: /index.php?access=contact&success=true');
+
+        $this->redirect('contact', ['success' => true]);
     }
 }
