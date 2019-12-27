@@ -270,7 +270,8 @@ abstract class MainController
             $imageFolder = $path . '/' . $id . '/';
 
             reset($_FILES);
-            $temp = current($_FILES);
+            $files = filter_var_array($_FILES);
+            $temp = current($files);
 
             if (is_uploaded_file($temp['tmp_name'])) {
                 if (isset($_SERVER['HTTP_ORIGIN'])) {

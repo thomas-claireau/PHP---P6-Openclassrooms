@@ -120,7 +120,9 @@ class AuthController extends MainController
         ModelFactory::getModel('User')->createData($array);
         $user = $this->getUser(['mail' => $array['mail']]);
 
-        $avatarImgPath = 'src/assets/img/avatars_images/' . $user['id'] . '/' . $_FILES['avatar']['name'];
+        $files = filter_var_array($_FILES);
+
+        $avatarImgPath = 'src/assets/img/avatars_images/' . $user['id'] . '/' . $files['avatar']['name'];
         ModelFactory::getModel('User')->updateData($user['id'], ['avatar_img_path' => $avatarImgPath], ['id' => $user['id']]);
 
         self::createSession($user);
@@ -173,8 +175,9 @@ class AuthController extends MainController
         $isCorrectPass = self::checkPassword($pass, $actualPassHash);
 
         if ($isCorrectPass) {
-            if (isset($_FILES) && !empty($_FILES)) {
-                $avatarImgPath = $_FILES['avatar_img_path']['name'];
+            $files = filter_var_array($_FILES);
+            if (isset($files) && !empty($files)) {
+                $avatarImgPath = $files['avatar_img_path']['name'];
 
                 if ($avatarImgPath) {
                     $pathImg = $this->isLocalhost() ? './src/' : './dist/';

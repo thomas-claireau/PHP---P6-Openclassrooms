@@ -11,9 +11,6 @@ module.exports = ({ options }) => ({
       : {
         preset: [
           'default',
-          {
-            discardComments: { removeAll: true },
-          },
         ],
       },
   },
