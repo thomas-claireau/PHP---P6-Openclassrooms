@@ -1,3 +1,4 @@
+/*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 const webpack = require('webpack');
 const config = require('./webpack.config')({ dev: false });
 
