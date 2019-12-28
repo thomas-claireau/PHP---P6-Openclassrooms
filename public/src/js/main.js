@@ -30,7 +30,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 // footer toujours en bas (sauf page formulaire)
 document.onreadystatechange = function () {
-	if (document.readyState == 'complete') {
+	if (document.readyState === 'complete') {
 		const pageContact = document.querySelector('body.contact');
 		const pagesLog = document.querySelector('#log');
 		const footer = document.querySelector('footer');

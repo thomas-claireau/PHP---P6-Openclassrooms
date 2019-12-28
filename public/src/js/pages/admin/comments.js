@@ -4,10 +4,8 @@ import functions from '../../functions';
 
 const tinyPlugins = ['paste', 'autoresize'];
 
-tinyPlugins.forEach((plugin) => {
-	const path = 'tinymce/plugins/' + plugin;
-	require(path);
-});
+import 'tinymce/plugins/paste';
+import 'tinymce/plugins/autoresize';
 
 window.addEventListener('DOMContentLoaded', (event) => {
 	// comments update

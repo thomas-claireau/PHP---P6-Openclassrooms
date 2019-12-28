@@ -6,10 +6,11 @@ import functions from '../../functions';
 const tinyPlugins = ['paste', 'link', 'autoresize', 'image', 'imagetools'];
 const tinyPluginsLimited = ['paste', 'autoresize'];
 
-tinyPlugins.forEach((plugin) => {
-	const path = 'tinymce/plugins/' + plugin;
-	require(path);
-});
+import 'tinymce/plugins/paste';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/autoresize';
+import 'tinymce/plugins/image';
+import 'tinymce/plugins/imagetools';
 
 window.addEventListener('DOMContentLoaded', (event) => {
 	const isPostUpdate = document.querySelector('.posts.update');
