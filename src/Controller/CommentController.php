@@ -55,7 +55,7 @@ class CommentController extends MainController
         session_start();
         $array = [];
 
-        $array['id_user'] = $_SESSION['user']['id'];
+        $array['id_user'] = filter_var($_SESSION['user']['id']);
         $array['id_post'] = self::getIdPost();
         $array['title'] = htmlspecialchars($this->data['titre']);
         $array['content'] = htmlspecialchars($this->data['commentaire']);

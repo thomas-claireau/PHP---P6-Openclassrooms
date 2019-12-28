@@ -77,7 +77,7 @@ class AdminController extends MainController
 
     public function getUserSession()
     {
-        return $_SESSION['user'];
+        return filter_var($_SESSION['user']);
     }
 
     public function isAdmin()

@@ -47,8 +47,9 @@ class PostController extends MainController
 
     public function isLog()
     {
-        if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
-            return $_SESSION['user'];
+        $user = filter_var($_SESSION['user']);
+        if (isset($user) && !empty($user)) {
+            return $user;
         }
     }
 
@@ -70,13 +71,14 @@ class PostController extends MainController
     public function saveSessionPost()
     {
         $post = filter_input_array(INPUT_POST);
-        $_SESSION['post']['content'] = $post;
-        $_SESSION['post']['mainImg'] = $this->files;
+        $session = filter_var_array($_SESSION);
+        $session['post']['content'] = $post;
+        $session['post']['mainImg'] = $this->files;
     }
 
     public function deleteSessionPost()
     {
-        unset($_SESSION['post']);
+        unset(filter_var($_SESSION['post']));
     }
 
     public function uploadImage()
@@ -88,7 +90,7 @@ class PostController extends MainController
 
     public function create()
     {
-        $post = $_SESSION['post'];
+        $post = filter_var($_SESSION['post']);
 
         $titlePost = htmlspecialchars($post['content']['titre']);
         $description = htmlspecialchars($post['content']['description']);
@@ -113,7 +115,7 @@ class PostController extends MainController
 
     public function update()
     {
-        $post = $_SESSION['post'];
+        $post = filter_var($_SESSION['post']);
         $idPost = filter_input(INPUT_GET, 'id');
 
         $titlePost = htmlspecialchars($post['content']['titre']);

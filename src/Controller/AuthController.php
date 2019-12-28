@@ -158,7 +158,7 @@ class AuthController extends MainController
         session_start();
         $outputData = $this->data;
 
-        $actualData = $this->getUser(['id' => $_SESSION['user']['id']]);
+        $actualData = $this->getUser(['id' => filter_var($_SESSION['user']['id'])]);
 
         // output
         $name = $outputData['nom'];
@@ -204,7 +204,7 @@ class AuthController extends MainController
     public function removeAccount()
     {
         session_start();
-        $actualData = $this->getUser(['id' => $_SESSION['user']['id']]);
+        $actualData = $this->getUser(['id' => filter_var($_SESSION['user']['id'])]);
         $actualId = $actualData['id'];
         ModelFactory::getModel('User')->deleteData('id', ['id' => $actualId]);
         $lastUserId = ModelFactory::getModel('User')->getLastId('id')[0]['id'];
