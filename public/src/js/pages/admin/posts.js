@@ -7,7 +7,8 @@ const tinyPlugins = ['paste', 'link', 'autoresize', 'image', 'imagetools'];
 const tinyPluginsLimited = ['paste', 'autoresize'];
 
 tinyPlugins.forEach((plugin) => {
-	require('tinymce/plugins/' + plugin);
+	const path = 'tinymce/plugins/' + plugin;
+	require(path);
 });
 
 window.addEventListener('DOMContentLoaded', (event) => {

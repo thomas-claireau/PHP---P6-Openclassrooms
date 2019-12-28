@@ -5,7 +5,8 @@ import functions from '../../functions';
 const tinyPlugins = ['paste', 'autoresize'];
 
 tinyPlugins.forEach((plugin) => {
-	require('tinymce/plugins/' + plugin);
+	const path = 'tinymce/plugins/' + plugin;
+	require(path);
 });
 
 window.addEventListener('DOMContentLoaded', (event) => {
