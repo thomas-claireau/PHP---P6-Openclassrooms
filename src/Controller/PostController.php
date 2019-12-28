@@ -23,9 +23,13 @@ class PostController extends MainController
      * @throws RuntimeError
      * @throws SyntaxError
      */
+
+    protected $session = null;
+
     public function defaultMethod()
     {
         session_start();
+        $this->session = filter_var_array($_SESSION);
         $action = self::getAction();
 
         $isUpload = filter_input(INPUT_GET, 'uploadImage');
@@ -47,7 +51,7 @@ class PostController extends MainController
 
     public function isLog()
     {
-        $user = filter_var($_SESSION['user']);
+        $user = $this->session['user'];
         if (isset($user) && !empty($user)) {
             return $user;
         }
@@ -71,14 +75,15 @@ class PostController extends MainController
     public function saveSessionPost()
     {
         $post = filter_input_array(INPUT_POST);
-        $session = filter_var_array($_SESSION);
-        $session['post']['content'] = $post;
-        $session['post']['mainImg'] = $this->files;
+        $this->session['post']['content'] = $post;
+        $this->session['post']['mainImg'] = $this->files;
+
+        $_SESSION['post'] = $this->session['post'];
     }
 
     public function deleteSessionPost()
     {
-        unset(filter_var($_SESSION['post']));
+        unset($this->session['post']);
     }
 
     public function uploadImage()
@@ -90,7 +95,7 @@ class PostController extends MainController
 
     public function create()
     {
-        $post = filter_var($_SESSION['post']);
+        $post = $this->session['post'];
 
         $titlePost = htmlspecialchars($post['content']['titre']);
         $description = htmlspecialchars($post['content']['description']);
@@ -115,7 +120,7 @@ class PostController extends MainController
 
     public function update()
     {
-        $post = filter_var($_SESSION['post']);
+        $post = $this->session['post'];
         $idPost = filter_input(INPUT_GET, 'id');
 
         $titlePost = htmlspecialchars($post['content']['titre']);

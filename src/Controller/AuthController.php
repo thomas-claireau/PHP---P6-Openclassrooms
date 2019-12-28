@@ -18,6 +18,7 @@ class AuthController extends MainController
 {
     protected $outputUser = null;
     protected $data = null;
+    protected $session = null;
     /**
      * Manage the authentication of website
      * @return string
@@ -27,8 +28,10 @@ class AuthController extends MainController
      */
     public function __construct()
     {
+        session_start();
         $this->outputUser = self::checkAllInput('login');
         $this->data = filter_input_array(INPUT_POST);
+        $this->session = filter_var_array($_SESSION);
     }
 
     public function defaultMethod()
@@ -70,8 +73,7 @@ class AuthController extends MainController
 
     public function createSession($user)
     {
-        session_start();
-        $_SESSION['user'] = [
+        $this->session['user'] = [
             'id' => $user['id'],
             'prenom' => $user['prenom'],
             'nom' => $user['nom'],
@@ -80,6 +82,8 @@ class AuthController extends MainController
             'admin' => $user['admin'],
             'avatar_img_path' => $this->setRelativePathImg($user['avatar_img_path']),
         ];
+
+        $_SESSION['user'] = $this->session['user'];
     }
 
     public function deconnexion()
@@ -101,7 +105,7 @@ class AuthController extends MainController
 
     public function addAccount()
     {
-        session_start();
+        // session_start();
 
         require_once 'setup/configMail.php';
         $serveurName = $configMail['smtp'];
@@ -155,10 +159,11 @@ class AuthController extends MainController
 
     public function updateAccount()
     {
-        session_start();
+        // session_start();
+
         $outputData = $this->data;
 
-        $actualData = $this->getUser(['id' => filter_var($_SESSION['user']['id'])]);
+        $actualData = $this->getUser(['id' => $this->session['user']['id']]);
 
         // output
         $name = $outputData['nom'];
@@ -189,10 +194,12 @@ class AuthController extends MainController
                 foreach ($updateArray as $key => $item) {
                     if ($key !== "password") {
                         ModelFactory::getModel('User')->updateData($actualData[$key], [$key => $outputData[$key]], ['id' => $actualId]);
-                        $_SESSION['user'][$key] = $outputData[$key];
+                        $this->session['user'][$key] = $outputData[$key];
                     }
                 }
             }
+
+            $_SESSION['user'] = $this->session['user'];
 
             $this->redirect('admin', ['type' => 'account', 'action' => 'view']);
 
@@ -203,8 +210,8 @@ class AuthController extends MainController
 
     public function removeAccount()
     {
-        session_start();
-        $actualData = $this->getUser(['id' => filter_var($_SESSION['user']['id'])]);
+        // session_start();
+        $actualData = $this->getUser(['id' => $this->session['user']['id']]);
         $actualId = $actualData['id'];
         ModelFactory::getModel('User')->deleteData('id', ['id' => $actualId]);
         $lastUserId = ModelFactory::getModel('User')->getLastId('id')[0]['id'];

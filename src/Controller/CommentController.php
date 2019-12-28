@@ -25,10 +25,13 @@ class CommentController extends MainController
      */
 
     private $data;
+    protected $session = null;
 
     public function __construct()
     {
+        session_start();
         $this->data = filter_input_array(INPUT_POST);
+        $this->session = filter_var_array($_SESSION);
     }
 
     public function defaultMethod()
@@ -52,10 +55,10 @@ class CommentController extends MainController
 
     public function create()
     {
-        session_start();
+        // session_start();
         $array = [];
 
-        $array['id_user'] = filter_var($_SESSION['user']['id']);
+        $array['id_user'] = $this->session['user']['id'];
         $array['id_post'] = self::getIdPost();
         $array['title'] = htmlspecialchars($this->data['titre']);
         $array['content'] = htmlspecialchars($this->data['commentaire']);

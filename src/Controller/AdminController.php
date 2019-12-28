@@ -25,9 +25,13 @@ class AdminController extends MainController
      * @throws SyntaxError
      */
 
+    protected $session = null;
+
     public function defaultMethod()
     {
         session_start();
+        $this->session = filter_var_array($_SESSION);
+
         $action = self::getAction();
         $type = self::getType();
 
@@ -42,7 +46,7 @@ class AdminController extends MainController
         // controller posts
         if ($type == 'posts') {
             if ($action == 'view' || $action == 'remove') {
-                $posts = self::getPost(['id_user' => filter_var($_SESSION['user']['id'])]);
+                $posts = self::getPost(['id_user' => $this->session['user']['id']]);
             } elseif ($action == 'update') {
                 $posts = self::renderPost();
             } else {
@@ -53,7 +57,7 @@ class AdminController extends MainController
         // controller comments
         if ($type == 'comments') {
             if ($action == 'view' || $action == 'update' || $action == 'remove') {
-                $comments = self::getComment(['id_user' => filter_var($_SESSION['user']['id'])]);
+                $comments = self::getComment(['id_user' => $this->session['user']['id']]);
             } else {
                 $comments = false;
             }
@@ -77,7 +81,7 @@ class AdminController extends MainController
 
     public function getUserSession()
     {
-        return filter_var($_SESSION['user']);
+        return $this->session['user'];
     }
 
     public function isAdmin()
