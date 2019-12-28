@@ -125,8 +125,9 @@ abstract class MainController
 
     public static function getTemplateName()
     {
-        if (isset($_GET['access'])) {
-            return htmlspecialchars($_GET["access"]);
+        $access = filter_input(INPUT_GET, 'access');
+        if (isset($access)) {
+            return htmlspecialchars($access);
         } else {
             return 'home';
         }

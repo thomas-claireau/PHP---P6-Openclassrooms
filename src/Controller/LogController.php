@@ -36,24 +36,25 @@ class LogController extends MainController
 
     public function getType()
     {
-        if ($_GET['type']) {
-            return filter_input(INPUT_GET, 'type');
+        $type = filter_input(INPUT_GET, 'type');
+        if ($type) {
+            return $type;
         }
     }
 
     public function isFormError()
     {
-        if (isset($_GET['error'])) {
+        $error = filter_input(INPUT_GET, 'error');
+        if (isset($error)) {
             return true;
         }
     }
 
     public function getInfosNewPassword()
     {
-        if ($_GET['id'] && $_GET['token']) {
-            $userId = filter_input(INPUT_GET, 'id');
-            $tokenGet = filter_input(INPUT_GET, 'token');
-
+        $userId = filter_input(INPUT_GET, 'id');
+        $tokenGet = filter_input(INPUT_GET, 'token');
+        if ($userId && $tokenGet) {
             $user = ModelFactory::getModel('User')->readData($userId, 'id');
 
             $array = [];

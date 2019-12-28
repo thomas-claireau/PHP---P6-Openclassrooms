@@ -171,15 +171,17 @@ class AdminController extends MainController
 
     public function getType()
     {
-        if (isset($_GET['type'])) {
-            return $_GET['type'];
+        $type = filter_input(INPUT_GET, 'type');
+        if (isset($type)) {
+            return $type;
         }
     }
 
     public function getAction()
     {
-        if (isset($_GET['action'])) {
-            return $_GET['action'];
+        $action = filter_input(INPUT_GET, 'action');
+        if (isset($action)) {
+            return $action;
         }
     }
 

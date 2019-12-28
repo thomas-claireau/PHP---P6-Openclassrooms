@@ -24,14 +24,15 @@ class ContactController extends MainController
     {
 
         return $this->render('contact.twig', [
-            'success'      => $this->isFormSuccess(),
+            'success' => $this->isFormSuccess(),
             'errorContact' => $this->isFormError(),
         ]);
     }
 
     public function isFormSuccess()
     {
-        if (isset($_GET['success'])) {
+        $success = filter_input(INPUT_GET, 'success');
+        if (isset($success)) {
             return true;
         } else {
             return false;
@@ -40,8 +41,9 @@ class ContactController extends MainController
 
     public function isFormError()
     {
-        if (isset($_GET['error'])) {
-            return $_GET['error'];
+        $error = filter_input(INPUT_GET, 'error');
+        if (isset($error)) {
+            return $error;
         } else {
             return false;
         }
