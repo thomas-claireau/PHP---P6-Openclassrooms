@@ -3,8 +3,6 @@ window.addEventListener("DOMContentLoaded", event => {
   const menuAdmin = document.querySelector('.sidebar');
   const barsMenuMobile = document.querySelector('.bars-menu-mobile');
 
-  console.log(menuAdmin);
-
   const menuItems = menu ? menu : menuAdmin;
 
   if (barsMenuMobile) {
