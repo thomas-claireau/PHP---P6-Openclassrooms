@@ -44,7 +44,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 			toolbar:
 				'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 			menubar: false,
-			max_chars: "10",
 			images_upload_handler: (blobInfo, success, failure) => {
 				const xhr = new XMLHttpRequest();
 				xhr.withCredentials = false;
