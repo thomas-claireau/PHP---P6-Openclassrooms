@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
           })
         }
       })
-    })
+    });
   }
 
   if (menu) {
