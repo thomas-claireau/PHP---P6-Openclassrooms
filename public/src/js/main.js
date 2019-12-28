@@ -13,14 +13,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 	// smooth-scrool sur les ancres (vers #target)
 	const pageContainers = $('html, body');
-	const headerH = $('header').outerHeight();
 
 	$('.js-smooth-scroll').click(function (e) {
 		e.preventDefault();
 		const target = $(this).attr('href');
 		if (!$(target).length) return;
-		const offset = parseInt($(this).data('offset'), 10) || headerH;
-		console.log(offset);
+
 		pageContainers.animate(
 			{
 				scrollTop: $(target).offset().top - 50,
