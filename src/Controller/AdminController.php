@@ -25,13 +25,8 @@ class AdminController extends MainController
      * @throws SyntaxError
      */
 
-    protected $session = null;
-
     public function defaultMethod()
     {
-        session_start();
-        $this->session = filter_var_array($_SESSION);
-
         $action = self::getAction();
         $type = self::getType();
 

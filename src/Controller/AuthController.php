@@ -16,9 +16,9 @@ use Twig\Error\SyntaxError;
  */
 class AuthController extends MainController
 {
-    protected $outputUser = null;
-    protected $data = null;
-    protected $session = null;
+    // protected $outputUser = null;
+    // protected $data = null;
+    // protected $session = null;
     /**
      * Manage the authentication of website
      * @return string
@@ -26,14 +26,6 @@ class AuthController extends MainController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function __construct()
-    {
-        session_start();
-        $this->outputUser = self::checkAllInput('login');
-        $this->data = filter_input_array(INPUT_POST);
-        $this->session = filter_var_array($_SESSION);
-    }
-
     public function defaultMethod()
     {
         $action = self::getAction();

@@ -22,7 +22,10 @@ abstract class MainController
      * @var Environment|null
      */
     protected $twig = null;
-    protected $files = null;
+    protected $files = null; // file upload
+    protected $session = null; // session user
+    protected $data = null; // data of super global post
+    protected $outputUser = null; // auth -> user interaction
 
     /**
      * MainController constructor
@@ -30,6 +33,12 @@ abstract class MainController
      */
     public function __construct()
     {
+        session_start();
+        $this->files = filter_var_array($_FILES);
+        $this->session = filter_var_array($_SESSION);
+        $this->data = filter_input_array(INPUT_POST);
+        $this->outputUser = self::checkAllInput('login');
+
         $this->twig = new Environment(new FilesystemLoader('../src/View'), array(
             'cache' => false,
             'debug' => true,
@@ -45,8 +54,6 @@ abstract class MainController
         $this->twig->addGlobal('imgDir', $this->getImgDir());
         $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
         $this->twig->addGlobal('avatar_default', self::isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
-
-        $this->files = filter_var_array($_FILES);
     }
 
     /**

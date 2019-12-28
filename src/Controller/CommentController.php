@@ -24,16 +24,6 @@ class CommentController extends MainController
      * @throws SyntaxError
      */
 
-    private $data;
-    protected $session = null;
-
-    public function __construct()
-    {
-        session_start();
-        $this->data = filter_input_array(INPUT_POST);
-        $this->session = filter_var_array($_SESSION);
-    }
-
     public function defaultMethod()
     {
         $action = self::getAction();
@@ -55,7 +45,6 @@ class CommentController extends MainController
 
     public function create()
     {
-        // session_start();
         $array = [];
 
         $array['id_user'] = $this->session['user']['id'];

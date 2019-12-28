@@ -24,12 +24,8 @@ class PostController extends MainController
      * @throws SyntaxError
      */
 
-    protected $session = null;
-
     public function defaultMethod()
     {
-        session_start();
-        $this->session = filter_var_array($_SESSION);
         $action = self::getAction();
 
         $isUpload = filter_input(INPUT_GET, 'uploadImage');
