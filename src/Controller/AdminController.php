@@ -124,10 +124,11 @@ class AdminController extends MainController
                     }
                 }
             }
-        } else {
-            $posts = ModelFactory::getModel('Post')->listData();
+
+            return $posts;
         }
 
+        $posts = ModelFactory::getModel('Post')->listData();
         return $posts;
     }
 
