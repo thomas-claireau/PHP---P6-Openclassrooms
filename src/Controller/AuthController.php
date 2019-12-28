@@ -144,7 +144,7 @@ class AuthController extends MainController
         ;
 
         // Send the message
-        $result = $mailer->send($messageConfirmation);
+        $mailer->send($messageConfirmation);
 
         $this->redirect('admin');
     }
@@ -158,9 +158,6 @@ class AuthController extends MainController
         $actualData = $this->getUser(['id' => $this->session['user']['id']]);
 
         // output
-        $name = $outputData['nom'];
-        $firstname = $outputData['prenom'];
-        $email = $outputData['email'];
         $pass = $outputData['password'];
 
         // actual
@@ -262,7 +259,7 @@ class AuthController extends MainController
                 ->addPart($bodyConfirmation, 'text/html')
             ;
 
-            $result = $mailer->send($messageConfirmation);
+            $mailer->send($messageConfirmation);
             $this->redirect('log', ['type' => 'send-forgot-ok']);
         }
 

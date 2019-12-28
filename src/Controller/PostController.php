@@ -126,15 +126,6 @@ class PostController extends MainController
         $datePost = $datePost->format('Y-m-d H:i:s');
         $mainImagePath = 'assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
 
-        $array = [
-            'id_user' => self::getUserId(),
-            'title' => $titlePost,
-            'date' => $datePost,
-            'description' => $description,
-            'content' => $contentPost,
-            'main_img_path' => $mainImagePath,
-        ];
-
         ModelFactory::getModel('Post')->updateData($titlePost, ['title' => $titlePost, 'date' => $datePost, 'description' => $description, 'content' => $contentPost, 'main_img_path' => $mainImagePath], ['id' => $idPost]);
 
         self::deleteSessionPost();
@@ -175,7 +166,7 @@ class PostController extends MainController
         $comments = [];
 
         if (isset($commentsDb) && !empty($commentsDb)) {
-            foreach ($commentsDb as $key => $comment) {
+            foreach ($commentsDb as $comment) {
                 $idUser = $comment['id_user'];
                 $user = ModelFactory::getModel('User')->readData($idUser, 'id');
 

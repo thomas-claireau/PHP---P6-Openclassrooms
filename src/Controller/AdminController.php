@@ -208,7 +208,6 @@ class AdminController extends MainController
     public function forgotPassword()
     {
         $idUser = filter_input(INPUT_GET, 'id');
-        $getToken = filter_input(INPUT_GET, 'token');
 
         $user = ModelFactory::getModel('User')->readData($idUser, 'id');
 
@@ -244,7 +243,7 @@ class AdminController extends MainController
                 ModelFactory::getModel('User')->updateData($newPassword, ['password' => $newPassword, 'token' => null, 'dateToken' => null], ['mail' => '"' . $email . '"']);
                 $this->redirect('log', ['type' => 'password-forgot-ok']);
             }
-            
+
             $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
 

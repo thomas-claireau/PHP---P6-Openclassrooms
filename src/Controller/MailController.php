@@ -86,8 +86,8 @@ class MailController extends MainController
         ;
 
         // Send the message
-        $result = $mailer->send($messageConfirmation);
-        $result = $mailer->send($messageMySelf);
+        $mailer->send($messageConfirmation);
+        $mailer->send($messageMySelf);
 
         $this->redirect('contact', ['success' => true]);
     }
