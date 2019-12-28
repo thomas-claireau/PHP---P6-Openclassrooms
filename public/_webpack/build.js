@@ -19,8 +19,6 @@ webpack(config, (err, stats) => {
       errors: true
     }));
 
-    console.log();
-
     return;
   }
 
@@ -39,6 +37,4 @@ webpack(config, (err, stats) => {
     entrypoints: false,
     children: false
   }));
-
-  console.log();
 });
