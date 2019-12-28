@@ -1,11 +1,11 @@
-import SVGInjector from 'svg-injector';
+import svgInjector from 'svg-injector';
 
 export default {
 	// afficher les svg une fois la page chargée
 	injectSvg: () => {
 		const svgPromise = new Promise((resolve, reject) => {
 			const svgs = document.querySelectorAll('img.js-inject-me');
-			SVGInjector(svgs, {}, (totalSVGsInjected) => resolve(totalSVGsInjected));
+			svgInjector(svgs, {}, (totalSVGsInjected) => resolve(totalSVGsInjected));
 		});
 
 		svgPromise.then((tsi) => {
