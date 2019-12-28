@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	}
 
 	document.onreadystatechange = function () {
-		if (document.readyState == 'complete') {
+		if (document.readyState === 'complete') {
 			functions.enableScrollSidebar();
 		}
 	};
