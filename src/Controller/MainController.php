@@ -174,11 +174,9 @@ abstract class MainController
         if (isset($post['email']) && self::getMail() == false) {
             array_push($params, ['error' => 'mail']);
             $this->redirect($location, $params);
-            exit;
         } elseif (isset($post['tel']) && self::getTel() == false) {
             array_push($params, ['error' => 'tel']);
             $this->redirect($location, $params);
-            exit;
         } else {
             if (isset($post) && !empty($post)) {
                 $array = [];
