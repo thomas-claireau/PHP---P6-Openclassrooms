@@ -163,9 +163,9 @@ class AdminController extends MainController
 
         if (isset($posts) && !empty($posts)) {
             return $posts[count($posts) - 1]['id'] + 1;
-        } else {
-            return 1;
         }
+
+        return 1;
     }
 
     public function getType()
