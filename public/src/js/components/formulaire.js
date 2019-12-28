@@ -24,16 +24,16 @@ window.addEventListener("DOMContentLoaded", event => {
 
         if (e.target.id == "mail" || e.target.id == "email") {
           functions.checkInput(currentInput, regexMail, true);
-        } else if (e.target.id == "tel") {
+        } else if (e.target.id === "tel") {
           functions.checkInput(currentInput, regexTel, true);
-        } else if (e.target.id == "password") {
+        } else if (e.target.id === "password") {
           const inputConfirmPassword = document.querySelector('input#confirm-password');
 
           if (inputConfirmPassword) {
             inputConfirmPassword.value = "";
             inputConfirmPassword.parentNode.parentNode.classList.remove('ok');
           }
-        } else if (e.target.id == "confirm-password") {
+        } else if (e.target.id === "confirm-password") {
           const inputPassword = document.querySelector('input#password');
           const regexPassword = RegExp("^" + inputPassword.value + "$");
 
