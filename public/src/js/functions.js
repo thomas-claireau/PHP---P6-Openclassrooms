@@ -47,7 +47,7 @@ export default {
 		window.location.href.replace(location.hash, '').replace(
 			/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
 			function (m, key, value) { // callback
-				vars[key] = value !== undefined ? value : '';
+				vars[key] = value ? value : '';
 			}
 		);
 
