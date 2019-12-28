@@ -77,7 +77,6 @@ abstract class MainController
     public function redirect(string $page, array $params = [])
     {
         header('Location: ' . filter_input(INPUT_SERVER, 'HTTP_ORIGIN') . $this->url($page, $params));
-        exit;
     }
 
     /**
