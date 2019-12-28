@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", event => {
+window.addEventListener("DOMContentLoaded", (event) => {
   const menu = document.querySelector("#menu");
   const menuAdmin = document.querySelector('.sidebar');
   const barsMenuMobile = document.querySelector('.bars-menu-mobile');

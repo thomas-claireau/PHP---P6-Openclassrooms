@@ -13,7 +13,7 @@ module.exports = class {
     compiler.hooks.emit.tapAsync('NonJsEntryCleanupPlugin', (compilation, callback) => {
       const pattern = path.join(context, `${includeSubfolders ? '**/' : ''}*.${extensions}`);
 
-      Object.keys(compilation.assets).filter(asset => minimatch(asset, pattern)).forEach(asset => delete compilation.assets[asset]);
+      Object.keys(compilation.assets).filter((asset) => minimatch(asset, pattern)).forEach((asset) => delete compilation.assets[asset]);
 
       callback();
     });

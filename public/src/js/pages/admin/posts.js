@@ -94,7 +94,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		if (containerArticles) {
 			const articles = containerArticles.querySelectorAll('.article .content');
 
-			articles.forEach(article => {
+			articles.forEach((article) => {
 				article.addEventListener('mouseenter', () => {
 					article.classList.add('hover');
 				});
