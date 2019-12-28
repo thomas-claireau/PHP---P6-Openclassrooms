@@ -1,6 +1,7 @@
 import './admin/account';
 import './admin/comments';
 import './admin/posts';
+import functions from '../functions';
 
 // charge les skins tinymce
 require.context(
@@ -16,17 +17,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		linkTarget.classList.add('active');
 	}
 
-	document.onreadystatechange = function() {
+	document.onreadystatechange = function () {
 		if (document.readyState == 'complete') {
-			// scroll sidebar
-			const sidebar = document.querySelector('.admin .sidebar ul');
-			const windowHeight = window.innerHeight;
-
-			if (sidebar) {
-				if (sidebar.scrollHeight > windowHeight - 100) {
-					sidebar.parentNode.classList.add('has-scrolled');
-				}
-			}
+			functions.enableScrollSidebar();
 		}
 	};
 });

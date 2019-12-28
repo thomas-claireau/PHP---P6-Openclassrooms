@@ -55,5 +55,16 @@ export default {
 			return vars[param] ? vars[param] : null;
 		}
 		return vars;
+	},
+	enableScrollSidebar: () => {
+		// scroll sidebar
+		const sidebar = document.querySelector('.admin .sidebar ul');
+		const windowHeight = window.innerHeight;
+
+		if (sidebar) {
+			if (sidebar.scrollHeight > windowHeight - 100) {
+				sidebar.parentNode.classList.add('has-scrolled');
+			}
+		}
 	}
 };
