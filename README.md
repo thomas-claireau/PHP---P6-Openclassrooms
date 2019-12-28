@@ -87,8 +87,6 @@ L’écriture de ces tickets vous permettront de vous accorder sur un vocabulair
 
 Votre projet devra être suivi via SymfonyInsight, ou Codacy pour la qualité du code, vous veillerez à obtenir une médaille d'argent au minimum (pour SymfonyInsight), en complément le respect des PSR est recommandé afin de proposer un code compréhensible et facilement évolutif.
 
-Si vous n’arrivez pas à vous décider sur le thème Bootstrap, en voici un qui pourrait vous convenir http://bit.ly/2emOTxY (source : startbootstrap.com).
-
 Dans le cas où une fonctionnalité vous semblerait mal expliquée ou manquante, parlez-en avec votre mentor afin de prendre une décision ensemble sur les choix que vous souhaiteriez prendre. Ce qui doit prévaloir doit être les délais.
 
 ## ⌛ Projet en cours...
