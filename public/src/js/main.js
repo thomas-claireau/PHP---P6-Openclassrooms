@@ -17,7 +17,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 	$('.js-smooth-scroll').click(function (e) {
 		e.preventDefault();
 		const target = $(this).attr('href');
-		if (!$(target).length) return;
+		if (!$(target).length) {
+			return;
+		}
 
 		pageContainers.animate(
 			{
