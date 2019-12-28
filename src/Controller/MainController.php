@@ -284,7 +284,6 @@ abstract class MainController
 
             $imageFolder = $path . '/' . $id . '/';
 
-            reset($_FILES);
             $temp = current($this->files);
 
             if (is_uploaded_file($temp['tmp_name'])) {
