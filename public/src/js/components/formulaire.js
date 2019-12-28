@@ -18,8 +18,8 @@ window.addEventListener("DOMContentLoaded", event => {
       inputFile.setAttribute('accept', "image/x-png,image/gif,image/jpeg");
     }
 
-    inputs.forEach(input => {
-      input.addEventListener("input", e => {
+    inputs.forEach((input) => {
+      input.addEventListener("input", (e) => {
         const currentInput = e.currentTarget;
 
         if (e.target.id == "mail" || e.target.id == "email") {
@@ -45,8 +45,8 @@ window.addEventListener("DOMContentLoaded", event => {
       });
     });
 
-    inputSubmit.addEventListener("click", e => {
-      inputs.forEach(input => {
+    inputSubmit.addEventListener("click", (e) => {
+      inputs.forEach((input) => {
         const parentInput = input.parentNode.parentNode;
 
         if (parentInput.classList.contains("error")) {
