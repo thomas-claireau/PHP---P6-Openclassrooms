@@ -36,13 +36,14 @@ class PostController extends MainController
 
         if (isset($action) && !empty($action)) {
             self::$action();
-        } else {
-            return $this->render('post.twig', [
-                'post' => self::getPost(),
-                'user' => self::isLog(),
-                'comments' => self::getComment(),
-            ]);
         }
+
+        return $this->render('post.twig', [
+            'post' => self::getPost(),
+            'user' => self::isLog(),
+            'comments' => self::getComment(),
+        ]);
+
     }
 
     public function isLog()
