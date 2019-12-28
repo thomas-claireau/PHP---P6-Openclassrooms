@@ -8,15 +8,15 @@ window.addEventListener("DOMContentLoaded", event => {
   if (barsMenuMobile) {
     const events = ['click', 'touch'];
 
-    events.forEach(event => {
+    events.forEach((event) => {
       barsMenuMobile.addEventListener(event, () => {
         document.querySelector('body').classList.toggle('menu-burger-open');
 
         const clickableItems = menuItems.querySelectorAll('a');
 
         if (clickableItems) {
-          clickableItems.forEach(item => {
-            events.forEach(event => {
+          clickableItems.forEach((item) => {
+            events.forEach((event) => {
               item.addEventListener(event, () => {
                 document.querySelector('body').classList.remove('menu-burger-open');
               })
