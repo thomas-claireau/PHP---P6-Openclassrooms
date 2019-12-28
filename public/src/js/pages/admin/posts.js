@@ -120,7 +120,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 					}
 				});
 			})
-		};
+		}
 	}
-
 });
