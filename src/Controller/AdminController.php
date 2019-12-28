@@ -235,8 +235,8 @@ class AdminController extends MainController
 
     public function newPassword()
     {
-        if (isset($_POST)) {
-            $post = filter_input_array(INPUT_POST);
+        $post = filter_input_array(INPUT_POST);
+        if (isset($post)) {
             $email = $post['email'];
             $password = $post['password'];
             $confirmPassword = $post['confirm-password'];

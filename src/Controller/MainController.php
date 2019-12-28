@@ -152,6 +152,8 @@ abstract class MainController
 
     public function checkAllInput($context)
     {
+        $post = filter_input_array(INPUT_POST);
+
         if ($context == 'contact') {
             $location = 'contact';
             $params = array();
@@ -162,18 +164,18 @@ abstract class MainController
             return false;
         }
 
-        if (isset($_POST['email']) && self::getMail() == false) {
+        if (isset($post['email']) && self::getMail() == false) {
             array_push($params, ['error' => 'mail']);
             $this->redirect($location, $params);
             exit;
-        } elseif (isset($_POST['tel']) && self::getTel() == false) {
+        } elseif (isset($post['tel']) && self::getTel() == false) {
             array_push($params, ['error' => 'tel']);
             $this->redirect($location, $params);
             exit;
         } else {
-            if (isset($_POST) && !empty($_POST)) {
+            if (isset($post) && !empty($post)) {
                 $array = [];
-                foreach ($_POST as $key => $item) {
+                foreach ($post as $key => $item) {
                     if ($key == 'email') {
                         $array[$key] = self::getMail();
                     } elseif ($key == 'tel') {
@@ -190,7 +192,7 @@ abstract class MainController
 
     public function getMail()
     {
-        $mail = htmlspecialchars($_POST['email']);
+        $mail = htmlspecialchars(filter_input(INPUT_POST, 'email'));
 
         if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             return $mail;
@@ -201,7 +203,7 @@ abstract class MainController
 
     public function getTel()
     {
-        $tel = htmlspecialchars($_POST['tel']);
+        $tel = htmlspecialchars(filter_input(INPUT_POST, 'tel'));
 
         $tel = str_replace(' ', '', $tel);
         $tel = str_replace('-', '', $tel);
