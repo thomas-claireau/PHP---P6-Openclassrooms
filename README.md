@@ -89,4 +89,4 @@ Votre projet devra être suivi via SymfonyInsight, ou Codacy pour la qualité du
 
 Dans le cas où une fonctionnalité vous semblerait mal expliquée ou manquante, parlez-en avec votre mentor afin de prendre une décision ensemble sur les choix que vous souhaiteriez prendre. Ce qui doit prévaloir doit être les délais.
 
-## ⌛ Projet en cours...
+## ⌛ Projet en cours
