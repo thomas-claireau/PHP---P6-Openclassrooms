@@ -1,6 +1,6 @@
 {
   "name": "thomas-claireau/php-p5-openclassrooms",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "package manager for my blog",
   "type": "project",
   "keywords": [
