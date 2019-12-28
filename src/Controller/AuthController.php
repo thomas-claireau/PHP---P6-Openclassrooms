@@ -191,10 +191,9 @@ class AuthController extends MainController
             $_SESSION['user'] = $this->session['user'];
 
             $this->redirect('admin', ['type' => 'account', 'action' => 'view']);
-
-        } else {
-            $this->redirect('admin', ['type' => 'account', 'action' => 'view', 'error' => true]);
         }
+
+        $this->redirect('admin', ['type' => 'account', 'action' => 'view', 'error' => true]);
     }
 
     public function removeAccount()
