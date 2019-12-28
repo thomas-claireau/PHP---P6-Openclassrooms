@@ -69,7 +69,7 @@ abstract class MainController
      */
     public function redirect(string $page, array $params = [])
     {
-        header('Location: ' . $_SERVER['HTTP_ORIGIN'] . $this->url($page, $params));
+        header('Location: ' . filter_input(INPUT_SERVER, 'HTTP_ORIGIN') . $this->url($page, $params));
         exit;
     }
 
@@ -89,12 +89,12 @@ abstract class MainController
 
     public function getUrl()
     {
-        return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+        return filter_input(INPUT_SERVER, 'REQUEST_SCHEME') . '://' . filter_input(INPUT_SERVER, 'HTTP_HOST');
     }
 
     public static function getCurrentPath()
     {
-        return $_SERVER['DOCUMENT_ROOT'];
+        return filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
     }
 
     public static function folder_exist($folder)
@@ -110,13 +110,14 @@ abstract class MainController
     private static function getServerIP()
     {
         $adresse = '';
+        $server = filter_input_array(INPUT_SERVER);
 
-        if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
-            $adresse = $_SERVER["HTTP_X_FORWARDED_FOR"];
-        } else if (array_key_exists('REMOTE_ADDR', $_SERVER)) {
-            $adresse = $_SERVER["REMOTE_ADDR"];
-        } else if (array_key_exists('HTTP_CLIENT_IP', $_SERVER)) {
-            $adresse = $_SERVER["HTTP_CLIENT_IP"];
+        if (array_key_exists('HTTP_X_FORWARDED_FOR', $server)) {
+            $adresse = $server["HTTP_X_FORWARDED_FOR"];
+        } else if (array_key_exists('REMOTE_ADDR', $server)) {
+            $adresse = $server["REMOTE_ADDR"];
+        } else if (array_key_exists('HTTP_CLIENT_IP', $server)) {
+            $adresse = $server["HTTP_CLIENT_IP"];
         }
 
         return $adresse;
@@ -134,7 +135,7 @@ abstract class MainController
 
     public static function getImgDir()
     {
-        $HTTP_HOST = $_SERVER['HTTP_HOST'];
+        $HTTP_HOST = filter_input(INPUT_SERVER, 'HTTP_HOST');
         $isDist = self::folder_exist('dist');
         $isDev = self::isLocalhost();
 
@@ -214,7 +215,7 @@ abstract class MainController
 
     public function getHomeUrl()
     {
-        return 'https://' . $_SERVER['HTTP_HOST'];
+        return 'https://' . filter_input(INPUT_SERVER, 'HTTP_HOST');
     }
 
     public function listPosts(array $params)
@@ -280,10 +281,11 @@ abstract class MainController
             $temp = current($this->files);
 
             if (is_uploaded_file($temp['tmp_name'])) {
-                if (isset($_SERVER['HTTP_ORIGIN'])) {
+                $http_origin = filter_input(INPUT_SERVER, 'HTTP_ORIGIN');
+                if (isset($http_origin)) {
                     // Same-origin requests won't set an origin. If the origin is set, it must be valid.
-                    if (in_array($_SERVER['HTTP_ORIGIN'], $accepted_origins)) {
-                        header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+                    if (in_array($http_origin, $accepted_origins)) {
+                        header('Access-Control-Allow-Origin: ' . $http_origin);
                     } else {
                         header("HTTP/1.1 403 Origin Denied");
                         return;

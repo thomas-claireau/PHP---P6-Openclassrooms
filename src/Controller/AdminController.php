@@ -185,7 +185,7 @@ class AdminController extends MainController
 
     public function getRequestUri()
     {
-        return $_SERVER['REQUEST_URI'];
+        return filter_input(INPUT_SERVER, 'REQUEST_URI');
     }
 
     public function getToken()

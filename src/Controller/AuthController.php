@@ -51,8 +51,8 @@ class AuthController extends MainController
             $passwordHash = $user['password'];
 
             if (self::checkPassword($outputPassword, $passwordHash)) {
-                $this->redirect('admin');
                 self::createSession($user);
+                $this->redirect('admin');
             } else {
                 $this->redirect('log', ['type' => 'connexion', 'error' => true]);
             }
@@ -149,7 +149,7 @@ class AuthController extends MainController
 
         // Send the message
         $result = $mailer->send($messageConfirmation);
-        
+
         $this->redirect('admin');
     }
 
@@ -236,7 +236,7 @@ class AuthController extends MainController
             $token = bin2hex($token);
             $dateToken = new DateTime('now', new DateTimeZone('Europe/Paris'));
             $dateToken = $dateToken->format('Y-m-d H:i:s');
-            $link = $_SERVER['HTTP_ORIGIN'] . "/index.php?access=admin&id=$idUser&token=$token";
+            $link = filter_input(INPUT_SERVER, 'HTTP_ORIGIN') . "/index.php?access=admin&id=$idUser&token=$token";
 
             // send token in bdd
             ModelFactory::getModel('User')->updateData($token, ['token' => $token], ['id' => $idUser]);
