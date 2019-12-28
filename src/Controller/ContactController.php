@@ -44,8 +44,8 @@ class ContactController extends MainController
         $error = filter_input(INPUT_GET, 'error');
         if (isset($error)) {
             return $error;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }
