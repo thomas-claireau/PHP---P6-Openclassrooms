@@ -65,11 +65,11 @@ class LogController extends MainController
                 $array['mail'] = $user['mail'];
 
                 return $array;
-            } else {
-                $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
             }
-        } else {
+
             $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
+
+        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 }

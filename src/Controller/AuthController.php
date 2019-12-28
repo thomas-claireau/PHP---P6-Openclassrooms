@@ -264,8 +264,8 @@ class AuthController extends MainController
 
             $result = $mailer->send($messageConfirmation);
             $this->redirect('log', ['type' => 'send-forgot-ok']);
-        } else {
-            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
+
+        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 }

@@ -223,13 +223,12 @@ class AdminController extends MainController
             // // si le token a été initialité il y a plus d'une heure, on redirige
             if ($dateDiff > 0) {
                 $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
-            } else {
-                $this->redirect('log', ['type' => 'reset-password', 'token' => $userToken, 'id' => $user['id']]);
             }
 
-        } else {
-            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+            $this->redirect('log', ['type' => 'reset-password', 'token' => $userToken, 'id' => $user['id']]);
         }
+
+        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 
     public function newPassword()
@@ -244,11 +243,11 @@ class AdminController extends MainController
                 $newPassword = password_hash($password, PASSWORD_DEFAULT);
                 ModelFactory::getModel('User')->updateData($newPassword, ['password' => $newPassword, 'token' => null, 'dateToken' => null], ['mail' => '"' . $email . '"']);
                 $this->redirect('log', ['type' => 'password-forgot-ok']);
-            } else {
-                $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
             }
-        } else {
+            
             $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
+
+        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 }
