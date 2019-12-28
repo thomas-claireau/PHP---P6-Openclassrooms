@@ -18,7 +18,7 @@ const {
 const HMR = require("./hmr");
 const getPublicPath = require("./publicPath");
 
-module.exports = options => {
+module.exports = (options) => {
   const { dev } = options;
   const hmr = HMR.getClient();
 
@@ -50,9 +50,9 @@ module.exports = options => {
           use: [
             ...(dev
               ? [
-                  { loader: "cache-loader" },
-                  { loader: "style-loader", options: { sourceMap: dev } }
-                ]
+                { loader: "cache-loader" },
+                { loader: "style-loader", options: { sourceMap: dev } }
+              ]
               : [MiniCssExtractWebpackPlugin.loader]),
             { loader: "css-loader", options: { sourceMap: dev } },
             {
@@ -75,21 +75,21 @@ module.exports = options => {
           use: [
             ...(dev
               ? [
-                  {
-                    loader: "file-loader",
-                    options: {
-                      name: "[path][name].[ext]"
-                    }
+                {
+                  loader: "file-loader",
+                  options: {
+                    name: "[path][name].[ext]"
                   }
-                ]
+                }
+              ]
               : [
-                  {
-                    loader: "file-loader",
-                    options: {
-                      name: "../dist/[path][name].[ext]"
-                    }
+                {
+                  loader: "file-loader",
+                  options: {
+                    name: "../dist/[path][name].[ext]"
                   }
-                ])
+                }
+              ])
           ]
         }
       ]
@@ -97,38 +97,38 @@ module.exports = options => {
     plugins: [
       ...(dev
         ? [
-            new webpack.HotModuleReplacementPlugin(),
-            new FriendlyErrorsWebpackPlugin(),
-            new CleanWebpackPlugin([path.resolve(outputFolder)], {
-              allowExternal: true,
-              beforeEmit: true
-            })
-          ]
+          new webpack.HotModuleReplacementPlugin(),
+          new FriendlyErrorsWebpackPlugin(),
+          new CleanWebpackPlugin([path.resolve(outputFolder)], {
+            allowExternal: true,
+            beforeEmit: true
+          })
+        ]
         : [
-            new MiniCssExtractWebpackPlugin({
-              filename: "[name].css"
-            }),
-            new NonJsEntryCleanupPlugin({
-              context: "css",
-              extensions: "js",
-              includeSubfolders: true
-            }),
-            new CleanWebpackPlugin([path.resolve(outputFolder)], {
-              allowExternal: true,
-              beforeEmit: true
-            }),
-            new CopyWebpackPlugin(
-              [
-                {
-                  from: path.resolve(`${context}/**/*`),
-                  to: path.resolve(outputFolder)
-                }
-              ],
+          new MiniCssExtractWebpackPlugin({
+            filename: "[name].css"
+          }),
+          new NonJsEntryCleanupPlugin({
+            context: "css",
+            extensions: "js",
+            includeSubfolders: true
+          }),
+          new CleanWebpackPlugin([path.resolve(outputFolder)], {
+            allowExternal: true,
+            beforeEmit: true
+          }),
+          new CopyWebpackPlugin(
+            [
               {
-                ignore: ["*.js", "*.ts", "*.scss", "*.css"]
+                from: path.resolve(`${context}/**/*`),
+                to: path.resolve(outputFolder)
               }
-            )
-          ]),
+            ],
+            {
+              ignore: ["*.js", "*.ts", "*.scss", "*.css"]
+            }
+          )
+        ]),
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery"
