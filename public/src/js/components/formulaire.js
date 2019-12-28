@@ -1,6 +1,6 @@
 import functions from "../functions";
 
-window.addEventListener("DOMContentLoaded", event => {
+window.addEventListener("DOMContentLoaded", (event) => {
   const formulaire = document.querySelector(".formulaire");
 
   if (formulaire) {
