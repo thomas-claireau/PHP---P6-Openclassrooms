@@ -13,17 +13,34 @@ class MainFunctions
 
     public static function inputPost($key = false, $isArray = true)
     {
-        return $isArray && !$key ? filter_input_array(INPUT_POST) : filter_input(INPUT_POST, $key);
-    }
+        if (!$isArray && $key) {
+            $post = filter_input(INPUT_POST, $key);
+            switch ($key) {
+                case 'mail':
+                    if (filter_var($post, FILTER_VALIDATE_EMAIL)) {
+                        return $post;
+                    }
+                    return false;
+                    break;
+                case 'tel':
+                    $post = str_replace(' ', '', $post);
+                    $post = str_replace('-', '', $post);
+                    $post = str_replace('.', '', $post);
 
-    public static function getMail()
-    {
+                    if (preg_match("/^((\+)33|0)[1-9](\d{2}){4}$/", $post)) {
+                        return $post;
+                    }
 
-    }
-    public static function getTel()
-    {
+                    return false;
+                    break;
+                default:
+                    return $post;
+            }
+        }
 
+        return filter_input_array(INPUT_POST);
     }
+    
     private static function getServerIP()
     {
         $adresse = '';

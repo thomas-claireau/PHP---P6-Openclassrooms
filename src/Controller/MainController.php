@@ -136,10 +136,13 @@ abstract class MainController
             return false;
         }
 
-        if (isset($post['email']) && self::getMail() == false) {
+        $getMail = MainFunctions::inputPost('mail', false);
+        $getTel = MainFunctions::inputPost('tel', false);
+
+        if (isset($post['email']) && $getMail == false) {
             array_push($params, ['error' => 'mail']);
             MainFunctions::redirect($location, $params);
-        } elseif (isset($post['tel']) && self::getTel() == false) {
+        } elseif (isset($post['tel']) && $getTel == false) {
             array_push($params, ['error' => 'tel']);
             MainFunctions::redirect($location, $params);
         } else {
@@ -147,9 +150,9 @@ abstract class MainController
                 $array = [];
                 foreach ($post as $key => $item) {
                     if ($key == 'email') {
-                        $array[$key] = self::getMail();
+                        $array[$key] = $getMail;
                     } elseif ($key == 'tel') {
-                        $array[$key] = self::getTel();
+                        $array[$key] = $getTel;
                     } else {
                         $array[$key] = $item;
                     }
@@ -158,32 +161,6 @@ abstract class MainController
                 return $array;
             }
         }
-    }
-
-    public function getMail()
-    {
-        $mail = htmlspecialchars(MainFunctions::inputPost('email', false));
-
-        if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-            return $mail;
-        }
-
-        return false;
-    }
-
-    public function getTel()
-    {
-        $tel = htmlspecialchars(MainFunctions::inputPost('tel', false));
-
-        $tel = str_replace(' ', '', $tel);
-        $tel = str_replace('-', '', $tel);
-        $tel = str_replace('.', '', $tel);
-
-        if (preg_match("/^((\+)33|0)[1-9](\d{2}){4}$/", $tel)) {
-            return $tel;
-        }
-
-        return false;
     }
 
     public function getHomeUrl()
