@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Functions\MainFunctions;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -22,23 +23,10 @@ class BlogController extends MainController
      */
     public function defaultMethod()
     {
-        $postsDb = $this->listPosts(['ORDER BY' => ['date' => 'DESC']]);
-
-        $posts = [];
-
-        foreach ($postsDb as $key => $post) {
-            $userPost = $this->getUser(['id' => $post['id_user']]);
-            $posts[$key]['prenom'] = $userPost['prenom'];
-            $posts[$key]['nom'] = $userPost['nom'];
-            $post['content'] = htmlspecialchars_decode($post['content']);
-            $post['description'] = htmlspecialchars_decode($post['description']);
-            $post['title'] = htmlspecialchars_decode($post['title']);
-
-            $posts[$key] = $post;
-        }
+        $posts = MainFunctions::listPosts(['ORDER BY' => ['date' => 'DESC']]);
 
         return $this->render('blog.twig', [
-            'nbPosts' => count($postsDb),
+            'nbPosts' => count($posts),
             'listPosts' => $posts,
         ]);
     }
