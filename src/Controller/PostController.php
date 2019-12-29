@@ -27,7 +27,7 @@ class PostController extends MainController
 
     public function defaultMethod()
     {
-        $action = self::getAction();
+        $action = MainFunctions::inputGet('action');
 
         $isUpload = filter_input(INPUT_GET, 'uploadImage');
 
@@ -65,15 +65,9 @@ class PostController extends MainController
         return filter_input(INPUT_GET, 'id');
     }
 
-    public function getAction()
-    {
-        return filter_input(INPUT_GET, 'action');
-    }
-
     public function saveSessionPost()
     {
-        $post = filter_input_array(INPUT_POST);
-        $this->session['post']['content'] = $post;
+        $this->session['post']['content'] = $this->data;
         $this->session['post']['mainImg'] = $this->files;
 
         $_SESSION['post'] = $this->session['post'];
@@ -151,6 +145,10 @@ class PostController extends MainController
         $id = self::getId();
         $post = ModelFactory::getModel('Post')->readData($id, 'id');
         $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], 'id');
+        echo '<pre>';
+        var_dump($userOfPost);
+        echo '</pre>';
+        exit;
         $post['nom'] = $userOfPost['nom'];
         $post['prenom'] = $userOfPost['prenom'];
         $post['avatar_img_path'] = $this->setRelativePathImg($userOfPost['avatar_img_path']);

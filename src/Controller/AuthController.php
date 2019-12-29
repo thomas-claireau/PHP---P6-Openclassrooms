@@ -29,7 +29,7 @@ class AuthController extends MainController
      */
     public function defaultMethod()
     {
-        $action = self::getAction();
+        $action = MainFunctions::inputGet('action');
 
         if (isset($action) && !empty($action)) {
             self::$action();
@@ -84,16 +84,6 @@ class AuthController extends MainController
         setcookie("PHPSESSID", "", time() - 3600, "/");
         session_destroy();
         MainFunctions::redirect('home');
-    }
-
-    public function getAction()
-    {
-        return filter_input(INPUT_GET, 'action');
-    }
-
-    public function getType()
-    {
-        return filter_input(INPUT_GET, 'type');
     }
 
     public function addAccount()
@@ -261,6 +251,7 @@ class AuthController extends MainController
 
             $mailer->send($messageConfirmation);
             MainFunctions::redirect('log', ['type' => 'send-forgot-ok']);
+            exit;
         }
 
         MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);

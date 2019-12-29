@@ -29,8 +29,8 @@ class AdminController extends MainController
     public function defaultMethod()
     {
         // TestAdmin::test();
-        $action = self::getAction();
-        $type = self::getType();
+        $action = MainFunctions::inputGet('action');
+        $type = MainFunctions::inputGet('type');
 
         if ($action !== 'newPassword') {
             self::redirectLogin();
@@ -171,22 +171,6 @@ class AdminController extends MainController
         return 1;
     }
 
-    public function getType()
-    {
-        $type = filter_input(INPUT_GET, 'type');
-        if (isset($type)) {
-            return $type;
-        }
-    }
-
-    public function getAction()
-    {
-        $action = filter_input(INPUT_GET, 'action');
-        if (isset($action)) {
-            return $action;
-        }
-    }
-
     public function getRequestUri()
     {
         return filter_input(INPUT_SERVER, 'REQUEST_URI');
@@ -228,6 +212,7 @@ class AdminController extends MainController
             }
 
             MainFunctions::redirect('log', ['type' => 'reset-password', 'token' => $userToken, 'id' => $user['id']]);
+            exit;
         }
 
         MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
@@ -235,16 +220,16 @@ class AdminController extends MainController
 
     public function newPassword()
     {
-        $post = filter_input_array(INPUT_POST);
-        if (isset($post)) {
-            $email = $post['email'];
-            $password = $post['password'];
-            $confirmPassword = $post['confirm-password'];
+        if (isset($this->data)) {
+            $email = $this->data['email'];
+            $password = $this->data['password'];
+            $confirmPassword = $this->data['confirm-password'];
 
             if ($password === $confirmPassword) {
                 $newPassword = password_hash($password, PASSWORD_DEFAULT);
                 ModelFactory::getModel('User')->updateData($newPassword, ['password' => $newPassword, 'token' => null, 'dateToken' => null], ['mail' => '"' . $email . '"']);
                 MainFunctions::redirect('log', ['type' => 'password-forgot-ok']);
+                exit;
             }
 
             MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);

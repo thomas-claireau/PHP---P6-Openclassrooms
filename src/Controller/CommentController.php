@@ -27,16 +27,11 @@ class CommentController extends MainController
 
     public function defaultMethod()
     {
-        $action = self::getAction();
+        $action = MainFunctions::inputGet('action');
 
         if (isset($action) && !empty($action)) {
             self::$action();
         }
-    }
-
-    public function getAction()
-    {
-        return filter_input(INPUT_GET, 'action');
     }
 
     public function getIdPost()

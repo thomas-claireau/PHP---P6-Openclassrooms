@@ -105,7 +105,7 @@ abstract class MainModel
      * @param string|null $key
      * @return mixed
      */
-    public function readData(string $value, string $key = null)
+    public function readData($value, $key = null)
     {
         if (isset($key)) {
             $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $key . ' = ?';

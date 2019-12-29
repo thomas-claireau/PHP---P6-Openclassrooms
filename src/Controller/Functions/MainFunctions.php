@@ -6,21 +6,16 @@ use App\Model\Factory\ModelFactory;
 
 class MainFunctions
 {
-    public function test()
+    public static function inputGet($get)
     {
-        echo '<pre>';
-        var_dump("Main function");
-        echo '</pre>';
-        exit;
+        return filter_input(INPUT_GET, $get);
     }
-    public static function getType()
-    {
 
-    }
-    public static function getAction()
+    public static function inputPost($key = false, $isArray = true)
     {
-
+        return $isArray && !$key ? filter_input_array(INPUT_POST) : filter_input(INPUT_POST, $key);
     }
+
     public static function getMail()
     {
 

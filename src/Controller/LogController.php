@@ -24,23 +24,15 @@ class LogController extends MainController
      */
     public function defaultMethod()
     {
-        if (self::getType() == 'reset-password') {
+        if (MainFunctions::inputGet('type') == 'reset-password') {
             $user = self::getInfosNewPassword();
         }
 
         return $this->render('log.twig', [
-            'type' => $this->getType(),
+            'type' => MainFunctions::inputGet('type'),
             'errorLog' => $this->isFormError(),
             'user' => isset($user) ? $user : false,
         ]);
-    }
-
-    public function getType()
-    {
-        $type = filter_input(INPUT_GET, 'type');
-        if ($type) {
-            return $type;
-        }
     }
 
     public function isFormError()

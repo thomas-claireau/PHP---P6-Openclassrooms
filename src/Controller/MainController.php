@@ -37,7 +37,7 @@ abstract class MainController
         session_start();
         $this->files = filter_var_array($_FILES);
         $this->session = filter_var_array($_SESSION);
-        $this->data = filter_input_array(INPUT_POST);
+        $this->data = MainFunctions::inputPost();
         $this->outputUser = self::checkAllInput('login');
 
         self::setupTwig();
@@ -64,29 +64,6 @@ abstract class MainController
         $this->twig->addGlobal('imgDir', $this->getImgDir());
         $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
         $this->twig->addGlobal('avatar_default', MainFunctions::isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
-    }
-
-    /**
-     * Returns the Page URL
-     * @param string $page
-     * @param array $params
-     * @return string
-     */
-    public function url(string $page, array $params = [])
-    {
-        $params['access'] = $page;
-
-        return '/index.php?' . http_build_query($params);
-    }
-
-    /**
-     * Redirects to another URL
-     * @param string $page
-     * @param array $params
-     */
-    public function redirect(string $page, array $params = [])
-    {
-        header('Location: ' . filter_input(INPUT_SERVER, 'HTTP_ORIGIN') . $this->url($page, $params));
     }
 
     /**
@@ -147,7 +124,7 @@ abstract class MainController
 
     public function checkAllInput($context)
     {
-        $post = filter_input_array(INPUT_POST);
+        $post = $this->data;
 
         if ($context == 'contact') {
             $location = 'contact';
@@ -185,7 +162,7 @@ abstract class MainController
 
     public function getMail()
     {
-        $mail = htmlspecialchars(filter_input(INPUT_POST, 'email'));
+        $mail = htmlspecialchars(MainFunctions::inputPost('email', false));
 
         if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
             return $mail;
@@ -196,7 +173,7 @@ abstract class MainController
 
     public function getTel()
     {
-        $tel = htmlspecialchars(filter_input(INPUT_POST, 'tel'));
+        $tel = htmlspecialchars(MainFunctions::inputPost('tel', false));
 
         $tel = str_replace(' ', '', $tel);
         $tel = str_replace('-', '', $tel);
