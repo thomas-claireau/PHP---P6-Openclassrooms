@@ -53,14 +53,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				xhr.onload = function () {
 					var json;
 
-					if (xhr.status !== 200) {
+					if (xhr.status != 200) {
 						failure('HTTP Error: ' + xhr.status);
 						return;
 					}
 
 					json = JSON.parse(xhr.responseText);
 
-					if (!json || typeof json.location !== 'string') {
+					if (!json || typeof json.location != 'string') {
 						failure('Invalid JSON: ' + xhr.responseText);
 						return;
 					}

@@ -63,22 +63,16 @@ class AdminController extends MainController
         }
 
         return $this->render('admin.twig', [
-            'isActif' => self::isActif(),
             'isAdmin' => self::isAdmin(),
             'user' => self::setUser(),
             'type' => $type,
             'action' => $action,
-            'isError' => self::isError(),
-            'requestUri' => self::getRequestUri(),
+            'isError' => MainFunctions::inputGet('error'),
+            'requestUri' => MainFunctions::inputServer('REQUEST_URI'),
             'lastPostId' => self::getLastPostId(),
             'posts' => isset($posts) ? $posts : false,
             'comments' => isset($comments) ? $comments : false,
         ]);
-    }
-
-    public function getUserSession()
-    {
-        return $this->session['user'];
     }
 
     public function isAdmin()
@@ -88,30 +82,9 @@ class AdminController extends MainController
         }
     }
 
-    public function isActif()
+    public function getUserSession()
     {
-        if (self::getUserSession() != null) {
-            return self::getUserSession()['actif'];
-        }
-    }
-
-    public function isError()
-    {
-        return filter_input(INPUT_GET, 'error');
-    }
-
-    public function setUser()
-    {
-        $userSession = self::getUserSession();
-
-        if ($userSession !== null) {
-            $array['id'] = $userSession['id'];
-            $array['prenom'] = $userSession['prenom'];
-            $array['nom'] = $userSession['nom'];
-            $array['email'] = $userSession['mail'];
-            $array['avatar_img_path'] = $this->setRelativePathImg($userSession['avatar_img_path']);
-            return $array;
-        }
+        return $this->session['user'];
     }
 
     public function getPost(array $key = null)
@@ -134,32 +107,6 @@ class AdminController extends MainController
         return $posts;
     }
 
-    public function getComment(array $key = null)
-    {
-        if (isset($key) && !empty($key)) {
-            $commentsDb = ModelFactory::getModel('Comment')->listData($key[key($key)], key($key));
-
-            foreach ($commentsDb as $key => $comment) {
-                $idUser = $comment['id_user'];
-                $user = ModelFactory::getModel('User')->readData($idUser, 'id');
-
-                $commentsDb[$key]['prenom'] = $user['prenom'];
-                $commentsDb[$key]['nom'] = $user['nom'];
-                $commentsDb[$key]['avatar'] = $this->setRelativePathImg($user['avatar_img_path']);
-                $commentsDb[$key]['content'] = htmlspecialchars_decode($comment['content']);
-            }
-
-            return $commentsDb;
-        }
-    }
-
-    public function renderPost()
-    {
-        $idPost = filter_input(INPUT_GET, 'id');
-        $post = self::getPost(['id' => $idPost]);
-        return $post[0];
-    }
-
     public function getLastPostId()
     {
         $posts = self::getPost();
@@ -171,23 +118,55 @@ class AdminController extends MainController
         return 1;
     }
 
-    public function getRequestUri()
+    public function getComment(array $key = null)
     {
-        return filter_input(INPUT_SERVER, 'REQUEST_URI');
+        if (isset($key) && !empty($key)) {
+            $commentsDb = ModelFactory::getModel('Comment')->listData($key[key($key)], key($key));
+
+            foreach ($commentsDb as $key => $comment) {
+                $idUser = $comment['id_user'];
+                $user = ModelFactory::getModel('User')->readData($idUser, 'id');
+
+                $commentsDb[$key]['prenom'] = $user['prenom'];
+                $commentsDb[$key]['nom'] = $user['nom'];
+                $commentsDb[$key]['avatar'] = MainFunctions::setRelativePathImg($user['avatar_img_path']);
+                $commentsDb[$key]['content'] = htmlspecialchars_decode($comment['content']);
+            }
+
+            return $commentsDb;
+        }
     }
 
-    public function getToken()
+    public function setUser()
     {
-        return filter_input(INPUT_GET, 'token');
+        $userSession = self::getUserSession();
+
+        if ($userSession !== null) {
+            $array['id'] = $userSession['id'];
+            $array['prenom'] = $userSession['prenom'];
+            $array['nom'] = $userSession['nom'];
+            $array['email'] = $userSession['mail'];
+            $array['avatar_img_path'] = MainFunctions::setRelativePathImg($userSession['avatar_img_path']);
+            return $array;
+        }
+    }
+
+    public function renderPost()
+    {
+        $idPost = filter_input(INPUT_GET, 'id');
+        $post = self::getPost(['id' => $idPost]);
+        return $post[0];
     }
 
     public function redirectLogin()
     {
-        if (self::getUserSession() == null && !self::getToken()) {
+        $getToken = MainFunctions::inputGet('token');
+
+        if (self::getUserSession() == null && !$token) {
             MainFunctions::redirect('log', ['type' => 'connexion']);
         }
 
-        if (self::getToken()) {
+        if ($token) {
             self::forgotPassword();
         }
     }

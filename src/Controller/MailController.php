@@ -34,7 +34,7 @@ class MailController extends MainController
         $username = $configMail['username'];
         $password = $configMail['password'];
 
-        $infos = self::checkAllInput('contact');
+        $infos = MainFunctions::checkAllInput('contact');
         $prenom = $infos['prenom'];
         $nom = $infos['nom'];
         $mail = $infos['email'];

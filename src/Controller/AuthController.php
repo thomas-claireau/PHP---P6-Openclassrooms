@@ -40,7 +40,7 @@ class AuthController extends MainController
 
     public function connexion()
     {
-        $user = $this->getUser(['mail' => $this->outputUser['mail']]);
+        $user = MainFunctions::getUser(['mail' => $this->outputUser['mail']]);
 
         if (isset($user) && !empty($user)) {
             $outputPassword = $this->outputUser['password'];
@@ -73,7 +73,7 @@ class AuthController extends MainController
             'mail' => $user['mail'],
             'actif' => $user['actif'],
             'admin' => $user['admin'],
-            'avatar_img_path' => $this->setRelativePathImg($user['avatar_img_path']),
+            'avatar_img_path' => MainFunctions::setRelativePathImg($user['avatar_img_path']),
         ];
 
         $_SESSION['user'] = $this->session['user'];
@@ -105,7 +105,7 @@ class AuthController extends MainController
         $array['admin'] = 0;
 
         ModelFactory::getModel('User')->createData($array);
-        $user = $this->getUser(['mail' => $array['mail']]);
+        $user = MainFunctions::getUser(['mail' => $array['mail']]);
 
         $avatarImgPath = 'src/assets/img/avatars_images/' . $user['id'] . '/' . $this->files['avatar']['name'];
         ModelFactory::getModel('User')->updateData($user['id'], ['avatar_img_path' => $avatarImgPath], ['id' => $user['id']]);
@@ -146,7 +146,7 @@ class AuthController extends MainController
 
         $outputData = $this->data;
 
-        $actualData = $this->getUser(['id' => $this->session['user']['id']]);
+        $actualData = MainFunctions::getUser(['id' => $this->session['user']['id']]);
 
         // output
         $pass = $outputData['password'];
@@ -190,7 +190,7 @@ class AuthController extends MainController
     public function removeAccount()
     {
         // session_start();
-        $actualData = $this->getUser(['id' => $this->session['user']['id']]);
+        $actualData = MainFunctions::getUser(['id' => $this->session['user']['id']]);
         $actualId = $actualData['id'];
         ModelFactory::getModel('User')->deleteData('id', ['id' => $actualId]);
         $lastUserId = ModelFactory::getModel('User')->getLastId('id')[0]['id'];
@@ -208,7 +208,7 @@ class AuthController extends MainController
         $port = $configMail['port'];
         $username = $configMail['username'];
         $password = $configMail['password'];
-        $mail = $this->checkAllInput('login')['email'];
+        $mail = MainFunctions::checkAllInput('login')['email'];
 
         $user = ModelFactory::getModel('User')->readData($mail, 'mail');
 

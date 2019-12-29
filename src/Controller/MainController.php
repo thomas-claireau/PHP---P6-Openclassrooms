@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Controller\Extension\PhpMvcExtension;
 use App\Controller\Functions\MainFunctions;
-use App\Model\Factory\ModelFactory;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -37,11 +36,16 @@ abstract class MainController
         session_start();
         $this->files = filter_var_array($_FILES);
         $this->session = filter_var_array($_SESSION);
-        $this->data = MainFunctions::inputPost();
-        $this->outputUser = self::checkAllInput('login');
+        $this->data = self::getData();
+        $this->outputUser = MainFunctions::checkAllInput('login');
 
         self::setupTwig();
         self::addGlobals();
+    }
+
+    public static function getData()
+    {
+        return MainFunctions::inputPost();
     }
 
     public function setupTwig()
@@ -58,9 +62,9 @@ abstract class MainController
     {
         // add global variables
         $this->twig->addGlobal('isLocalhost', MainFunctions::isLocalhost());
-        $this->twig->addGlobal('url', $this->getUrl());
+        $this->twig->addGlobal('url', MainFunctions::getUrl());
         $this->twig->addGlobal('isDistFolder', MainFunctions::folder_exist('dist'));
-        $this->twig->addGlobal('templateName', $this->getTemplateName());
+        $this->twig->addGlobal('templateName', MainFunctions::getTemplateName());
         $this->twig->addGlobal('imgDir', MainFunctions::getImgDir());
         $this->twig->addGlobal('homeUrl', MainFunctions::getHomeUrl());
         $this->twig->addGlobal('avatar_default', MainFunctions::isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
@@ -80,89 +84,10 @@ abstract class MainController
         return $this->twig->render($view, $params);
     }
 
-    public function getUrl()
-    {
-        return filter_input(INPUT_SERVER, 'REQUEST_SCHEME') . '://' . filter_input(INPUT_SERVER, 'HTTP_HOST');
-    }
-
-    public static function getTemplateName()
-    {
-        $access = filter_input(INPUT_GET, 'access');
-        if (isset($access)) {
-            return htmlspecialchars($access);
-        } else {
-            return 'home';
-        }
-
-    }
-
-    public function checkAllInput($context)
-    {
-        $post = $this->data;
-
-        if ($context == 'contact') {
-            $location = 'contact';
-            $params = array();
-        } elseif ($context == 'login') {
-            $location = 'log';
-            $params = ['type' => 'connexion'];
-        } else {
-            return false;
-        }
-
-        $getMail = MainFunctions::inputPost('mail', false);
-        $getTel = MainFunctions::inputPost('tel', false);
-
-        if (isset($post['email']) && $getMail == false) {
-            array_push($params, ['error' => 'mail']);
-            MainFunctions::redirect($location, $params);
-        } elseif (isset($post['tel']) && $getTel == false) {
-            array_push($params, ['error' => 'tel']);
-            MainFunctions::redirect($location, $params);
-        } else {
-            if (isset($post) && !empty($post)) {
-                $array = [];
-                foreach ($post as $key => $item) {
-                    if ($key == 'email') {
-                        $array[$key] = $getMail;
-                    } elseif ($key == 'tel') {
-                        $array[$key] = $getTel;
-                    } else {
-                        $array[$key] = $item;
-                    }
-                }
-
-                return $array;
-            }
-        }
-    }
-
-    public function listPosts(array $params)
-    {
-        $posts = ModelFactory::getModel('Post')->listData(null, null, $params);
-
-        foreach ($posts as $key => $post) {
-            $idUser = $post['id_user'];
-
-            $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], $idUser);
-
-            $avatar = $userOfPost['avatar_img_path'];
-
-            $posts[$key]['avatar_img_path'] = $this->setRelativePathImg($avatar);
-        }
-
-        return $posts;
-    }
-
-    public function getUser(array $key)
-    {
-        return ModelFactory::getModel('User')->readData($key[key($key)], key($key));
-    }
-
     public function uploadImg($type = null, $id = null, $action = null)
     {
         $accepted_origins = array("http://localhost:3000", "http://82.64.201.160", "http://recette.thomas-claireau.fr", "https://recette.thomas-claireau.fr");
-        $type = $type == null ? filter_input(INPUT_GET, 'type') : $type;
+        $type = $type == null ? MainFunctions::inputGet('type') : $type;
 
         if ($type) {
             if (MainFunctions::isLocalhost()) {
@@ -174,12 +99,12 @@ abstract class MainController
             switch ($type) {
                 case 'uploadTiny':
                     $path .= '/posts_images';
-                    $id = filter_input(INPUT_GET, 'id');
+                    $id = MainFunctions::inputGet('id');
                     break;
                 case 'uploadMainImage':
                     $path .= '/posts_images';
-                    $idUser = filter_input(INPUT_GET, 'idUser');
-                    $id = filter_input(INPUT_GET, 'id');
+                    $idUser = MainFunctions::inputGet('idUser');
+                    $id = MainFunctions::inputGet('id');
                     break;
                 case 'uploadAvatar':
                     $path .= '/avatars_images';
@@ -199,7 +124,7 @@ abstract class MainController
             $temp = current($this->files);
 
             if (is_uploaded_file($temp['tmp_name'])) {
-                $http_origin = filter_input(INPUT_SERVER, 'HTTP_ORIGIN');
+                $http_origin = MainFunctions::inputServer('HTTP_ORIGIN');
                 if (isset($http_origin)) {
                     // Same-origin requests won't set an origin. If the origin is set, it must be valid.
                     if (in_array($http_origin, $accepted_origins)) {
@@ -226,9 +151,6 @@ abstract class MainController
                 $filetowrite = $imageFolder . $temp['name'];
                 move_uploaded_file($temp['tmp_name'], $filetowrite);
 
-                // Respond to the successful upload with JSON.
-                echo json_encode(array('location' => $filetowrite));
-
                 if ($type == 'uploadMainImage') {
                     MainFunctions::redirect('post', [
                         'action' => $action,
@@ -237,6 +159,10 @@ abstract class MainController
                     ]
                     );
                 }
+
+                // Respond to the successful upload with JSON.
+                echo json_encode(array('location' => $filetowrite));
+                exit;
             } else {
                 // Notify editor that the upload failed
                 header("HTTP/1.1 500 Server Error");
@@ -245,22 +171,5 @@ abstract class MainController
             // Notify editor that the upload failed
             header("HTTP/1.1 404 Url Error");
         }
-    }
-
-    public function setRelativePathImg($string)
-    {
-        if (strpos($string, '<img')) {
-            $replacement = MainFunctions::isLocalhost() ? '<img src="./src/' : '<img src="./dist/';
-            $regex = ["#<img src=\"src/#", "#<img src=\"dist/#"];
-        } else {
-            $replacement = MainFunctions::isLocalhost() ? './src/' : './dist/';
-            $regex = ["#./src/#", "#./dist/#"];
-        }
-
-        foreach ($regex as $item) {
-            $string = preg_replace($item, $replacement, $string);
-        }
-
-        return $string;
     }
 }

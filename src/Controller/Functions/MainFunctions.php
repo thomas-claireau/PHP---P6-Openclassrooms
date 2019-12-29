@@ -2,9 +2,10 @@
 
 namespace App\Controller\Functions;
 
+use App\Controller\MainController;
 use App\Model\Factory\ModelFactory;
 
-class MainFunctions
+class MainFunctions extends MainController
 {
     public static function inputGet($get)
     {
@@ -46,6 +47,16 @@ class MainFunctions
         return filter_input_array(INPUT_POST);
     }
 
+    public static function getTemplateName()
+    {
+        $access = self::inputGet('access');
+        if (isset($access)) {
+            return htmlspecialchars($access);
+        } else {
+            return 'home';
+        }
+    }
+
     private static function getServerIP()
     {
         $adresse = '';
@@ -83,11 +94,6 @@ class MainFunctions
 
         return $publicPath;
     }
-
-    public static function getRequestUri()
-    {
-
-    }
     public static function getUser(array $key)
     {
         return ModelFactory::getModel('User')->readData($key[key($key)], key($key));
@@ -102,6 +108,11 @@ class MainFunctions
 
         return '/index.php?' . http_build_query($params);
     }
+
+    public static function getUrl()
+    {
+        return self::inputServer('REQUEST_SCHEME') . '://' . self::inputServer('HTTP_HOST');
+    }
     public static function redirect(string $page, array $params = [])
     {
         header('Location: ' . filter_input(INPUT_SERVER, 'HTTP_ORIGIN') . self::url($page, $params));
@@ -110,9 +121,45 @@ class MainFunctions
     {
         return self::getServerIP() == '127.0.0.1';
     }
-    public static function checkAllInputs()
+    public static function checkAllInput($context)
     {
+        $post = MainController::getData();
 
+        if ($context == 'contact') {
+            $location = 'contact';
+            $params = array();
+        } elseif ($context == 'login') {
+            $location = 'log';
+            $params = ['type' => 'connexion'];
+        } else {
+            return false;
+        }
+
+        $getMail = self::inputPost('mail', false);
+        $getTel = self::inputPost('tel', false);
+
+        if (isset($post['email']) && $getMail == false) {
+            array_push($params, ['error' => 'mail']);
+            self::redirect($location, $params);
+        } elseif (isset($post['tel']) && $getTel == false) {
+            array_push($params, ['error' => 'tel']);
+            self::redirect($location, $params);
+        } else {
+            if (isset($post) && !empty($post)) {
+                $array = [];
+                foreach ($post as $key => $item) {
+                    if ($key == 'email') {
+                        $array[$key] = $getMail;
+                    } elseif ($key == 'tel') {
+                        $array[$key] = $getTel;
+                    } else {
+                        $array[$key] = $item;
+                    }
+                }
+
+                return $array;
+            }
+        }
     }
     public static function listPosts(array $params)
     {
@@ -135,10 +182,6 @@ class MainFunctions
         }
 
         return $posts;
-    }
-    public static function uploadImg()
-    {
-
     }
 
     public static function setRelativePathImg($string)

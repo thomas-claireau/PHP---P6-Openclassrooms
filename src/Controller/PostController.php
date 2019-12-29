@@ -145,14 +145,10 @@ class PostController extends MainController
         $id = self::getId();
         $post = ModelFactory::getModel('Post')->readData($id, 'id');
         $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], 'id');
-        echo '<pre>';
-        var_dump($userOfPost);
-        echo '</pre>';
-        exit;
         $post['nom'] = $userOfPost['nom'];
         $post['prenom'] = $userOfPost['prenom'];
-        $post['avatar_img_path'] = $this->setRelativePathImg($userOfPost['avatar_img_path']);
-        $post['content'] = $this->setRelativePathImg(htmlspecialchars_decode($post['content']));
+        $post['avatar_img_path'] = MainFunctions::setRelativePathImg($userOfPost['avatar_img_path']);
+        $post['content'] = MainFunctions::setRelativePathImg(htmlspecialchars_decode($post['content']));
         $post['description'] = htmlspecialchars_decode($post['description']);
         $post['title'] = htmlspecialchars_decode($post['title']);
 
@@ -172,7 +168,7 @@ class PostController extends MainController
 
                 $array['prenom'] = $user['prenom'];
                 $array['nom'] = $user['nom'];
-                $array['avatar'] = $this->setRelativePathImg($user['avatar_img_path']);
+                $array['avatar'] = MainFunctions::setRelativePathImg($user['avatar_img_path']);
 
                 $comment['title'] = htmlspecialchars_decode($comment['title']);
                 $comment['content'] = htmlspecialchars_decode($comment['content']);
