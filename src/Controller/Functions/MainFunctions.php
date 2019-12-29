@@ -11,6 +11,11 @@ class MainFunctions
         return filter_input(INPUT_GET, $get);
     }
 
+    public static function inputServer($key = false, $array = true)
+    {
+        return $array && !$key ? filter_input_array(INPUT_SERVER) : filter_input(INPUT_SERVER, $key);
+    }
+
     public static function inputPost($key = false, $isArray = true)
     {
         if (!$isArray && $key) {
@@ -40,7 +45,7 @@ class MainFunctions
 
         return filter_input_array(INPUT_POST);
     }
-    
+
     private static function getServerIP()
     {
         $adresse = '';
@@ -56,10 +61,29 @@ class MainFunctions
 
         return $adresse;
     }
+
+    public static function getCurrentPath()
+    {
+        return self::inputServer('DOCUMENT_ROOT');
+    }
+
     public static function getImgDir()
     {
+        // $HTTP_HOST = filter_input(INPUT_SERVER, 'HTTP_HOST');
+        $HTTP_HOST = self::inputServer('HTTP_HOST');
+        $isDist = self::folder_exist('dist');
+        $isDev = self::isLocalhost();
 
+        if ($isDist && !$isDev) {
+            $publicPath = $HTTP_HOST . '/dist/' . 'assets/img/';
+        } else {
+            $publicPath = '//' . $HTTP_HOST . '/src/' . 'assets/img/';
+
+        }
+
+        return $publicPath;
     }
+
     public static function getRequestUri()
     {
 
@@ -70,7 +94,7 @@ class MainFunctions
     }
     public static function getHomeUrl()
     {
-
+        return 'https://' . self::inputServer('HTTP_HOST');
     }
     public static function url(string $page, array $params = [])
     {
@@ -132,5 +156,10 @@ class MainFunctions
         }
 
         return $string;
+    }
+
+    public static function folder_exist($folder)
+    {
+        return file_exists(self::getCurrentPath() . $folder);
     }
 }

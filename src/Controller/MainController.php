@@ -59,10 +59,10 @@ abstract class MainController
         // add global variables
         $this->twig->addGlobal('isLocalhost', MainFunctions::isLocalhost());
         $this->twig->addGlobal('url', $this->getUrl());
-        $this->twig->addGlobal('isDistFolder', $this->folder_exist('dist'));
+        $this->twig->addGlobal('isDistFolder', MainFunctions::folder_exist('dist'));
         $this->twig->addGlobal('templateName', $this->getTemplateName());
-        $this->twig->addGlobal('imgDir', $this->getImgDir());
-        $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
+        $this->twig->addGlobal('imgDir', MainFunctions::getImgDir());
+        $this->twig->addGlobal('homeUrl', MainFunctions::getHomeUrl());
         $this->twig->addGlobal('avatar_default', MainFunctions::isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
     }
 
@@ -85,16 +85,6 @@ abstract class MainController
         return filter_input(INPUT_SERVER, 'REQUEST_SCHEME') . '://' . filter_input(INPUT_SERVER, 'HTTP_HOST');
     }
 
-    public static function getCurrentPath()
-    {
-        return filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-    }
-
-    public static function folder_exist($folder)
-    {
-        return file_exists(self::getCurrentPath() . $folder);
-    }
-
     public static function getTemplateName()
     {
         $access = filter_input(INPUT_GET, 'access');
@@ -104,22 +94,6 @@ abstract class MainController
             return 'home';
         }
 
-    }
-
-    public static function getImgDir()
-    {
-        $HTTP_HOST = filter_input(INPUT_SERVER, 'HTTP_HOST');
-        $isDist = self::folder_exist('dist');
-        $isDev = MainFunctions::isLocalhost();
-
-        if ($isDist && !$isDev) {
-            $publicPath = $HTTP_HOST . '/dist/' . 'assets/img/';
-        } else {
-            $publicPath = '//' . $HTTP_HOST . '/src/' . 'assets/img/';
-
-        }
-
-        return $publicPath;
     }
 
     public function checkAllInput($context)
@@ -161,11 +135,6 @@ abstract class MainController
                 return $array;
             }
         }
-    }
-
-    public function getHomeUrl()
-    {
-        return 'https://' . filter_input(INPUT_SERVER, 'HTTP_HOST');
     }
 
     public function listPosts(array $params)
