@@ -16,6 +16,13 @@
                         </div>
                         <a href="/index.php?access=post&id={{ comment.id_post }}" class="view">Voir l'article</a>
 					</div>
+					<div class="content">
+						<div class="titre">{{ comment.title }}</div>
+						<div class="comment">{{ comment.content|raw }}</div>
+						<div class="actions">
+							<a class="btn vertFonce triggerForm">Modifier</a>
+						</div>
+					</div>
 					<form action="/index.php?access=comment&action=update" method="post" class="disabled">
 						<input type="hidden" name="commentId" value={{comment.id}}>
 						<input type="text" name="titre" value="{{ comment.title }}" placeholder="Le titre de votre commentaire">
@@ -23,7 +30,8 @@
 							{{ comment.content|raw }}
 						</div>
 						<div class="actions">
-							<input type="submit" class="btn vertFonce" value="Modifier" />
+							<a class="btn rougeFonce triggerForm">Retour</a>
+							<input type="submit" class="btn vertFonce" value="Modifier"/>
 						</div>
 					</form>
 				</div>

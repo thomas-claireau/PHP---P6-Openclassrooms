@@ -35,12 +35,16 @@ export default {
 		}
 	},
 
-	loader: () => {
+	loader: (commentInteraction = false) => {
 		const loader = document.querySelector('.LoaderBalls');
 		loader.classList.add('active');
-		setTimeout(function () {
-			loader.classList.remove('active');
-		}, 1500);
+
+		if (commentInteraction) {
+			loader.classList.add('comment');
+			setTimeout(function () {
+				loader.classList.remove('active');
+			}, 1500);
+		}
 	},
 	$_GET: (param) => {
 		const vars = {};

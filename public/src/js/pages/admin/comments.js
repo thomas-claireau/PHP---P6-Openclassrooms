@@ -15,87 +15,46 @@ window.addEventListener('DOMContentLoaded', (event) => {
 		const commentaires = isCommentsUpdate.querySelectorAll('.commentaire');
 
 		commentaires.forEach((commentaire, index) => {
+			const btnUpdate = commentaire.querySelector('.right .actions a.triggerForm');
+			const btnBack = commentaire.querySelector('.right form a.triggerForm');
+			const form = commentaire.querySelector('form');
+			const containerContent = commentaire.querySelector('.content');
 
-			commentaire.addEventListener('click', (e) => {
-				const form = commentaire.querySelector('form');
-				let indexCom, inputId;
+			btnUpdate.addEventListener('click', () => {
+				commentaires.forEach(item => {
+					const form = item.querySelector('form');
+					const containerContent = item.querySelector('.content');
 
-				if (form) {
-					inputId = form.querySelector('input[name="commentId"]');
-					indexCom = inputId.value;
-				}
+					form.classList.add('disabled');
+					containerContent.classList.remove('disabled');
+					tinymce.remove();
+				});
 
-				if (e.target.tagName !== 'A' && !commentaire.classList.contains('active')) {
-					functions.loader();
-				}
-				const textarea = commentaire.querySelector('#commentaire-' + indexCom);
-				const defaultContenu = textarea.value;
+				form.classList.toggle('disabled');
+				containerContent.classList.toggle('disabled');
 
-				if (e.target.tagName === 'DIV' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'FORM' || e.target.tagName === 'P' || e.target.tagName === 'INPUT') {
-					if (!commentaire.classList.contains('active')) {
-						// tinymce editor commentaire
-						tinymce.init({
-							target: textarea,
-							plugins: tinyPlugins,
-							toolbar: 'undo redo',
-							menubar: false,
-						});
+				const commentaireId = form.querySelector('input[name="commentId"]').value;
+				const textarea = form.querySelector('#commentaire-' + commentaireId);
 
-						// fermer les commentaires existants
-						commentaires.forEach((item, index) => {
-							if (item.classList.contains('active')) {
-								const indexCom = index + 1;
-								const textareaItem = item.querySelector('#commentaire-' + indexCom);
-								const contenu = tinymce.activeEditor.getContent();
-
-								tinymce.remove('#commentaire-' + indexCom);
-
-								if (contenu !== defaultContenu) {
-									textareaItem.value = defaultContenu;
-								}
-
-								item.classList.remove('active');
-								item.querySelector('form').classList.add('disabled');
-							}
-						});
-					}
-
-					const comTarget = e.currentTarget;
-
-					if (
-						comTarget &&
-						!comTarget.classList.contains('active') &&
-						!comTarget.classList.contains('disabled')
-					) {
-						const form = comTarget.querySelector('form');
-						const cross = comTarget.querySelector('.close');
-						comTarget.classList.add('active');
-						form.classList.remove('disabled');
-
-						if (cross) {
-							cross.addEventListener('click', (e) => {
-								const textareaTarget = comTarget.querySelector('textarea');
-								const contenu = tinymce.activeEditor.getContent();
-								const tinyTarget = comTarget.querySelector('.tox-tinymce');
-
-								tinyTarget.remove();
-
-								tinymce.remove('#' + textareaTarget.id);
-
-								if (contenu !== defaultContenu) {
-									textareaTarget.value = defaultContenu;
-								}
-
-								form.classList.add('disabled');
-								comTarget.classList.remove('active');
-								comTarget.classList.add('disabled');
-							});
-						}
-					} else {
-						comTarget.classList.remove('disabled');
-					}
-				}
+				tinymce.init({
+					target: textarea,
+					plugins: tinyPlugins,
+					toolbar: 'undo redo',
+					menubar: false,
+				});
 			});
+
+			btnBack.addEventListener('click', () => {
+				const form = commentaire.querySelector('form');
+				const containerContent = commentaire.querySelector('.content');
+				const commentaireId = form.querySelector('input[name="commentId"]').value;
+
+				resetContent(form, containerContent);
+
+				form.classList.add('disabled');
+				containerContent.classList.remove('disabled');
+				tinymce.remove('#commentaire-' + commentaireId);
+			})
 		});
 	}
 
