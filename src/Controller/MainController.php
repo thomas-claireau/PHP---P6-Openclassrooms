@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\Extension\PhpMvcExtension;
+use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -39,21 +40,30 @@ abstract class MainController
         $this->data = filter_input_array(INPUT_POST);
         $this->outputUser = self::checkAllInput('login');
 
+        self::setupTwig();
+        self::addGlobals();
+    }
+
+    public function setupTwig()
+    {
         $this->twig = new Environment(new FilesystemLoader('../src/View'), array(
             'cache' => false,
             'debug' => true,
         ));
         $this->twig->addExtension(new DebugExtension());
         $this->twig->addExtension(new PhpMvcExtension());
+    }
 
+    public function addGlobals()
+    {
         // add global variables
-        $this->twig->addGlobal('isLocalhost', $this->isLocalhost());
+        $this->twig->addGlobal('isLocalhost', MainFunctions::isLocalhost());
         $this->twig->addGlobal('url', $this->getUrl());
         $this->twig->addGlobal('isDistFolder', $this->folder_exist('dist'));
         $this->twig->addGlobal('templateName', $this->getTemplateName());
         $this->twig->addGlobal('imgDir', $this->getImgDir());
         $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
-        $this->twig->addGlobal('avatar_default', self::isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
+        $this->twig->addGlobal('avatar_default', MainFunctions::isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
     }
 
     /**
@@ -108,27 +118,6 @@ abstract class MainController
         return file_exists(self::getCurrentPath() . $folder);
     }
 
-    public static function isLocalhost()
-    {
-        return self::getServerIP() == '127.0.0.1';
-    }
-
-    private static function getServerIP()
-    {
-        $adresse = '';
-        $server = filter_input_array(INPUT_SERVER);
-
-        if (array_key_exists('HTTP_X_FORWARDED_FOR', $server)) {
-            $adresse = $server["HTTP_X_FORWARDED_FOR"];
-        } else if (array_key_exists('REMOTE_ADDR', $server)) {
-            $adresse = $server["REMOTE_ADDR"];
-        } else if (array_key_exists('HTTP_CLIENT_IP', $server)) {
-            $adresse = $server["HTTP_CLIENT_IP"];
-        }
-
-        return $adresse;
-    }
-
     public static function getTemplateName()
     {
         $access = filter_input(INPUT_GET, 'access');
@@ -144,7 +133,7 @@ abstract class MainController
     {
         $HTTP_HOST = filter_input(INPUT_SERVER, 'HTTP_HOST');
         $isDist = self::folder_exist('dist');
-        $isDev = self::isLocalhost();
+        $isDev = MainFunctions::isLocalhost();
 
         if ($isDist && !$isDev) {
             $publicPath = $HTTP_HOST . '/dist/' . 'assets/img/';
@@ -172,10 +161,10 @@ abstract class MainController
 
         if (isset($post['email']) && self::getMail() == false) {
             array_push($params, ['error' => 'mail']);
-            $this->redirect($location, $params);
+            MainFunctions::redirect($location, $params);
         } elseif (isset($post['tel']) && self::getTel() == false) {
             array_push($params, ['error' => 'tel']);
-            $this->redirect($location, $params);
+            MainFunctions::redirect($location, $params);
         } else {
             if (isset($post) && !empty($post)) {
                 $array = [];
@@ -253,7 +242,7 @@ abstract class MainController
         $type = $type == null ? filter_input(INPUT_GET, 'type') : $type;
 
         if ($type) {
-            if (self::isLocalhost()) {
+            if (MainFunctions::isLocalhost()) {
                 $path = './src/assets/img';
             } else {
                 $path = './dist/assets/img';
@@ -318,7 +307,7 @@ abstract class MainController
                 echo json_encode(array('location' => $filetowrite));
 
                 if ($type == 'uploadMainImage') {
-                    $this->redirect('post', [
+                    MainFunctions::redirect('post', [
                         'action' => $action,
                         'id' => $id,
                         'idUser' => $idUser,
@@ -338,10 +327,10 @@ abstract class MainController
     public function setRelativePathImg($string)
     {
         if (strpos($string, '<img')) {
-            $replacement = self::isLocalhost() ? '<img src="./src/' : '<img src="./dist/';
+            $replacement = MainFunctions::isLocalhost() ? '<img src="./src/' : '<img src="./dist/';
             $regex = ["#<img src=\"src/#", "#<img src=\"dist/#"];
         } else {
-            $replacement = self::isLocalhost() ? './src/' : './dist/';
+            $replacement = MainFunctions::isLocalhost() ? './src/' : './dist/';
             $regex = ["#./src/#", "#./dist/#"];
         }
 

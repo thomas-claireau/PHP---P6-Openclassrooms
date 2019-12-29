@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use DateTime;
 use DateTimeZone;
@@ -112,7 +113,7 @@ class PostController extends MainController
 
         ModelFactory::getModel('Post')->createData($array);
         self::deleteSessionPost();
-        $this->redirect('admin', ['type' => 'posts', 'action' => 'view']);
+        MainFunctions::redirect('admin', ['type' => 'posts', 'action' => 'view']);
     }
 
     public function update()
@@ -130,7 +131,7 @@ class PostController extends MainController
         ModelFactory::getModel('Post')->updateData($titlePost, ['title' => $titlePost, 'date' => $datePost, 'description' => $description, 'content' => $contentPost, 'main_img_path' => $mainImagePath], ['id' => $idPost]);
 
         self::deleteSessionPost();
-        $this->redirect('admin', ['type' => 'posts', 'action' => 'view']);
+        MainFunctions::redirect('admin', ['type' => 'posts', 'action' => 'view']);
     }
 
     public function remove()
@@ -142,7 +143,7 @@ class PostController extends MainController
         if (isset($allPosts) && empty($allPosts)) {
             ModelFactory::getModel('Post')->resetIndex();
         }
-        $this->redirect('admin', ['type' => 'posts', 'action' => 'remove']);
+        MainFunctions::redirect('admin', ['type' => 'posts', 'action' => 'remove']);
     }
 
     public function getPost()

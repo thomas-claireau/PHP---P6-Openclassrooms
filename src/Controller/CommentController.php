@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use DateTime;
 use DateTimeZone;
@@ -55,7 +56,7 @@ class CommentController extends MainController
         $array['date'] = $array['date']->format('Y-m-d H:i:s');
 
         ModelFactory::getModel('Comment')->createData($array);
-        $this->redirect('post', ['id' => self::getIdPost()]);
+        MainFunctions::redirect('post', ['id' => self::getIdPost()]);
     }
 
     public function update()
@@ -66,7 +67,7 @@ class CommentController extends MainController
 
         ModelFactory::getModel('Comment')->updateData($idCom, ['title' => $title, 'content' => $content], ['id' => $idCom]);
 
-        $this->redirect('admin', ['type' => 'comments', 'action' => 'update']);
+        MainFunctions::redirect('admin', ['type' => 'comments', 'action' => 'update']);
     }
 
     public function remove()

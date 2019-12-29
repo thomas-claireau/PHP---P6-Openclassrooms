@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use DateTime;
 use DateTimeZone;
@@ -27,6 +28,7 @@ class AdminController extends MainController
 
     public function defaultMethod()
     {
+        // TestAdmin::test();
         $action = self::getAction();
         $type = self::getType();
 
@@ -198,7 +200,7 @@ class AdminController extends MainController
     public function redirectLogin()
     {
         if (self::getUserSession() == null && !self::getToken()) {
-            $this->redirect('log', ['type' => 'connexion']);
+            MainFunctions::redirect('log', ['type' => 'connexion']);
         }
 
         if (self::getToken()) {
@@ -222,13 +224,13 @@ class AdminController extends MainController
 
             // // si le token a été initialité il y a plus d'une heure, on redirige
             if ($dateDiff > 0) {
-                $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+                MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
             }
 
-            $this->redirect('log', ['type' => 'reset-password', 'token' => $userToken, 'id' => $user['id']]);
+            MainFunctions::redirect('log', ['type' => 'reset-password', 'token' => $userToken, 'id' => $user['id']]);
         }
 
-        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+        MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 
     public function newPassword()
@@ -242,12 +244,12 @@ class AdminController extends MainController
             if ($password === $confirmPassword) {
                 $newPassword = password_hash($password, PASSWORD_DEFAULT);
                 ModelFactory::getModel('User')->updateData($newPassword, ['password' => $newPassword, 'token' => null, 'dateToken' => null], ['mail' => '"' . $email . '"']);
-                $this->redirect('log', ['type' => 'password-forgot-ok']);
+                MainFunctions::redirect('log', ['type' => 'password-forgot-ok']);
             }
 
-            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+            MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
 
-        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+        MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 }

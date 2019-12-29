@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -67,9 +68,9 @@ class LogController extends MainController
                 return $array;
             }
 
-            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+            MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
 
-        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+        MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 }

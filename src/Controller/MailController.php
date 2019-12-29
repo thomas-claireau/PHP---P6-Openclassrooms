@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Functions\MainFunctions;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -89,6 +90,6 @@ class MailController extends MainController
         $mailer->send($messageConfirmation);
         $mailer->send($messageMySelf);
 
-        $this->redirect('contact', ['success' => true]);
+        MainFunctions::redirect('contact', ['success' => true]);
     }
 }

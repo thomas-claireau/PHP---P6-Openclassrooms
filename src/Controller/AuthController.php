@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use DateTime;
 use DateTimeZone;
@@ -33,7 +34,7 @@ class AuthController extends MainController
         if (isset($action) && !empty($action)) {
             self::$action();
         } else {
-            $this->redirect('home');
+            MainFunctions::redirect('home');
         }
     }
 
@@ -47,12 +48,12 @@ class AuthController extends MainController
 
             if (self::checkPassword($outputPassword, $passwordHash)) {
                 self::createSession($user);
-                $this->redirect('admin');
+                MainFunctions::redirect('admin');
             } else {
-                $this->redirect('log', ['type' => 'connexion', 'error' => true]);
+                MainFunctions::redirect('log', ['type' => 'connexion', 'error' => true]);
             }
         } else {
-            $this->redirect('log', ['type' => 'connexion', 'error' => true]);
+            MainFunctions::redirect('log', ['type' => 'connexion', 'error' => true]);
         }
     }
 
@@ -82,7 +83,7 @@ class AuthController extends MainController
     {
         setcookie("PHPSESSID", "", time() - 3600, "/");
         session_destroy();
-        $this->redirect('home');
+        MainFunctions::redirect('home');
     }
 
     public function getAction()
@@ -146,7 +147,7 @@ class AuthController extends MainController
         // Send the message
         $mailer->send($messageConfirmation);
 
-        $this->redirect('admin');
+        MainFunctions::redirect('admin');
     }
 
     public function updateAccount()
@@ -171,7 +172,7 @@ class AuthController extends MainController
                 $avatarImgPath = $this->files['avatar_img_path']['name'];
 
                 if ($avatarImgPath) {
-                    $pathImg = $this->isLocalhost() ? './src/' : './dist/';
+                    $pathImg = MainFunctions::isLocalhost() ? './src/' : './dist/';
                     $outputData['avatar_img_path'] = $pathImg . 'assets/img/avatars_images/' . $actualId . '/' . $avatarImgPath;
                     $this->uploadImg('uploadAvatar', $actualId);
                 }
@@ -190,10 +191,10 @@ class AuthController extends MainController
 
             $_SESSION['user'] = $this->session['user'];
 
-            $this->redirect('admin', ['type' => 'account', 'action' => 'view']);
+            MainFunctions::redirect('admin', ['type' => 'account', 'action' => 'view']);
         }
 
-        $this->redirect('admin', ['type' => 'account', 'action' => 'view', 'error' => true]);
+        MainFunctions::redirect('admin', ['type' => 'account', 'action' => 'view', 'error' => true]);
     }
 
     public function removeAccount()
@@ -207,7 +208,7 @@ class AuthController extends MainController
 
         self::deconnexion();
 
-        $this->redirect('home');
+        MainFunctions::redirect('home');
     }
 
     public function sendForgotPassword()
@@ -259,9 +260,9 @@ class AuthController extends MainController
             ;
 
             $mailer->send($messageConfirmation);
-            $this->redirect('log', ['type' => 'send-forgot-ok']);
+            MainFunctions::redirect('log', ['type' => 'send-forgot-ok']);
         }
 
-        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
+        MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 }
