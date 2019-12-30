@@ -2,7 +2,7 @@
 .idea/
 
 # Exclude config folder
-/config
+/config/db.php
 
 # Exclude public dist folder
 /public/dist/

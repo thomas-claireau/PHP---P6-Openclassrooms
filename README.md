@@ -3,6 +3,59 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1d8f383a79b64eeb9937e9a2a7dc628b)](https://www.codacy.com/manual/thomas-claireau/PHP-P5-Openclassrooms?utm_source=github.com&utm_medium=referral&utm_content=thomas-claireau/PHP-P5-Openclassrooms&utm_campaign=Badge_Grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/95aa8acf09746a99a43a/maintainability)](https://codeclimate.com/github/thomas-claireau/PHP-P5-Openclassrooms/maintainability)
 
+## Installation du projet
+
+Via Composer :
+
+````text
+composer create-project thomas-claireau/php-p5-openclassrooms 1.0.0
+````
+
+Installez ensuite les dépendances front du projet. Placez-vous dans le répertoire public :
+
+````text
+npm install
+````
+
+### Serveur de développement
+
+Pour lancer le serveur de développement, effectuez un `npm run serve`. 
+
+### Serveur de pré-production
+
+Pour obtenir une version de pré-production, effectuez plutot un `npm run build`.
+
+### Remarque
+
+#### Accès base de données
+
+Le projet est livré sur Packagist sans base de données. Cela signifie qu'il faut que vous ajoutiez un dossier config à la racine du projet.
+
+Dans ce dossier, ajoutez le fichier `db.php` en respectant le format suivant :
+
+````php
+<?php
+
+$HOST = ''; // le host de votre projet
+$DB_NAME = ''; // le nom de la base de donnée
+$DB_USER = ''; // l'identifiant d'accès
+$DB_PASS = ''; // le mot de passe d'accès
+$DB_DSN = "mysql:host={$HOST};dbname={$DB_NAME}";
+
+define('DB_DSN', $DB_DSN);
+define('DB_USER', $DB_USER);
+define('DB_PASS', $DB_PASS);
+
+define('DB_OPTIONS', array(PDO::ATTR_DEFAULT_FETCH_MODE => 
+PDO::FETCH_ASSOC, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+````
+
+#### Injection SQL
+
+Pour obtenir une structure similaire à mon projet au niveau de la base de données, je vous joins un fichier `db.sql` qui se chargera de construire la base de données pour vous.
+
+Vous pouvez le télécharger ici.
+
 ## Contexte
 
 Ça y est vous avez sauté le pas ! Le monde du développement web avec PHP est à portée de main et vous avez besoin de visibilité pour pouvoir convaincre vos futurs employeurs/clients en un seul regard. Vous êtes développeur PHP, il est donc temps de montrer vos talents au travers d’un blog à vos couleurs.
