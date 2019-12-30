@@ -19,11 +19,15 @@ npm install
 
 ### Serveur de développement
 
-Pour lancer le serveur de développement, effectuez un `npm run serve`. 
+Pour lancer le serveur de développement, effectuez un `npm run serve`.
+
+Au préalable, assurez-vous d'avoir configuré un virtual host.
+
+Pour changer l'url du host, rendez vous dans `public/_webpack/config.js` et changez la valeur de `proxyTarget`.
 
 ### Serveur de pré-production
 
-Pour obtenir une version de pré-production, effectuez plutot un `npm run build`.
+Pour obtenir une version de pré-production, effectuez un `npm run build`. Les fichiers front se compileront dans un fichier dist.
 
 ### Remarque
 
@@ -52,9 +56,7 @@ PDO::FETCH_ASSOC, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 #### Injection SQL
 
-Pour obtenir une structure similaire à mon projet au niveau de la base de données, je vous joins un fichier `db.sql` qui se chargera de construire la base de données pour vous.
-
-Vous pouvez le télécharger ici.
+Pour obtenir une structure similaire à mon projet au niveau de la base de données, je vous joins aussi dans le dossier config un fichier `db.sql` qui se chargera de construire la base de données pour vous.
 
 ## Contexte
 
