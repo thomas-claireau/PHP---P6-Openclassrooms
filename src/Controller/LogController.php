@@ -24,12 +24,12 @@ class LogController extends MainController
      */
     public function defaultMethod()
     {
-        if (MainFunctions::inputGet('type') == 'reset-password') {
+        if ($this->inputGet('type') == 'reset-password') {
             $user = self::getInfosNewPassword();
         }
 
         return $this->render('log.twig', [
-            'type' => MainFunctions::inputGet('type'),
+            'type' => $this->inputGet('type'),
             'errorLog' => $this->isFormError(),
             'user' => isset($user) ? $user : false,
         ]);
@@ -60,9 +60,9 @@ class LogController extends MainController
                 return $array;
             }
 
-            MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
+            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
 
-        MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
+        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 }

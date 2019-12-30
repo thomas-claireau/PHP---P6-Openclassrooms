@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use DateTime;
 use DateTimeZone;
@@ -29,18 +28,18 @@ class AuthController extends MainController
      */
     public function defaultMethod()
     {
-        $action = MainFunctions::inputGet('action');
+        $action = $this->inputGet('action');
 
         if (isset($action) && !empty($action)) {
             self::$action();
         } else {
-            MainFunctions::redirect('home');
+            $this->redirect('home');
         }
     }
 
     public function connexion()
     {
-        $user = MainFunctions::getUser(['mail' => $this->outputUser['mail']]);
+        $user = $this->getUser(['mail' => $this->outputUser['mail']]);
 
         if (isset($user) && !empty($user)) {
             $outputPassword = $this->outputUser['password'];
@@ -48,12 +47,12 @@ class AuthController extends MainController
 
             if (self::checkPassword($outputPassword, $passwordHash)) {
                 self::createSession($user);
-                MainFunctions::redirect('admin');
+                $this->redirect('admin');
             } else {
-                MainFunctions::redirect('log', ['type' => 'connexion', 'error' => true]);
+                $this->redirect('log', ['type' => 'connexion', 'error' => true]);
             }
         } else {
-            MainFunctions::redirect('log', ['type' => 'connexion', 'error' => true]);
+            $this->redirect('log', ['type' => 'connexion', 'error' => true]);
         }
     }
 
@@ -73,7 +72,7 @@ class AuthController extends MainController
             'mail' => $user['mail'],
             'actif' => $user['actif'],
             'admin' => $user['admin'],
-            'avatar_img_path' => MainFunctions::setRelativePathImg($user['avatar_img_path']),
+            'avatar_img_path' => $this->setRelativePathImg($user['avatar_img_path']),
         ];
 
         $_SESSION['user'] = $this->session['user'];
@@ -83,61 +82,68 @@ class AuthController extends MainController
     {
         setcookie("PHPSESSID", "", time() - 3600, "/");
         session_destroy();
-        MainFunctions::redirect('home');
+        $this->redirect('home');
     }
 
     public function addAccount()
     {
-        // session_start();
-
         require_once 'setup/configMail.php';
         $serveurName = $configMail['smtp'];
         $port = $configMail['port'];
         $username = $configMail['username'];
         $password = $configMail['password'];
-        // output
-        $array = [];
-        $array['nom'] = $this->data['nom'];
-        $array['prenom'] = $this->data['prenom'];
-        $array['mail'] = $this->data['mail'];
-        $array['password'] = password_hash($this->data['password'], PASSWORD_DEFAULT);
-        $array['actif'] = 1;
-        $array['admin'] = 0;
 
-        ModelFactory::getModel('User')->createData($array);
-        $user = MainFunctions::getUser(['mail' => $array['mail']]);
+        // check if mail is exit in db
+        $userExist = $this->getUser(['mail' => $this->data['mail']]);
 
-        $avatarImgPath = 'src/assets/img/avatars_images/' . $user['id'] . '/' . $this->files['avatar']['name'];
-        ModelFactory::getModel('User')->updateData($user['id'], ['avatar_img_path' => $avatarImgPath], ['id' => $user['id']]);
+        if (!$userExist) {
+            // output
+            $array = [];
+            $array['nom'] = $this->data['nom'];
+            $array['prenom'] = $this->data['prenom'];
+            $array['mail'] = $this->data['mail'];
+            $array['password'] = password_hash($this->data['password'], PASSWORD_DEFAULT);
+            $array['actif'] = 1;
+            $array['admin'] = 0;
 
-        self::createSession($user);
-        $this->uploadImg('uploadAvatar', $user['id']);
+            ModelFactory::getModel('User')->createData($array);
+            $user = $this->getUser(['mail' => $array['mail']]);
 
-        // Create the Transport
-        $transport = new \Swift_SmtpTransport($serveurName, $port);
-        $transport->setUsername($username);
-        $transport->setPassword($password);
+            $avatarImgPath = 'src/assets/img/avatars_images/' . $user['id'] . '/' . $this->files['avatar']['name'];
+            ModelFactory::getModel('User')->updateData($user['id'], ['avatar_img_path' => $avatarImgPath], ['id' => $user['id']]);
 
-        // Create the Mailer using your created Transport
-        $mailer = new \Swift_Mailer($transport);
-        $prenom = $array['prenom'];
-        $nom = $array['nom'];
+            $this->uploadImg('uploadAvatar', $user['id']);
+            self::createSession($user);
 
-        // Create a confirmation message
-        $bodyConfirmation = "
-            <p>Bonjour $prenom $nom ! Vous êtes désormais inscris sur le blog !</p>
-            Vous pouvez y accéder en vous rendant dans le footer et en cliquant sur 'Lien vers l'admin'.
-        ";
-        $messageConfirmation = (new \Swift_Message('Confirmation d\'inscription'))
-            ->setFrom([$username => 'Thomas Claireau'])
-            ->setTo($array['mail'])
-            ->addPart($bodyConfirmation, 'text/html')
-        ;
+            // Create the Transport
+            $transport = new \Swift_SmtpTransport($serveurName, $port);
+            $transport->setUsername($username);
+            $transport->setPassword($password);
 
-        // Send the message
-        $mailer->send($messageConfirmation);
+            // Create the Mailer using your created Transport
+            $mailer = new \Swift_Mailer($transport);
+            $prenom = $array['prenom'];
+            $nom = $array['nom'];
 
-        MainFunctions::redirect('admin');
+            // Create a confirmation message
+            $bodyConfirmation = "
+                <p>Bonjour $prenom $nom ! Vous êtes désormais inscris sur le blog !</p>
+                Vous pouvez y accéder en vous rendant dans le footer et en cliquant sur 'Lien vers l'admin'.
+            ";
+            $messageConfirmation = (new \Swift_Message('Confirmation d\'inscription'))
+                ->setFrom([$username => 'Thomas Claireau'])
+                ->setTo($array['mail'])
+                ->addPart($bodyConfirmation, 'text/html')
+            ;
+
+            // Send the message
+            $mailer->send($messageConfirmation);
+
+            $this->redirect('admin');
+        } else {
+            $this->redirect('log', ['type' => 'creation', 'error' => 'emailUse']);
+        }
+
     }
 
     public function updateAccount()
@@ -146,7 +152,7 @@ class AuthController extends MainController
 
         $outputData = $this->data;
 
-        $actualData = MainFunctions::getUser(['id' => $this->session['user']['id']]);
+        $actualData = $this->getUser(['id' => $this->session['user']['id']]);
 
         // output
         $pass = $outputData['password'];
@@ -162,7 +168,7 @@ class AuthController extends MainController
                 $avatarImgPath = $this->files['avatar_img_path']['name'];
 
                 if ($avatarImgPath) {
-                    $pathImg = MainFunctions::isLocalhost() ? './src/' : './dist/';
+                    $pathImg = $this->isLocalhost() ? './src/' : './dist/';
                     $outputData['avatar_img_path'] = $pathImg . 'assets/img/avatars_images/' . $actualId . '/' . $avatarImgPath;
                     $this->uploadImg('uploadAvatar', $actualId);
                 }
@@ -181,24 +187,28 @@ class AuthController extends MainController
 
             $_SESSION['user'] = $this->session['user'];
 
-            MainFunctions::redirect('admin', ['type' => 'account', 'action' => 'view']);
+            $this->redirect('admin', ['type' => 'account', 'action' => 'view']);
         }
 
-        MainFunctions::redirect('admin', ['type' => 'account', 'action' => 'view', 'error' => true]);
+        $this->redirect('admin', ['type' => 'account', 'action' => 'view', 'error' => true]);
     }
 
     public function removeAccount()
     {
         // session_start();
-        $actualData = MainFunctions::getUser(['id' => $this->session['user']['id']]);
+        $actualData = $this->getUser(['id' => $this->session['user']['id']]);
         $actualId = $actualData['id'];
         ModelFactory::getModel('User')->deleteData('id', ['id' => $actualId]);
         $lastUserId = ModelFactory::getModel('User')->getLastId('id')[0]['id'];
         ModelFactory::getModel('User')->setIndex($lastUserId);
 
+        // delete all comments and posts with this id_user
+        ModelFactory::getModel('Comment')->deleteData('id_user', ['id_user' => $actualId]);
+        ModelFactory::getModel('Post')->deleteData('id_user', ['id_user' => $actualId]);
+
         self::deconnexion();
 
-        MainFunctions::redirect('home');
+        $this->redirect('home');
     }
 
     public function sendForgotPassword()
@@ -208,7 +218,7 @@ class AuthController extends MainController
         $port = $configMail['port'];
         $username = $configMail['username'];
         $password = $configMail['password'];
-        $mail = MainFunctions::checkAllInput('login')['email'];
+        $mail = $this->checkAllInput('login')['email'];
 
         $user = ModelFactory::getModel('User')->readData($mail, 'mail');
 
@@ -250,10 +260,10 @@ class AuthController extends MainController
             ;
 
             $mailer->send($messageConfirmation);
-            MainFunctions::redirect('log', ['type' => 'send-forgot-ok']);
+            $this->redirect('log', ['type' => 'send-forgot-ok']);
             exit;
         }
 
-        MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
+        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 }

@@ -16,7 +16,7 @@ use Twig\Loader\FilesystemLoader;
  * Manages the Main Features
  * @package App\Controller
  */
-abstract class MainController
+abstract class MainController extends MainFunctions
 {
     /**
      * @var Environment|null
@@ -37,7 +37,7 @@ abstract class MainController
         $this->files = filter_var_array($_FILES);
         $this->session = filter_var_array($_SESSION);
         $this->data = self::getData();
-        $this->outputUser = MainFunctions::checkAllInput('login');
+        $this->outputUser = $this->checkAllInput('login');
 
         self::setupTwig();
         self::addGlobals();
@@ -61,13 +61,13 @@ abstract class MainController
     public function addGlobals()
     {
         // add global variables
-        $this->twig->addGlobal('isLocalhost', MainFunctions::isLocalhost());
-        $this->twig->addGlobal('url', MainFunctions::getUrl());
-        $this->twig->addGlobal('isDistFolder', MainFunctions::folder_exist('dist'));
-        $this->twig->addGlobal('templateName', MainFunctions::getTemplateName());
-        $this->twig->addGlobal('imgDir', MainFunctions::getImgDir());
-        $this->twig->addGlobal('homeUrl', MainFunctions::getHomeUrl());
-        $this->twig->addGlobal('avatar_default', MainFunctions::isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
+        $this->twig->addGlobal('isLocalhost', $this->isLocalhost());
+        $this->twig->addGlobal('url', $this->getUrl());
+        $this->twig->addGlobal('isDistFolder', $this->folder_exist('dist'));
+        $this->twig->addGlobal('templateName', $this->getTemplateName());
+        $this->twig->addGlobal('imgDir', $this->getImgDir());
+        $this->twig->addGlobal('homeUrl', $this->getHomeUrl());
+        $this->twig->addGlobal('avatar_default', $this->isLocalhost() ? './src/assets/img/pictos/default_avatar.png' : './dist/assets/img/pictos/default_avatar.png');
     }
 
     /**
@@ -87,10 +87,10 @@ abstract class MainController
     public function uploadImg($type = null, $id = null, $action = null)
     {
         $accepted_origins = array("http://localhost:3000", "http://82.64.201.160", "http://recette.thomas-claireau.fr", "https://recette.thomas-claireau.fr");
-        $type = $type == null ? MainFunctions::inputGet('type') : $type;
+        $type = $type == null ? $this->inputGet('type') : $type;
 
         if ($type) {
-            if (MainFunctions::isLocalhost()) {
+            if ($this->isLocalhost()) {
                 $path = './src/assets/img';
             } else {
                 $path = './dist/assets/img';
@@ -99,12 +99,12 @@ abstract class MainController
             switch ($type) {
                 case 'uploadTiny':
                     $path .= '/posts_images';
-                    $id = MainFunctions::inputGet('id');
+                    $id = $this->inputGet('id');
                     break;
                 case 'uploadMainImage':
                     $path .= '/posts_images';
-                    $idUser = MainFunctions::inputGet('idUser');
-                    $id = MainFunctions::inputGet('id');
+                    $idUser = $this->inputGet('idUser');
+                    $id = $this->inputGet('id');
                     break;
                 case 'uploadAvatar':
                     $path .= '/avatars_images';
@@ -124,7 +124,7 @@ abstract class MainController
             $temp = current($this->files);
 
             if (is_uploaded_file($temp['tmp_name'])) {
-                $http_origin = MainFunctions::inputServer('HTTP_ORIGIN');
+                $http_origin = $this->inputServer('HTTP_ORIGIN');
                 if (isset($http_origin)) {
                     // Same-origin requests won't set an origin. If the origin is set, it must be valid.
                     if (in_array($http_origin, $accepted_origins)) {
@@ -152,7 +152,7 @@ abstract class MainController
                 move_uploaded_file($temp['tmp_name'], $filetowrite);
 
                 if ($type == 'uploadMainImage') {
-                    MainFunctions::redirect('post', [
+                    $this->redirect('post', [
                         'action' => $action,
                         'id' => $id,
                         'idUser' => $idUser,
@@ -162,7 +162,10 @@ abstract class MainController
 
                 // Respond to the successful upload with JSON.
                 echo json_encode(array('location' => $filetowrite));
-                exit;
+
+                if ($type == "uploadTiny") {
+                    exit;
+                }
             } else {
                 // Notify editor that the upload failed
                 header("HTTP/1.1 500 Server Error");

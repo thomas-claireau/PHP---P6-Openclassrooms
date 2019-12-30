@@ -49,8 +49,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
 				const containerContent = commentaire.querySelector('.content');
 				const commentaireId = form.querySelector('input[name="commentId"]').value;
 
-				resetContent(form, containerContent);
-
 				form.classList.add('disabled');
 				containerContent.classList.remove('disabled');
 				tinymce.remove('#commentaire-' + commentaireId);

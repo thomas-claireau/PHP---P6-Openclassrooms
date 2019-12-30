@@ -5,7 +5,7 @@ namespace App\Controller\Functions;
 use App\Controller\MainController;
 use App\Model\Factory\ModelFactory;
 
-class MainFunctions extends MainController
+class MainFunctions
 {
     public static function inputGet($get)
     {

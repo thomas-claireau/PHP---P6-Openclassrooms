@@ -34,7 +34,7 @@ class MailController extends MainController
         $username = $configMail['username'];
         $password = $configMail['password'];
 
-        $infos = MainFunctions::checkAllInput('contact');
+        $infos = $this->checkAllInput('contact');
         $prenom = $infos['prenom'];
         $nom = $infos['nom'];
         $mail = $infos['email'];
@@ -90,6 +90,6 @@ class MailController extends MainController
         $mailer->send($messageConfirmation);
         $mailer->send($messageMySelf);
 
-        MainFunctions::redirect('contact', ['success' => true]);
+        $this->redirect('contact', ['success' => true]);
     }
 }

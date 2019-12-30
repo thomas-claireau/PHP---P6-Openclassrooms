@@ -27,7 +27,7 @@ class CommentController extends MainController
 
     public function defaultMethod()
     {
-        $action = MainFunctions::inputGet('action');
+        $action = $this->inputGet('action');
 
         if (isset($action) && !empty($action)) {
             self::$action();
@@ -51,7 +51,7 @@ class CommentController extends MainController
         $array['date'] = $array['date']->format('Y-m-d H:i:s');
 
         ModelFactory::getModel('Comment')->createData($array);
-        MainFunctions::redirect('post', ['id' => self::getIdPost()]);
+        $this->redirect('post', ['id' => self::getIdPost()]);
     }
 
     public function update()
@@ -62,7 +62,7 @@ class CommentController extends MainController
 
         ModelFactory::getModel('Comment')->updateData($idCom, ['title' => $title, 'content' => $content], ['id' => $idCom]);
 
-        MainFunctions::redirect('admin', ['type' => 'comments', 'action' => 'update']);
+        $this->redirect('admin', ['type' => 'comments', 'action' => 'update']);
     }
 
     public function remove()

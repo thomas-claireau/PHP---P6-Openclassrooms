@@ -125,6 +125,7 @@
             {{include("layout/formulaire.twig", {fields: formulaire})}}
             {% if type == "connexion" %}
                 <a class="link-forgot-password" href="/index.php?access=log&type=mot-de-passe-oublie">Mot de passe oublié ?</a>
+                <a class="link-account-creation" href="/index.php?access=log&type=creation">Créer un compte</a>
             {% endif %}
         {% else %}
             {% if type == 'creation-ok' %}                

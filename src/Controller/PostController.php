@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use DateTime;
 use DateTimeZone;
@@ -27,7 +26,7 @@ class PostController extends MainController
 
     public function defaultMethod()
     {
-        $action = MainFunctions::inputGet('action');
+        $action = $this->inputGet('action');
 
         $isUpload = filter_input(INPUT_GET, 'uploadImage');
 
@@ -49,9 +48,11 @@ class PostController extends MainController
 
     public function isLog()
     {
-        $user = $this->session['user'];
-        if (isset($user) && !empty($user)) {
-            return $user;
+        if (isset($this->session['user'])) {
+            $user = $this->session['user'];
+            if (isset($user) && !empty($user)) {
+                return $user;
+            }
         }
     }
 
@@ -107,7 +108,7 @@ class PostController extends MainController
 
         ModelFactory::getModel('Post')->createData($array);
         self::deleteSessionPost();
-        MainFunctions::redirect('admin', ['type' => 'posts', 'action' => 'view']);
+        $this->redirect('admin', ['type' => 'posts', 'action' => 'view']);
     }
 
     public function update()
@@ -125,19 +126,20 @@ class PostController extends MainController
         ModelFactory::getModel('Post')->updateData($titlePost, ['title' => $titlePost, 'date' => $datePost, 'description' => $description, 'content' => $contentPost, 'main_img_path' => $mainImagePath], ['id' => $idPost]);
 
         self::deleteSessionPost();
-        MainFunctions::redirect('admin', ['type' => 'posts', 'action' => 'view']);
+        $this->redirect('admin', ['type' => 'posts', 'action' => 'view']);
     }
 
     public function remove()
     {
         $idPost = filter_input(INPUT_GET, 'id');
         ModelFactory::getModel('Post')->deleteData('id', ['id' => $idPost]);
+        ModelFactory::getModel('Comment')->deleteData('id_post', ['id_post' => $idPost]);
         $allPosts = ModelFactory::getModel('Post')->listData();
 
         if (isset($allPosts) && empty($allPosts)) {
             ModelFactory::getModel('Post')->resetIndex();
         }
-        MainFunctions::redirect('admin', ['type' => 'posts', 'action' => 'remove']);
+        $this->redirect('admin', ['type' => 'posts', 'action' => 'remove']);
     }
 
     public function getPost()
@@ -147,8 +149,8 @@ class PostController extends MainController
         $userOfPost = ModelFactory::getModel('User')->readData($post['id_user'], 'id');
         $post['nom'] = $userOfPost['nom'];
         $post['prenom'] = $userOfPost['prenom'];
-        $post['avatar_img_path'] = MainFunctions::setRelativePathImg($userOfPost['avatar_img_path']);
-        $post['content'] = MainFunctions::setRelativePathImg(htmlspecialchars_decode($post['content']));
+        $post['avatar_img_path'] = $this->setRelativePathImg($userOfPost['avatar_img_path']);
+        $post['content'] = $this->setRelativePathImg(htmlspecialchars_decode($post['content']));
         $post['description'] = htmlspecialchars_decode($post['description']);
         $post['title'] = htmlspecialchars_decode($post['title']);
 
@@ -168,7 +170,7 @@ class PostController extends MainController
 
                 $array['prenom'] = $user['prenom'];
                 $array['nom'] = $user['nom'];
-                $array['avatar'] = MainFunctions::setRelativePathImg($user['avatar_img_path']);
+                $array['avatar'] = $this->setRelativePathImg($user['avatar_img_path']);
 
                 $comment['title'] = htmlspecialchars_decode($comment['title']);
                 $comment['content'] = htmlspecialchars_decode($comment['content']);

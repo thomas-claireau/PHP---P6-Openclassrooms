@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use DateTime;
 use DateTimeZone;
@@ -28,9 +27,8 @@ class AdminController extends MainController
 
     public function defaultMethod()
     {
-        // TestAdmin::test();
-        $action = MainFunctions::inputGet('action');
-        $type = MainFunctions::inputGet('type');
+        $action = $this->inputGet('action');
+        $type = $this->inputGet('type');
 
         if ($action !== 'newPassword') {
             self::redirectLogin();
@@ -67,8 +65,8 @@ class AdminController extends MainController
             'user' => self::setUser(),
             'type' => $type,
             'action' => $action,
-            'isError' => MainFunctions::inputGet('error'),
-            'requestUri' => MainFunctions::inputServer('REQUEST_URI'),
+            'isError' => $this->inputGet('error'),
+            'requestUri' => $this->inputServer('REQUEST_URI'),
             'lastPostId' => self::getLastPostId(),
             'posts' => isset($posts) ? $posts : false,
             'comments' => isset($comments) ? $comments : false,
@@ -129,7 +127,7 @@ class AdminController extends MainController
 
                 $commentsDb[$key]['prenom'] = $user['prenom'];
                 $commentsDb[$key]['nom'] = $user['nom'];
-                $commentsDb[$key]['avatar'] = MainFunctions::setRelativePathImg($user['avatar_img_path']);
+                $commentsDb[$key]['avatar'] = $this->setRelativePathImg($user['avatar_img_path']);
                 $commentsDb[$key]['content'] = htmlspecialchars_decode($comment['content']);
             }
 
@@ -146,7 +144,8 @@ class AdminController extends MainController
             $array['prenom'] = $userSession['prenom'];
             $array['nom'] = $userSession['nom'];
             $array['email'] = $userSession['mail'];
-            $array['avatar_img_path'] = MainFunctions::setRelativePathImg($userSession['avatar_img_path']);
+            $array['avatar_img_path'] = $this->setRelativePathImg($userSession['avatar_img_path']);
+
             return $array;
         }
     }
@@ -160,13 +159,13 @@ class AdminController extends MainController
 
     public function redirectLogin()
     {
-        $getToken = MainFunctions::inputGet('token');
+        $getToken = $this->inputGet('token');
 
         if (self::getUserSession() == null && !$token) {
-            MainFunctions::redirect('log', ['type' => 'connexion']);
+            $this->redirect('log', ['type' => 'connexion']);
         }
 
-        if ($token) {
+        if (isset($token)) {
             self::forgotPassword();
         }
     }
@@ -187,14 +186,14 @@ class AdminController extends MainController
 
             // // si le token a été initialité il y a plus d'une heure, on redirige
             if ($dateDiff > 0) {
-                MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
+                $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
             }
 
-            MainFunctions::redirect('log', ['type' => 'reset-password', 'token' => $userToken, 'id' => $user['id']]);
+            $this->redirect('log', ['type' => 'reset-password', 'token' => $userToken, 'id' => $user['id']]);
             exit;
         }
 
-        MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
+        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 
     public function newPassword()
@@ -207,13 +206,13 @@ class AdminController extends MainController
             if ($password === $confirmPassword) {
                 $newPassword = password_hash($password, PASSWORD_DEFAULT);
                 ModelFactory::getModel('User')->updateData($newPassword, ['password' => $newPassword, 'token' => null, 'dateToken' => null], ['mail' => '"' . $email . '"']);
-                MainFunctions::redirect('log', ['type' => 'password-forgot-ok']);
+                $this->redirect('log', ['type' => 'password-forgot-ok']);
                 exit;
             }
 
-            MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
+            $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
         }
 
-        MainFunctions::redirect('log', ['type' => 'mot-de-passe-oublie']);
+        $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 }

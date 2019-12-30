@@ -23,7 +23,7 @@ class HomeController extends MainController
      */
     public function defaultMethod()
     {
-        $posts = MainFunctions::listPosts(['ORDER BY' => ['date' => 'DESC'], 'LIMIT' => 3]);
+        $posts = $this->listPosts(['ORDER BY' => ['date' => 'DESC'], 'LIMIT' => 3]);
 
         return $this->render('home.twig', [
             'nbPosts' => count($posts),

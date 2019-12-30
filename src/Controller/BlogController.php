@@ -23,7 +23,7 @@ class BlogController extends MainController
      */
     public function defaultMethod()
     {
-        $posts = MainFunctions::listPosts(['ORDER BY' => ['date' => 'DESC']]);
+        $posts = $this->listPosts(['ORDER BY' => ['date' => 'DESC']]);
 
         return $this->render('blog.twig', [
             'nbPosts' => count($posts),
