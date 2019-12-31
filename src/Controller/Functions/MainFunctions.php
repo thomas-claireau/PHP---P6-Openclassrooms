@@ -28,6 +28,12 @@ class MainFunctions
                     }
                     return false;
                     break;
+                case 'email':
+                    if (filter_var($post, FILTER_VALIDATE_EMAIL)) {
+                        return $post;
+                    }
+                    return false;
+                    break;
                 case 'tel':
                     $post = str_replace(' ', '', $post);
                     $post = str_replace('-', '', $post);
@@ -135,7 +141,7 @@ class MainFunctions
             return false;
         }
 
-        $getMail = self::inputPost('mail', false);
+        $getMail = self::inputPost('email', false);
         $getTel = self::inputPost('tel', false);
 
         if (isset($post['email']) && $getMail == false) {

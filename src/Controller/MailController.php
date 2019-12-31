@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Functions\MainFunctions;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;

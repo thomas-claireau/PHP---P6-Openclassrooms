@@ -22,7 +22,6 @@ class ContactController extends MainController
      */
     public function defaultMethod()
     {
-
         return $this->render('contact.twig', [
             'success' => $this->isFormSuccess(),
             'errorContact' => $this->isFormError(),
