@@ -8,7 +8,7 @@
 Via Composer :
 
 ````text
-composer create-project thomas-claireau/php-p5-openclassrooms 1.0.1
+composer create-project thomas-claireau/php-p5-openclassrooms
 ````
 
 Installez ensuite les dépendances front du projet. Placez-vous dans le répertoire public :
