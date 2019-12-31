@@ -29,6 +29,10 @@ Pour changer l'url du host, rendez vous dans `public/_webpack/config.js` et chan
 
 Pour obtenir une version de pré-production, effectuez un `npm run build`. Les fichiers front se compileront dans un fichier dist.
 
+### Envoi des mails
+
+Si vous souhaitez utilisé un serveur de mail afin d'envoyer des mails, vous pouvez le configurer dans `~src/Controller/setup/configMail_sample.php`. Une fois vos informations rentrée, vous devrez renommer le fichier en `configMail.php`
+
 ### Remarque
 
 #### Accès base de données

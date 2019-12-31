@@ -28,7 +28,7 @@ public/img/
 vendor/
 
 # exclude setup folder in Controller
-src/Controller/setup/
+src/Controller/setup/configMail.php
 
 # Created by https://www.gitignore.io/api/node,composer
 # Edit at https://www.gitignore.io/?templates=node,composer
