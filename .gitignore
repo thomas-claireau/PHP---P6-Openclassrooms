@@ -1,6 +1,9 @@
 # Project Indexes of Jetbrains Apps
 .idea/
 
+# Exclude presentation powerpoint
+présentation-p5-openclassrooms.pptx
+
 # Exclude config folder
 /config/db.php
 
