@@ -37,6 +37,11 @@ class AuthController extends MainController
         }
     }
 
+    /**
+     * connexion
+     *
+     * @return void
+     */
     public function connexion()
     {
         $user = $this->getUser(['mail' => $this->outputUser['mail']]);
@@ -56,6 +61,14 @@ class AuthController extends MainController
         }
     }
 
+    /**
+     * checkPassword
+     *
+     * @param  mixed $outputPassword
+     * @param  mixed $passwordHash
+     *
+     * @return void
+     */
     public function checkPassword($outputPassword, $passwordHash)
     {
         if ($outputPassword && $passwordHash) {
@@ -63,6 +76,13 @@ class AuthController extends MainController
         }
     }
 
+    /**
+     * createSession
+     *
+     * @param  mixed $user
+     *
+     * @return void
+     */
     public function createSession($user)
     {
         $this->session['user'] = [
@@ -78,6 +98,11 @@ class AuthController extends MainController
         $_SESSION['user'] = $this->session['user'];
     }
 
+    /**
+     * deconnexion
+     *
+     * @return void
+     */
     public function deconnexion()
     {
         setcookie("PHPSESSID", "", time() - 3600, "/");
@@ -85,6 +110,11 @@ class AuthController extends MainController
         $this->redirect('home');
     }
 
+    /**
+     * addAccount
+     *
+     * @return void
+     */
     public function addAccount()
     {
         require_once 'setup/configMail.php';
@@ -146,6 +176,11 @@ class AuthController extends MainController
 
     }
 
+    /**
+     * updateAccount
+     *
+     * @return void
+     */
     public function updateAccount()
     {
         // session_start();
@@ -193,6 +228,11 @@ class AuthController extends MainController
         $this->redirect('admin', ['type' => 'account', 'action' => 'view', 'error' => true]);
     }
 
+    /**
+     * removeAccount
+     *
+     * @return void
+     */
     public function removeAccount()
     {
         // session_start();
@@ -211,6 +251,11 @@ class AuthController extends MainController
         $this->redirect('home');
     }
 
+    /**
+     * sendForgotPassword
+     *
+     * @return void
+     */
     public function sendForgotPassword()
     {
         require_once 'setup/configMail.php';

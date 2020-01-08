@@ -73,6 +73,11 @@ class AdminController extends MainController
         ]);
     }
 
+    /**
+     * isAdmin
+     *
+     * @return void
+     */
     public function isAdmin()
     {
         if (self::getUserSession() != null) {
@@ -80,11 +85,23 @@ class AdminController extends MainController
         }
     }
 
+    /**
+     * getUserSession
+     *
+     * @return void
+     */
     public function getUserSession()
     {
         return $this->session['user'];
     }
 
+    /**
+     * getPost
+     *
+     * @param  mixed $key
+     *
+     * @return void
+     */
     public function getPost(array $key = null)
     {
         if (isset($key) && !empty($key)) {
@@ -105,6 +122,11 @@ class AdminController extends MainController
         return $posts;
     }
 
+    /**
+     * getLastPostId
+     *
+     * @return void
+     */
     public function getLastPostId()
     {
         $posts = self::getPost();
@@ -116,6 +138,13 @@ class AdminController extends MainController
         return 1;
     }
 
+    /**
+     * getComment
+     *
+     * @param  mixed $key
+     *
+     * @return void
+     */
     public function getComment(array $key = null)
     {
         if (isset($key) && !empty($key)) {
@@ -135,6 +164,11 @@ class AdminController extends MainController
         }
     }
 
+    /**
+     * setUser
+     *
+     * @return void
+     */
     public function setUser()
     {
         $userSession = self::getUserSession();
@@ -150,6 +184,11 @@ class AdminController extends MainController
         }
     }
 
+    /**
+     * renderPost
+     *
+     * @return void
+     */
     public function renderPost()
     {
         $idPost = filter_input(INPUT_GET, 'id');
@@ -157,6 +196,11 @@ class AdminController extends MainController
         return $post[0];
     }
 
+    /**
+     * redirectLogin
+     *
+     * @return void
+     */
     public function redirectLogin()
     {
         $getToken = $this->inputGet('token');
@@ -170,6 +214,11 @@ class AdminController extends MainController
         }
     }
 
+    /**
+     * forgotPassword
+     *
+     * @return void
+     */
     public function forgotPassword()
     {
         $idUser = filter_input(INPUT_GET, 'id');
@@ -196,6 +245,11 @@ class AdminController extends MainController
         $this->redirect('log', ['type' => 'mot-de-passe-oublie']);
     }
 
+    /**
+     * newPassword
+     *
+     * @return void
+     */
     public function newPassword()
     {
         if (isset($this->data)) {

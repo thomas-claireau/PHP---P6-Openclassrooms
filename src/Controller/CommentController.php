@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use DateTime;
 use DateTimeZone;
@@ -34,11 +33,21 @@ class CommentController extends MainController
         }
     }
 
+    /**
+     * getIdPost
+     *
+     * @return void
+     */
     public function getIdPost()
     {
         return filter_input(INPUT_GET, 'idPost');
     }
 
+    /**
+     * create
+     *
+     * @return void
+     */
     public function create()
     {
         $array = [];
@@ -54,6 +63,11 @@ class CommentController extends MainController
         $this->redirect('post', ['id' => self::getIdPost()]);
     }
 
+    /**
+     * update
+     *
+     * @return void
+     */
     public function update()
     {
         $idCom = $this->data['commentId'];
@@ -65,6 +79,11 @@ class CommentController extends MainController
         $this->redirect('admin', ['type' => 'comments', 'action' => 'update']);
     }
 
+    /**
+     * remove
+     *
+     * @return void
+     */
     public function remove()
     {
         $id = filter_input(INPUT_GET, 'id');

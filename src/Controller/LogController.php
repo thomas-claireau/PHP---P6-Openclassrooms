@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Functions\MainFunctions;
 use App\Model\Factory\ModelFactory;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -35,6 +34,11 @@ class LogController extends MainController
         ]);
     }
 
+    /**
+     * isFormError
+     *
+     * @return void
+     */
     public function isFormError()
     {
         $error = filter_input(INPUT_GET, 'error');
@@ -43,6 +47,11 @@ class LogController extends MainController
         }
     }
 
+    /**
+     * getInfosNewPassword
+     *
+     * @return void
+     */
     public function getInfosNewPassword()
     {
         $userId = filter_input(INPUT_GET, 'id');

@@ -65,6 +65,13 @@ abstract class MainModel
         return $this->database->getAllData($query);
     }
 
+    /**
+     * getLastId
+     *
+     * @param  mixed $key
+     *
+     * @return void
+     */
     public function getLastId($key)
     {
         $query = 'SELECT * FROM ' . $this->table . ' ORDER BY ' . $key . ' DESC LIMIT 1';
@@ -72,6 +79,13 @@ abstract class MainModel
         return $this->database->getAllData($query);
     }
 
+    /**
+     * setIndex
+     *
+     * @param  mixed $id
+     *
+     * @return void
+     */
     public function setIndex($id)
     {
         $query = 'ALTER TABLE ' . $this->table . ' AUTO_INCREMENT = ' . $id;
@@ -79,6 +93,11 @@ abstract class MainModel
         $this->database->setData($query);
     }
 
+    /**
+     * resetIndex
+     *
+     * @return void
+     */
     public function resetIndex()
     {
         $query = 'ALTER TABLE ' . $this->table . ' AUTO_INCREMENT = 1';

@@ -46,6 +46,11 @@ class PostController extends MainController
 
     }
 
+    /**
+     * isLog
+     *
+     * @return void
+     */
     public function isLog()
     {
         if (isset($this->session['user'])) {
@@ -56,16 +61,31 @@ class PostController extends MainController
         }
     }
 
+    /**
+     * getUserId
+     *
+     * @return void
+     */
     public function getUserId()
     {
         return filter_input(INPUT_GET, 'idUser');
     }
 
+    /**
+     * getId
+     *
+     * @return void
+     */
     public function getId()
     {
         return filter_input(INPUT_GET, 'id');
     }
 
+    /**
+     * saveSessionPost
+     *
+     * @return void
+     */
     public function saveSessionPost()
     {
         $this->session['post']['content'] = $this->data;
@@ -74,11 +94,21 @@ class PostController extends MainController
         $_SESSION['post'] = $this->session['post'];
     }
 
+    /**
+     * deleteSessionPost
+     *
+     * @return void
+     */
     public function deleteSessionPost()
     {
         unset($this->session['post']);
     }
 
+    /**
+     * uploadImage
+     *
+     * @return void
+     */
     public function uploadImage()
     {
         self::saveSessionPost();
@@ -86,6 +116,11 @@ class PostController extends MainController
         $this->uploadImg(null, null, $action);
     }
 
+    /**
+     * create
+     *
+     * @return void
+     */
     public function create()
     {
         $post = $this->session['post'];
@@ -111,6 +146,11 @@ class PostController extends MainController
         $this->redirect('admin', ['type' => 'posts', 'action' => 'view']);
     }
 
+    /**
+     * update
+     *
+     * @return void
+     */
     public function update()
     {
         $post = $this->session['post'];
@@ -129,6 +169,11 @@ class PostController extends MainController
         $this->redirect('admin', ['type' => 'posts', 'action' => 'view']);
     }
 
+    /**
+     * remove
+     *
+     * @return void
+     */
     public function remove()
     {
         $idPost = filter_input(INPUT_GET, 'id');
@@ -142,6 +187,11 @@ class PostController extends MainController
         $this->redirect('admin', ['type' => 'posts', 'action' => 'remove']);
     }
 
+    /**
+     * getPost
+     *
+     * @return void
+     */
     public function getPost()
     {
         $id = self::getId();
@@ -157,6 +207,11 @@ class PostController extends MainController
         return $post;
     }
 
+    /**
+     * getComment
+     *
+     * @return void
+     */
     public function getComment()
     {
         $commentsDb = ModelFactory::getModel('Comment')->listData(self::getId(), 'id_post');

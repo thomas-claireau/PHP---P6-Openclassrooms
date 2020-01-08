@@ -28,6 +28,11 @@ class ContactController extends MainController
         ]);
     }
 
+    /**
+     * isFormSuccess
+     *
+     * @return void
+     */
     public function isFormSuccess()
     {
         $success = filter_input(INPUT_GET, 'success');
@@ -38,6 +43,11 @@ class ContactController extends MainController
         }
     }
 
+    /**
+     * isFormError
+     *
+     * @return void
+     */
     public function isFormError()
     {
         $error = filter_input(INPUT_GET, 'error');

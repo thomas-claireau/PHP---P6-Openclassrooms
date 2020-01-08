@@ -84,6 +84,15 @@ abstract class MainController extends MainFunctions
         return $this->twig->render($view, $params);
     }
 
+    /**
+     * uploadImg
+     *
+     * @param  mixed $type
+     * @param  mixed $id
+     * @param  mixed $action
+     *
+     * @return void
+     */
     public function uploadImg($type = null, $id = null, $action = null)
     {
         $accepted_origins = array("http://localhost:3000", "http://82.64.201.160", "http://recette.thomas-claireau.fr", "https://recette.thomas-claireau.fr");

@@ -5,18 +5,47 @@ namespace App\Controller\Functions;
 use App\Controller\MainController;
 use App\Model\Factory\ModelFactory;
 
+/**
+ * Class MainFunctions
+ * Manage common functions on app
+ * @package App\Controller\Functions
+ */
 class MainFunctions
 {
+
+    /**
+     * inputGet
+     *
+     * @param  mixed $get
+     *
+     * @return void
+     */
     public static function inputGet($get)
     {
         return filter_input(INPUT_GET, $get);
     }
 
+    /**
+     * inputServer
+     *
+     * @param  mixed $key
+     * @param  mixed $array
+     *
+     * @return void
+     */
     public static function inputServer($key = false, $array = true)
     {
         return $array && !$key ? filter_input_array(INPUT_SERVER) : filter_input(INPUT_SERVER, $key);
     }
 
+    /**
+     * inputPost
+     *
+     * @param  mixed $key
+     * @param  mixed $isArray
+     *
+     * @return void
+     */
     public static function inputPost($key = false, $isArray = true)
     {
         if (!$isArray && $key) {
@@ -53,6 +82,11 @@ class MainFunctions
         return filter_input_array(INPUT_POST);
     }
 
+    /**
+     * getTemplateName
+     *
+     * @return void
+     */
     public static function getTemplateName()
     {
         $access = self::inputGet('access');
@@ -63,6 +97,11 @@ class MainFunctions
         }
     }
 
+    /**
+     * getServerIP
+     *
+     * @return void
+     */
     private static function getServerIP()
     {
         $adresse = '';
@@ -79,11 +118,21 @@ class MainFunctions
         return $adresse;
     }
 
+    /**
+     * getCurrentPath
+     *
+     * @return void
+     */
     public static function getCurrentPath()
     {
         return self::inputServer('DOCUMENT_ROOT');
     }
 
+    /**
+     * getImgDir
+     *
+     * @return void
+     */
     public static function getImgDir()
     {
         // $HTTP_HOST = filter_input(INPUT_SERVER, 'HTTP_HOST');
@@ -100,14 +149,37 @@ class MainFunctions
 
         return $publicPath;
     }
+
+    /**
+     * getUser
+     *
+     * @param  mixed $key
+     *
+     * @return void
+     */
     public static function getUser(array $key)
     {
         return ModelFactory::getModel('User')->readData($key[key($key)], key($key));
     }
+
+    /**
+     * getHomeUrl
+     *
+     * @return void
+     */
     public static function getHomeUrl()
     {
         return 'https://' . self::inputServer('HTTP_HOST');
     }
+
+    /**
+     * url
+     *
+     * @param  mixed $page
+     * @param  mixed $params
+     *
+     * @return void
+     */
     public static function url(string $page, array $params = [])
     {
         $params['access'] = $page;
@@ -115,18 +187,46 @@ class MainFunctions
         return '/index.php?' . http_build_query($params);
     }
 
+    /**
+     * getUrl
+     *
+     * @return void
+     */
     public static function getUrl()
     {
         return self::inputServer('REQUEST_SCHEME') . '://' . self::inputServer('HTTP_HOST');
     }
+
+    /**
+     * redirect
+     *
+     * @param  mixed $page
+     * @param  mixed $params
+     *
+     * @return void
+     */
     public static function redirect(string $page, array $params = [])
     {
         header('Location: ' . filter_input(INPUT_SERVER, 'HTTP_ORIGIN') . self::url($page, $params));
     }
+
+    /**
+     * isLocalhost
+     *
+     * @return void
+     */
     public static function isLocalhost()
     {
         return self::getServerIP() == '127.0.0.1';
     }
+
+    /**
+     * checkAllInput
+     *
+     * @param  mixed $context
+     *
+     * @return void
+     */
     public static function checkAllInput($context)
     {
         $post = MainController::getData();
@@ -167,6 +267,14 @@ class MainFunctions
             }
         }
     }
+
+    /**
+     * listPosts
+     *
+     * @param  mixed $params
+     *
+     * @return void
+     */
     public static function listPosts(array $params)
     {
         $posts = ModelFactory::getModel('Post')->listData(null, null, $params);
@@ -190,6 +298,13 @@ class MainFunctions
         return $posts;
     }
 
+    /**
+     * setRelativePathImg
+     *
+     * @param  mixed $string
+     *
+     * @return void
+     */
     public static function setRelativePathImg($string)
     {
         if (strpos($string, '<img')) {
@@ -207,6 +322,13 @@ class MainFunctions
         return $string;
     }
 
+    /**
+     * folder_exist
+     *
+     * @param  mixed $folder
+     *
+     * @return void
+     */
     public static function folder_exist($folder)
     {
         return file_exists(self::getCurrentPath() . $folder);
