@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>PHP</ID>
+  <OriginalElement>C:/laragon/www/PHP-P5-Openclassrooms/src</OriginalElement>
+  <nodes>
+    <node x="0.0" y="1457.0">\App\Model\PostModel</node>
+    <node x="516.0" y="873.0">\App\Controller\CommentController</node>
+    <node x="342.0" y="895.0">\App\Controller\ContactController</node>
+    <node x="73.0" y="1136.0">\App\Model\MainModel</node>
+    <node x="886.0" y="829.0">\App\Controller\AuthController</node>
+    <node x="421.4277688603531" y="292.49759229534504">\App\Controller\Functions\MainFunctions</node>
+    <node x="617.0" y="1136.0">\App\Model\PDOModel</node>
+    <node x="395.0" y="1136.0">\App\Router</node>
+    <node x="1038.0" y="1136.0">\App\Model\Factory\PDOFactory</node>
+    <node x="690.0" y="895.0">\App\Controller\LogController</node>
+    <node x="1530.0" y="917.0">\App\Controller\BlogController</node>
+    <node x="254.0" y="1457.0">\App\Model\UserModel</node>
+    <node x="680.5" y="455.0">\App\Controller\MainController</node>
+    <node x="854.0" y="1136.0">\App\Model\Factory\ModelFactory</node>
+    <node x="175.0" y="807.0">\App\Controller\AdminController</node>
+    <node x="1212.0" y="917.0">\App\Controller\HomeController</node>
+    <node x="116.0" y="1457.0">\App\Model\CommentModel</node>
+    <node x="1371.0" y="906.0">\App\Controller\MailController</node>
+    <node x="0.0" y="796.0">\App\Controller\PostController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="\App\Controller\MailController" target="\App\Controller\MainController">
+      <point x="0.0" y="-37.5" />
+      <point x="1440.5" y="756.0" />
+      <point x="843.0" y="756.0" />
+      <point x="65.0" y="135.5" />
+    </edge>
+    <edge source="\App\Controller\BlogController" target="\App\Controller\MainController">
+      <point x="0.0" y="-26.5" />
+      <point x="1599.5" y="746.0" />
+      <point x="864.6666666666667" y="746.0" />
+      <point x="86.66666666666674" y="135.5" />
+    </edge>
+    <edge source="\App\Controller\LogController" target="\App\Controller\MainController">
+      <point x="0.0" y="-48.5" />
+      <point x="0.0" y="135.5" />
+    </edge>
+    <edge source="\App\Controller\PostController" target="\App\Controller\MainController">
+      <point x="0.0" y="-147.5" />
+      <point x="77.5" y="746.0" />
+      <point x="691.3333333333334" y="746.0" />
+      <point x="-86.66666666666663" y="135.5" />
+    </edge>
+    <edge source="\App\Model\PostModel" target="\App\Model\MainModel">
+      <point x="0.0" y="-14.5" />
+      <point x="48.0" y="1432.0" />
+      <point x="107.0" y="1432.0" />
+      <point x="-68.0" y="135.5" />
+    </edge>
+    <edge source="\App\Controller\CommentController" target="\App\Controller\MainController">
+      <point x="0.0" y="-70.5" />
+      <point x="593.0" y="776.0" />
+      <point x="756.3333333333334" y="776.0" />
+      <point x="-21.66666666666663" y="135.5" />
+    </edge>
+    <edge source="\App\Controller\AdminController" target="\App\Controller\MainController">
+      <point x="0.0" y="-136.5" />
+      <point x="248.5" y="756.0" />
+      <point x="713.0" y="756.0" />
+      <point x="-65.0" y="135.5" />
+    </edge>
+    <edge source="\App\Controller\MainController" target="\App\Controller\Functions\MainFunctions">
+      <point x="0.0" y="-135.5" />
+      <point x="0.0" y="202.5" />
+    </edge>
+    <edge source="\App\Controller\HomeController" target="\App\Controller\MainController">
+      <point x="0.0" y="-26.5" />
+      <point x="1281.5" y="766.0" />
+      <point x="821.3333333333334" y="766.0" />
+      <point x="43.33333333333337" y="135.5" />
+    </edge>
+    <edge source="\App\Controller\AuthController" target="\App\Controller\MainController">
+      <point x="0.0" y="-114.5" />
+      <point x="1039.0" y="776.0" />
+      <point x="799.6666666666667" y="776.0" />
+      <point x="21.666666666666742" y="135.5" />
+    </edge>
+    <edge source="\App\Controller\ContactController" target="\App\Controller\MainController">
+      <point x="0.0" y="-48.5" />
+      <point x="419.0" y="766.0" />
+      <point x="734.6666666666666" y="766.0" />
+      <point x="-43.33333333333337" y="135.5" />
+    </edge>
+    <edge source="\App\Model\UserModel" target="\App\Model\MainModel">
+      <point x="0.0" y="-14.5" />
+      <point x="302.0" y="1432.0" />
+      <point x="243.0" y="1432.0" />
+      <point x="68.0" y="135.5" />
+    </edge>
+    <edge source="\App\Model\CommentModel" target="\App\Model\MainModel">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="135.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5131795716639209" x="834.5" y="889.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constants</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
