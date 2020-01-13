@@ -29,9 +29,9 @@ Au préalable, assurez-vous d'avoir configuré un virtual host.
 
 Pour changer l'url du host, rendez vous dans `public/_webpack/config.js` et changez la valeur de `proxyTarget`.
 
-### Serveur de pré-production
+### Site en production
 
-Pour obtenir une version de pré-production, effectuez un `npm run build`. Les fichiers front se compileront dans un fichier dist.
+Pour voir une version du site en production, suivez l'[url suivante](https://recette.thomas-claireau.fr).
 
 ### Envoi des mails
 
