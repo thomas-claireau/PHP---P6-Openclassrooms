@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Extension\PhpMvcExtension;
 use App\Controller\Functions\MainFunctions;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -55,7 +54,6 @@ abstract class MainController extends MainFunctions
             'debug' => true,
         ));
         $this->twig->addExtension(new DebugExtension());
-        $this->twig->addExtension(new PhpMvcExtension());
     }
 
     public function addGlobals()
