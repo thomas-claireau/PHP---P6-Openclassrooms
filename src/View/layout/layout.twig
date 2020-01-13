@@ -34,7 +34,7 @@
         <meta name="twitter:image" content="{{ block('image') }}"/>
         <meta name="twitter:creator" content="@thomas_claireau"/>
 
-        {% if (isLocalhost != true) %}
+        {% if (isDistFolder == true) %}
             <link rel="stylesheet" href="{{ url }}/dist/css/main.css"/>
         {% endif %}
     </head>
