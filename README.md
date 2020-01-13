@@ -29,7 +29,7 @@ Au préalable, assurez-vous d'avoir configuré un virtual host.
 
 Pour changer l'url du host, rendez vous dans `public/_webpack/config.js` et changez la valeur de `proxyTarget`.
 
-Si vous ne disposez pas d'url pour le host, vous pouvez utiliser la suivante (dans config.js) : `https://recette.thomas-claireau.fr`
+Si vous ne disposez pas d'url pour le host, vous pouvez utiliser la suivante (dans config.js) : `http://recette.thomas-claireau.fr`
 
 ### Site en production
 
