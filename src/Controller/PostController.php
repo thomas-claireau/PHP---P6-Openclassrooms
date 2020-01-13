@@ -154,6 +154,7 @@ class PostController extends MainController
     public function update()
     {
         $post = $this->session['post'];
+
         $idPost = filter_input(INPUT_GET, 'id');
 
         $titlePost = htmlspecialchars($post['content']['titre']);
@@ -161,7 +162,8 @@ class PostController extends MainController
         $contentPost = htmlspecialchars($post['content']['editor']);
         $datePost = new DateTime('now', new DateTimeZone('Europe/Paris'));
         $datePost = $datePost->format('Y-m-d H:i:s');
-        $mainImagePath = 'assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'];
+
+        $mainImagePath = $post['mainImg']['image']['name'] !== "" ? 'assets/img/posts_images/' . self::getId() . '/' . $post['mainImg']['image']['name'] : $post['content']['main_actual_img'];
 
         ModelFactory::getModel('Post')->updateData($titlePost, ['title' => $titlePost, 'date' => $datePost, 'description' => $description, 'content' => $contentPost, 'main_img_path' => $mainImagePath], ['id' => $idPost]);
 

@@ -16,7 +16,8 @@
 	<input type="text" name="titre" id="titre" placeholder="Rentrez ici le titre de votre article" value="{{ posts.title }}" required>
 	<label for="image">
 		Choisissez l'image principale de l'article
-		<input type="file" name="image" id="image" accept="image/x-png,image/gif,image/jpeg" required>
+		<input type="file" name="image" id="image" accept="image/x-png,image/gif,image/jpeg">
+		<input type="hidden" name="main_actual_img" value="{{ posts.main_img_path }}">
 	</label>
 	<h3>Rentrez une courte description de l'article</h3>
 	<textarea name="description" id="description">{{ posts.description|raw }}</textarea>
