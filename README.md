@@ -13,6 +13,8 @@ Via Composer :
 composer create-project thomas-claireau/php-p5-openclassrooms
 ````
 
+Dans le cas où vous téléchargez directement le projet (ou encore avec `git clone`), effectuez un `composer install` à la racine du projet.
+
 Installez ensuite les dépendances front du projet. Placez-vous dans le répertoire public :
 
 ````text
