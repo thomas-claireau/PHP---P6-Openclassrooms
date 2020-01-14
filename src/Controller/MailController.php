@@ -79,9 +79,11 @@ class MailController extends MainController
             </ul>
         ";
 
+        $mail = 'thomas.claireau@gmail.com';
+
         $messageMySelf = (new \Swift_Message('Confirmation de demande de contact'))
             ->setFrom([$username => 'Thomas Claireau'])
-            ->setTo($username)
+            ->setTo($mail)
             ->addPart($bodyMySelf, 'text/html')
         ;
 
