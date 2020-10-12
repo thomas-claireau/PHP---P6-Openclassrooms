@@ -154,4 +154,35 @@ Votre projet devra être suivi via SymfonyInsight, ou Codacy pour la qualité du
 
 Dans le cas où une fonctionnalité vous semblerait mal expliquée ou manquante, parlez-en avec votre mentor afin de prendre une décision ensemble sur les choix que vous souhaiteriez prendre. Ce qui doit prévaloir doit être les délais.
 
-## ⌛ Projet en cours
+## ✔️ Projet validé
+
+Commentaire de l'évaluateur :
+
+1. Évaluation globale du travail réalisé par l’étudiant (en spécifiant les critères non-validés si le projet est à retravailler) :
+
+Site complet, projet bien mené tant sur la partie cadrage que technique.
+Très bon travail.
+
+2. Évaluation des livrables selon les critères du projet :
+
+Le cahier des charges rempli, le code, les schémas, la gestion sur github sont de qualité, rien à redire.
+
+3. Évaluation de la présentation orale et sa conformité aux attentes :
+
+La soutenance a été préparée et cela se sent. 
+Bon support de présentation, bon débit de parole, c'est très bien.
+
+4. Évaluation des nouvelles compétences acquises par l'étudiant :
+
+- développement d'une application en partant de 0
+- développement avec architecture MVC
+- requêter une bdd
+
+5. Points positifs (au moins 1) :
+
+- qualité apporté à chaque livrable
+- soutenance bien préparée
+
+6. Axes d'amélioration (au moins 1) :
+
+- continuer sur cette lancée, approfondir la technique en incluant des techniques plus poussées comme les requêtes ajax pour charger plus d'articles
